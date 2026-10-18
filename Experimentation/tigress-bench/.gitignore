@@ -1,15 +1,14 @@
-# .gitignore
-
-# Compiler / runtime artifacts
+# Compiler, linkers, and test artifacts
 *.o
 *.out
 *.exe
 orig_*
 obf_*
 student_*
+*.expected_stdout
 /tmp/
 
-# Antigravity session cache & local logs (keep harness config tracked!)
+# Antigravity CLI session state and logs
 .agents/sessions/
 .agents/*.log
 *.swp
