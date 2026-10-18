@@ -1,0 +1,16 @@
+# .gitignore
+
+# Compiler / runtime artifacts
+*.o
+*.out
+*.exe
+orig_*
+obf_*
+student_*
+/tmp/
+
+# Antigravity session cache & local logs (keep harness config tracked!)
+.agents/sessions/
+.agents/*.log
+*.swp
+*~

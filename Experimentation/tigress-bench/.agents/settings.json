@@ -1,0 +1,22 @@
+{
+  "model": "gemini-3.8-flash",
+  "permissions": {
+    "denyRead": [
+      "original/**",
+      "scripts/01_fetch_and_obfuscate.sh"
+    ],
+    "denyWrite": [
+      "original/**",
+      "obfuscated/**",
+      "tests/**",
+      "scripts/**"
+    ],
+    "allowCommands": [
+      "./scripts/verify_target.sh *",
+      "gcc *",
+      "clang-format *",
+      "cflow *",
+      "indent *"
+    ]
+  }
+}
