@@ -1,22 +1,31 @@
 {
   "model": "gemini-3.8-flash",
+  "agentMode": "accept-edits",
+  "toolPermission": "always-proceed",
+  "artifactReviewPolicy": "always-proceed",
   "permissions": {
     "denyRead": [
       "original/**",
-      "scripts/01_fetch_and_obfuscate.sh"
+      "obfuscated_src/**",
+      ".cache/**",
+      "scripts/01_setup_dataset.sh"
     ],
     "denyWrite": [
       "original/**",
-      "obfuscated/**",
+      "obfuscated_src/**",
+      ".cache/**",
+      "bin/**",
       "tests/**",
-      "scripts/**"
+      "scripts/**",
+      "Setting.md"
     ],
     "allowCommands": [
-      "./scripts/verify_target.sh *",
+      "objdump *",
+      "gdb *",
       "gcc *",
-      "clang-format *",
-      "cflow *",
-      "indent *"
+      "./scripts/verify_target.sh *",
+      "ls *",
+      "cat tests/*"
     ]
   }
 }

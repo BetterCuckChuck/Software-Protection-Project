@@ -1,15 +1,12 @@
-# Compiler, linkers, and test artifacts
+# Persistent local repo cache (never re-downloaded, ignored by git)
+.cache/
+
+# Temporary compiler artifacts
 *.o
 *.out
 *.exe
-orig_*
-obf_*
-student_*
-*.expected_stdout
 /tmp/
 
-# Antigravity CLI session state and logs
-.agents/sessions/
-.agents/*.log
+# Keep .agents configuration tracked, ignore raw internal state if outside logs/
 *.swp
 *~

@@ -1,13 +1,9 @@
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
-#include <assert.h>
 
-/**
- * @brief Apply the ROT13 cipher to a null-terminated string in-place.
- * @param s String to be rotated.
- */
 void rot13(char *s) {
-    for (int i = 0; s[i] != '\0'; i++) {
+    for (int i = 0; s[i]; i++) {
         if (s[i] >= 'A' && s[i] <= 'Z') {
             s[i] = 'A' + ((s[i] - 'A' + 13) % 26);
         } else if (s[i] >= 'a' && s[i] <= 'z') {
@@ -16,9 +12,6 @@ void rot13(char *s) {
     }
 }
 
-/**
- * @brief Self-test implementations for rot13 cipher.
- */
 static void test(void) {
     char test_01[] = "The more I C, the less I see.";
     rot13(test_01);
