@@ -1,0 +1,88 @@
+# Master config for the Week-2 benchmark: Tigress vs. REA agent on 20 NIST Juliet v1.3 programs.
+# Paths are relative to the obf-agent-bench/ root.
+experiment_name: "tigress_vs_rea_juliet20_io_cost"
+random_seed: 42
+
+paths:
+  juliet_zip: ".cache/juliet-v1.3.zip"        # downloaded by dataset/prepare_dataset.py --download
+  juliet_url: "https://samate.nist.gov/SARD/downloads/test-suites/2017-10-01-juliet-test-suite-for-c-cplusplus-v1-3.zip"
+  raw_juliet: "dataset/raw_juliet"
+  normalized_src: "dataset/normalized_src"
+  test_vectors: "dataset/test_vectors"
+  build_dir: "build"
+  results_dir: "results"
+  prompt_file: "runner/prompts/rea_task.md"
+  tigress_recipes: "configs/tigress_recipes.yaml"
+
+dataset:
+  source_suite: "nist_juliet_c_1.3"
+  sample_count: 20
+  manifest_path: "./dataset/samples_20.json"
+  # Stratified selection (sum == sample_count). Candidates: flow-variant 01, stdin (fscanf) driven,
+  # no rand/time/heap/files/sockets, only simple print*Line sinks => deterministic and self-contained.
+  stratification:
+    CWE190_Integer_Overflow: 9
+    CWE191_Integer_Underflow: 6
+    CWE197_Numeric_Truncation_Error: 3
+    CWE369_Divide_by_Zero: 2
+
+scenarios:
+  S0_Baseline:
+    recipe: baseline
+    compiler_flags: ["-O2", "-fno-stack-protector", "-fno-ident", "-s"]
+  S1_Flatten:
+    recipe: flatten
+    compiler_flags: ["-O2", "-fno-stack-protector", "-fno-ident", "-s"]
+  S2_EncodeData:
+    recipe: encode_data
+    compiler_flags: ["-O2", "-fno-stack-protector", "-fno-ident", "-s"]
+  S3_Combined:
+    recipe: combined
+    compiler_flags: ["-O2", "-fno-stack-protector", "-fno-ident", "-s"]
+
+agent_runtime:
+  platform: "antigravity"
+  framework: "REA"
+  model: "gemini-3.8-flash"
+  temperature: 0.1            # recorded for provenance; agy has no temperature flag (see README)
+  mcp_server: "ghidra-mcp-headless"
+  deliverable_file: "reconstructed.c"
+  agy_binary: "agy"
+  agy_extra_args: ["--dangerously-skip-permissions", "--mode=accept-edits"]
+  limits:
+    max_turns: 25
+    max_mcp_calls: 30
+    max_context_tokens: 128000
+    max_output_tokens: 16384
+    timeout_seconds: 300
+  sandbox:
+    isolate_cwd: true
+    allow_parent_traversal: false
+    jail_root: "/tmp"          # per-run dir: <jail_root>/run_<uuid>/
+  allowed_commands: ["objdump *", "readelf *", "strings *", "file *", "gcc *", "ls *", "cat *", "./chal*"]
+
+ghidra:
+  install_dir_env: "GHIDRA_INSTALL_DIR"   # analyzeHeadless is looked up in $GHIDRA_INSTALL_DIR/support/
+  analysis_timeout_seconds: 300
+
+evaluation:
+  io_equivalence:
+    curated_cases_per_file: 15
+    differential_fuzz_cases: 50
+    timeout_per_test_ms: 2000
+    compile_cmd: ["gcc", "-O2", "-Wall", "reconstructed.c", "-o", "recon_bin"]
+    forbidden_tokens: ["system", "popen", "exec*", "dlopen", "__asm__", "asm"]
+  cost_telemetry:
+    track_per_turn_tokens: true
+    track_mcp_payload_bytes: true
+    pricing_per_1m_tokens_usd:
+      input_uncached: 0.15
+      input_cached: 0.0375
+      output_and_reasoning: 0.60
+    metrics:
+      - "total_tokens"
+      - "reasoning_token_ratio"
+      - "peak_context_tokens"
+      - "mcp_call_count"
+      - "obfuscation_cost_multiplier"
+      - "expected_cost_per_success"

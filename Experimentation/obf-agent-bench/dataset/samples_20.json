@@ -1,0 +1,186 @@
+{
+  "source_suite": "nist_juliet_c_1.3",
+  "seed": 42,
+  "samples": [
+    {
+      "sample_id": "CWE190_Integer_Overflow__char_fscanf_add_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "char",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s01/CWE190_Integer_Overflow__char_fscanf_add_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__char_fscanf_add_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__char_fscanf_add_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__char_fscanf_square_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "char",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s01/CWE190_Integer_Overflow__char_fscanf_square_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__char_fscanf_square_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__char_fscanf_square_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__int64_t_fscanf_add_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "int64_t",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s01/CWE190_Integer_Overflow__int64_t_fscanf_add_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__int64_t_fscanf_add_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__int64_t_fscanf_add_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__int64_t_fscanf_multiply_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "int64_t",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s01/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__int_fscanf_multiply_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_fscanf_multiply_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__int_fscanf_multiply_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__int_fscanf_multiply_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__int_fscanf_square_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s03/CWE190_Integer_Overflow__int_fscanf_square_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__int_fscanf_square_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__int_fscanf_square_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__char_fscanf_preinc_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "char",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s07/CWE190_Integer_Overflow__char_fscanf_preinc_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__char_fscanf_preinc_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__char_fscanf_preinc_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__short_fscanf_preinc_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "short",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s07/CWE190_Integer_Overflow__short_fscanf_preinc_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__short_fscanf_preinc_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__short_fscanf_preinc_01.json"
+    },
+    {
+      "sample_id": "CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01",
+      "cwe": "CWE190",
+      "cwe_family": "CWE190_Integer_Overflow",
+      "data_type": "unsigned int",
+      "juliet_path": "C/testcases/CWE190_Integer_Overflow/s07/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01.c",
+      "normalized_src": "dataset/normalized_src/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01.c",
+      "test_vectors": "dataset/test_vectors/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01.json"
+    },
+    {
+      "sample_id": "CWE191_Integer_Underflow__char_fscanf_multiply_01",
+      "cwe": "CWE191",
+      "cwe_family": "CWE191_Integer_Underflow",
+      "data_type": "char",
+      "juliet_path": "C/testcases/CWE191_Integer_Underflow/s01/CWE191_Integer_Underflow__char_fscanf_multiply_01.c",
+      "normalized_src": "dataset/normalized_src/CWE191_Integer_Underflow__char_fscanf_multiply_01.c",
+      "test_vectors": "dataset/test_vectors/CWE191_Integer_Underflow__char_fscanf_multiply_01.json"
+    },
+    {
+      "sample_id": "CWE191_Integer_Underflow__char_fscanf_sub_01",
+      "cwe": "CWE191",
+      "cwe_family": "CWE191_Integer_Underflow",
+      "data_type": "char",
+      "juliet_path": "C/testcases/CWE191_Integer_Underflow/s01/CWE191_Integer_Underflow__char_fscanf_sub_01.c",
+      "normalized_src": "dataset/normalized_src/CWE191_Integer_Underflow__char_fscanf_sub_01.c",
+      "test_vectors": "dataset/test_vectors/CWE191_Integer_Underflow__char_fscanf_sub_01.json"
+    },
+    {
+      "sample_id": "CWE191_Integer_Underflow__int64_t_fscanf_sub_01",
+      "cwe": "CWE191",
+      "cwe_family": "CWE191_Integer_Underflow",
+      "data_type": "int64_t",
+      "juliet_path": "C/testcases/CWE191_Integer_Underflow/s01/CWE191_Integer_Underflow__int64_t_fscanf_sub_01.c",
+      "normalized_src": "dataset/normalized_src/CWE191_Integer_Underflow__int64_t_fscanf_sub_01.c",
+      "test_vectors": "dataset/test_vectors/CWE191_Integer_Underflow__int64_t_fscanf_sub_01.json"
+    },
+    {
+      "sample_id": "CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01",
+      "cwe": "CWE191",
+      "cwe_family": "CWE191_Integer_Underflow",
+      "data_type": "unsigned int",
+      "juliet_path": "C/testcases/CWE191_Integer_Underflow/s04/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01.c",
+      "normalized_src": "dataset/normalized_src/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01.c",
+      "test_vectors": "dataset/test_vectors/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01.json"
+    },
+    {
+      "sample_id": "CWE191_Integer_Underflow__int_fscanf_predec_01",
+      "cwe": "CWE191",
+      "cwe_family": "CWE191_Integer_Underflow",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE191_Integer_Underflow/s05/CWE191_Integer_Underflow__int_fscanf_predec_01.c",
+      "normalized_src": "dataset/normalized_src/CWE191_Integer_Underflow__int_fscanf_predec_01.c",
+      "test_vectors": "dataset/test_vectors/CWE191_Integer_Underflow__int_fscanf_predec_01.json"
+    },
+    {
+      "sample_id": "CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01",
+      "cwe": "CWE191",
+      "cwe_family": "CWE191_Integer_Underflow",
+      "data_type": "unsigned int",
+      "juliet_path": "C/testcases/CWE191_Integer_Underflow/s05/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01.c",
+      "normalized_src": "dataset/normalized_src/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01.c",
+      "test_vectors": "dataset/test_vectors/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01.json"
+    },
+    {
+      "sample_id": "CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01",
+      "cwe": "CWE197",
+      "cwe_family": "CWE197_Numeric_Truncation_Error",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE197_Numeric_Truncation_Error/s01/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01.c",
+      "normalized_src": "dataset/normalized_src/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01.c",
+      "test_vectors": "dataset/test_vectors/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01.json"
+    },
+    {
+      "sample_id": "CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01",
+      "cwe": "CWE197",
+      "cwe_family": "CWE197_Numeric_Truncation_Error",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE197_Numeric_Truncation_Error/s01/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01.c",
+      "normalized_src": "dataset/normalized_src/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01.c",
+      "test_vectors": "dataset/test_vectors/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01.json"
+    },
+    {
+      "sample_id": "CWE197_Numeric_Truncation_Error__short_fscanf_01",
+      "cwe": "CWE197",
+      "cwe_family": "CWE197_Numeric_Truncation_Error",
+      "data_type": "short",
+      "juliet_path": "C/testcases/CWE197_Numeric_Truncation_Error/s02/CWE197_Numeric_Truncation_Error__short_fscanf_01.c",
+      "normalized_src": "dataset/normalized_src/CWE197_Numeric_Truncation_Error__short_fscanf_01.c",
+      "test_vectors": "dataset/test_vectors/CWE197_Numeric_Truncation_Error__short_fscanf_01.json"
+    },
+    {
+      "sample_id": "CWE369_Divide_by_Zero__int_fscanf_divide_01",
+      "cwe": "CWE369",
+      "cwe_family": "CWE369_Divide_by_Zero",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE369_Divide_by_Zero/s01/CWE369_Divide_by_Zero__int_fscanf_divide_01.c",
+      "normalized_src": "dataset/normalized_src/CWE369_Divide_by_Zero__int_fscanf_divide_01.c",
+      "test_vectors": "dataset/test_vectors/CWE369_Divide_by_Zero__int_fscanf_divide_01.json"
+    },
+    {
+      "sample_id": "CWE369_Divide_by_Zero__int_fscanf_modulo_01",
+      "cwe": "CWE369",
+      "cwe_family": "CWE369_Divide_by_Zero",
+      "data_type": "int",
+      "juliet_path": "C/testcases/CWE369_Divide_by_Zero/s02/CWE369_Divide_by_Zero__int_fscanf_modulo_01.c",
+      "normalized_src": "dataset/normalized_src/CWE369_Divide_by_Zero__int_fscanf_modulo_01.c",
+      "test_vectors": "dataset/test_vectors/CWE369_Divide_by_Zero__int_fscanf_modulo_01.json"
+    }
+  ]
+}

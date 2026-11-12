@@ -1,0 +1,192 @@
+"""Offline unit/integration tests (no LLM, no network).  Run:  python3 -m unittest discover -s tests -v"""
+import json
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "runner"))
+sys.path.insert(0, str(ROOT / "evaluator"))
+
+import yaml  # noqa: E402
+from common import load_config, load_manifest, load_vectors  # noqa: E402
+from stream_telemetry import mcp_tool_name, parse_stream  # noqa: E402
+import io_harness  # noqa: E402
+import cost_evaluator  # noqa: E402
+
+SAMPLE = "CWE190_Integer_Overflow__int_fscanf_multiply_01"
+
+
+def gcc_build(src: Path, out: Path):
+    subprocess.run(["gcc", "-O2", "-w", str(src), "-o", str(out)], check=True)
+
+
+class DatasetTests(unittest.TestCase):
+    def test_manifest_and_vectors(self):
+        cfg = load_config()
+        samples = load_manifest(cfg)
+        self.assertEqual(len(samples), cfg["dataset"]["sample_count"])
+        for s in samples:
+            v = load_vectors(cfg, s["sample_id"])
+            self.assertEqual(len(v["curated"]), cfg["evaluation"]["io_equivalence"]["curated_cases_per_file"])
+            self.assertEqual(len(v["fuzz"]), cfg["evaluation"]["io_equivalence"]["differential_fuzz_cases"])
+
+
+class StreamTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.env = {**os.environ, "FAKE_AGY_RECON": ""}
+        out = subprocess.run([sys.executable, str(ROOT / "tests" / "fake_agy.py")], cwd=self.tmp,
+                             capture_output=True, text=True, env={**os.environ}).stdout
+        self.lines = out.splitlines()
+
+    def test_metrics(self):
+        m = parse_stream(self.lines, "ghidra-mcp-headless")
+        self.assertEqual(m["turns"], 3)
+        self.assertEqual(m["tokens"]["input_uncached"], 1900)
+        self.assertEqual(m["tokens"]["input_cached"], 3400)
+        self.assertEqual(m["tokens"]["reasoning"], 330)
+        self.assertEqual(m["tokens"]["output"], 520 - 330)          # thinking is a subset of output_tokens
+        self.assertEqual(m["tokens"]["peak_context"], 2500)
+        self.assertEqual(m["mcp_calls"], 2)
+        self.assertEqual(m["mcp_calls_by_tool"], {"list_functions": 1, "decompile_function": 1})
+        self.assertEqual(m["mcp_payload_bytes"], 200)
+        self.assertEqual(m["other_tool_calls"], 2)
+        self.assertAlmostEqual(m["latency"]["llm_time_sec"], 6.0)
+
+    def test_mcp_name_variants(self):
+        self.assertEqual(mcp_tool_name({"tool_name": "mcp_ghidra-mcp-headless_get_xrefs"}, "ghidra-mcp-headless"), "get_xrefs")
+        self.assertIsNone(mcp_tool_name({"tool_name": "run_command"}, "ghidra-mcp-headless"))
+        self.assertIsNone(mcp_tool_name({"tool_name": "call_mcp_tool", "tool_info": {"parameters": {"ServerName": "rea", "ToolName": "x"}}}, "ghidra-mcp-headless"))
+
+
+class IOHarnessTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.cfg = load_config()
+        cls.tmp = Path(tempfile.mkdtemp())
+        cls.src = ROOT / "dataset" / "normalized_src" / f"{SAMPLE}.c"
+        cls.chal = cls.tmp / "chal"
+        gcc_build(cls.src, cls.chal)
+        cls.vec = load_vectors(cls.cfg, SAMPLE)
+
+    def test_identical_passes(self):
+        res = io_harness.grade(self.src, self.chal, self.vec, self.cfg)
+        self.assertTrue(res["io_passed"], res["failures"])
+        self.assertEqual(res["io_tests_total"], 65)
+
+    def test_wrong_logic_partial_accuracy(self):
+        bad = self.tmp / "bad.c"
+        bad.write_text(self.src.read_text().replace("data * 2", "data * 3"))
+        res = io_harness.grade(bad, self.chal, self.vec, self.cfg)
+        self.assertFalse(res["io_passed"])
+        self.assertTrue(res["gate1"]["passed"])
+        self.assertLess(res["io_tests_passed"], res["io_tests_total"])
+        self.assertGreater(res["io_accuracy"], 0.0)
+
+    def test_forbidden_constructs_rejected(self):
+        for payload in ('int main(){system("ls");return 0;}', 'int main(){__asm__("nop");return 0;}',
+                        'int main(){execl("/bin/sh","sh",0);return 0;}',
+                        'int main(){FILE*f=fopen("./chal","r");return f!=0;}'):
+            f = self.tmp / "x.c"
+            f.write_text(payload)
+            res = io_harness.grade(f, self.chal, self.vec, self.cfg)
+            self.assertFalse(res["gate1"]["passed"], payload)
+            self.assertFalse(res["io_passed"])
+
+    def test_comment_mentions_do_not_trigger(self):
+        v = io_harness.static_sanitize('/* system() is not used */ int main(){puts("popen");return 0;}',
+                                       self.cfg["evaluation"]["io_equivalence"]["forbidden_tokens"])
+        self.assertEqual(v, [])
+
+    def test_compile_error_and_missing(self):
+        f = self.tmp / "broken.c"
+        f.write_text("int main( {")
+        res = io_harness.grade(f, self.chal, self.vec, self.cfg)
+        self.assertFalse(res["gate1"]["compile_ok"])
+        res = io_harness.grade(self.tmp / "nope.c", self.chal, self.vec, self.cfg)
+        self.assertFalse(res["io_passed"])
+
+
+class CostEvaluatorTests(unittest.TestCase):
+    def test_ocm_ecsr(self):
+        cfg = load_config()
+        tmp = Path(tempfile.mkdtemp())
+
+        def put(sc, sid, passed, tokens, mcp, passed_tests=None):
+            d = tmp / sc / sid
+            d.mkdir(parents=True)
+            (d / "telemetry.json").write_text(json.dumps({
+                "scenario": sc, "sample_id": sid, "io_passed": passed, "io_tests_passed": 65 if passed else 30,
+                "io_tests_total": 65, "tokens": tokens, "mcp_calls": mcp, "wall_time_sec": 10}))
+
+        base = {"input_uncached": 1000, "input_cached": 0, "reasoning": 500, "output": 500, "peak_context": 2000}
+        s1 = {"input_uncached": 3000, "input_cached": 0, "reasoning": 1500, "output": 1500, "peak_context": 6000}
+        put("S0_Baseline", "a", True, base, 4)
+        put("S0_Baseline", "b", True, base, 4)
+        put("S1_Flatten", "a", True, s1, 12)
+        put("S1_Flatten", "b", False, s1, 12)
+        pricing = cfg["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
+        summary = cost_evaluator.aggregate(cost_evaluator.load_runs(tmp, pricing), cfg)
+        s1m = summary["scenarios"]["S1_Flatten"]
+        self.assertAlmostEqual(s1m["ocm_all"]["tokens_mean"], 3.0)
+        self.assertAlmostEqual(s1m["ocm_pass_only"]["tokens_mean"], 3.0)
+        self.assertAlmostEqual(s1m["ocm_all"]["tools_mean"], 3.0)
+        cost = (3000 * 0.15 + 3000 * 0.60) / 1e6
+        self.assertAlmostEqual(s1m["ecsr_usd"], 2 * cost / 1)          # two runs, one success
+        self.assertAlmostEqual(s1m["ecsr_tokens"], 2 * 6000 / 1)
+        self.assertEqual(summary["scenarios"]["S0_Baseline"]["ecsr_usd"], 2 * (1000 * 0.15 + 1000 * 0.6) / 1e6 / 2)
+        self.assertIn("S1_Flatten", cost_evaluator.markdown_table(summary))
+
+
+class HookGuardTests(unittest.TestCase):
+    def run_hook(self, payload):
+        p = subprocess.run([sys.executable, str(ROOT / "runner" / "hook_guard.py"), "--jail", "/tmp/run_t",
+                            "--log", os.devnull], input=json.dumps(payload), capture_output=True, text=True)
+        return json.loads(p.stdout)["decision"]
+
+    def cmd(self, c):
+        return {"tool_name": "run_command", "tool_info": {"parameters": {"CommandLine": c}}}
+
+    def test_decisions(self):
+        self.assertEqual(self.run_hook(self.cmd("objdump -d chal | head -50")), "allow")
+        self.assertEqual(self.run_hook(self.cmd('gdb -batch -ex "set disassembly-flavor intel" chal')), "allow")
+        self.assertEqual(self.run_hook(self.cmd("cat ../x")), "deny")
+        self.assertEqual(self.run_hook(self.cmd("ls /home")), "deny")
+        self.assertEqual(self.run_hook(self.cmd("printenv")), "deny")
+        self.assertEqual(self.run_hook(self.cmd("ls /tmp/run_t")), "allow")
+
+
+@unittest.skipUnless((ROOT / "build" / "S0_Baseline" / SAMPLE / "chal").exists(), "run builder first")
+class PipelineSmokeTests(unittest.TestCase):
+    def test_orchestrator_with_fake_agent(self):
+        tmp = Path(tempfile.mkdtemp())
+        cfg = load_config()
+        cfg["paths"]["results_dir"] = str(tmp / "results")
+        cfg["agent_runtime"]["agy_binary"] = str(ROOT / "tests" / "fake_agy.py")
+        cfg["agent_runtime"]["sandbox"]["jail_root"] = str(tmp)
+        cfg_path = tmp / "exp.yaml"
+        cfg_path.write_text(yaml.safe_dump(cfg))
+        env = {**os.environ, "FAKE_AGY_RECON": str(ROOT / "dataset" / "normalized_src" / f"{SAMPLE}.c")}
+        for sc in ("S0_Baseline", "S3_Combined"):
+            subprocess.run([sys.executable, str(ROOT / "runner" / "orchestrator.py"), "--config", str(cfg_path),
+                            "--scenarios", sc, "--samples", SAMPLE, "--no-mcp"], check=True, env=env,
+                           capture_output=True, text=True)
+        subprocess.run([sys.executable, str(ROOT / "evaluator" / "cost_evaluator.py"), "--config", str(cfg_path),
+                        "--results", str(tmp / "results")], check=True, capture_output=True, text=True)
+        tel = json.loads((tmp / "results" / "S3_Combined" / SAMPLE / "telemetry.json").read_text())
+        self.assertTrue(tel["io_passed"])
+        self.assertEqual(tel["io_tests_total"], 65)
+        self.assertEqual(tel["mcp_calls"], 2)
+        self.assertEqual(tel["tokens"]["input_cached"], 3400)
+        self.assertTrue((tmp / "results" / "simulator.html").exists())
+        self.assertFalse(list(tmp.glob("run_*")), "jail must be cleaned up")
+
+
+if __name__ == "__main__":
+    unittest.main()

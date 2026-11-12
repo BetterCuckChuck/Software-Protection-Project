@@ -1,0 +1,427 @@
+{
+ "sample_id": "CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01",
+ "data_type": "int",
+ "curated": [
+  {
+   "id": "curated_00",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "30"
+  },
+  {
+   "id": "curated_01",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "30"
+  },
+  {
+   "id": "curated_02",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "31"
+  },
+  {
+   "id": "curated_03",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "31"
+  },
+  {
+   "id": "curated_04",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d31"
+  },
+  {
+   "id": "curated_05",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d31"
+  },
+  {
+   "id": "curated_06",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "32"
+  },
+  {
+   "id": "curated_07",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "32"
+  },
+  {
+   "id": "curated_08",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d32"
+  },
+  {
+   "id": "curated_09",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d32"
+  },
+  {
+   "id": "curated_10",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d32313437343833363438"
+  },
+  {
+   "id": "curated_11",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d32313437343833363438"
+  },
+  {
+   "id": "curated_12",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d32313437343833363437"
+  },
+  {
+   "id": "curated_13",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d32313437343833363437"
+  },
+  {
+   "id": "curated_14",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "32313437343833363437"
+  }
+ ],
+ "fuzz": [
+  {
+   "id": "fuzz_00",
+   "argv": [],
+   "stdin_hex": "2b"
+  },
+  {
+   "id": "fuzz_01",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d373034353933323232"
+  },
+  {
+   "id": "fuzz_02",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d32303138323934303034"
+  },
+  {
+   "id": "fuzz_03",
+   "argv": [],
+   "stdin_hex": "31333130303339313937"
+  },
+  {
+   "id": "fuzz_04",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2b"
+  },
+  {
+   "id": "fuzz_05",
+   "argv": [],
+   "stdin_hex": "2d343230333239313339"
+  },
+  {
+   "id": "fuzz_06",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "323233333934323131"
+  },
+  {
+   "id": "fuzz_07",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "3436333339"
+  },
+  {
+   "id": "fuzz_08",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "31303733373431383233"
+  },
+  {
+   "id": "fuzz_09",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d373939303630393231"
+  },
+  {
+   "id": "fuzz_10",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2020"
+  },
+  {
+   "id": "fuzz_11",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d363935333233323739"
+  },
+  {
+   "id": "fuzz_12",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d31373833343932363339"
+  },
+  {
+   "id": "fuzz_13",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "313835303736333433"
+  },
+  {
+   "id": "fuzz_14",
+   "argv": [],
+   "stdin_hex": "31393633383939323332"
+  },
+  {
+   "id": "fuzz_15",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d313133"
+  },
+  {
+   "id": "fuzz_16",
+   "argv": [],
+   "stdin_hex": "2020"
+  },
+  {
+   "id": "fuzz_17",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d333237363034323738"
+  },
+  {
+   "id": "fuzz_18",
+   "argv": [],
+   "stdin_hex": ""
+  },
+  {
+   "id": "fuzz_19",
+   "argv": [],
+   "stdin_hex": "31323232393133393338"
+  },
+  {
+   "id": "fuzz_20",
+   "argv": [],
+   "stdin_hex": "2d31383232313835353234"
+  },
+  {
+   "id": "fuzz_21",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "333533333334353734"
+  },
+  {
+   "id": "fuzz_22",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d31393137383534323839"
+  },
+  {
+   "id": "fuzz_23",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "333436313830363931"
+  },
+  {
+   "id": "fuzz_24",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "31303733373431383234"
+  },
+  {
+   "id": "fuzz_25",
+   "argv": [],
+   "stdin_hex": "2b"
+  },
+  {
+   "id": "fuzz_26",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "31383839353731313035"
+  },
+  {
+   "id": "fuzz_27",
+   "argv": [],
+   "stdin_hex": "32303838323532343332"
+  },
+  {
+   "id": "fuzz_28",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "323135"
+  },
+  {
+   "id": "fuzz_29",
+   "argv": [],
+   "stdin_hex": "2d31343234393037333436"
+  },
+  {
+   "id": "fuzz_30",
+   "argv": [],
+   "stdin_hex": "2d31353333343738303330"
+  },
+  {
+   "id": "fuzz_31",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d313234"
+  },
+  {
+   "id": "fuzz_32",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "323730"
+  },
+  {
+   "id": "fuzz_33",
+   "argv": [],
+   "stdin_hex": "343934323531313932"
+  },
+  {
+   "id": "fuzz_34",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "31383032383931373230"
+  },
+  {
+   "id": "fuzz_35",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "30783130"
+  },
+  {
+   "id": "fuzz_36",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d31313631333830363233"
+  },
+  {
+   "id": "fuzz_37",
+   "argv": [],
+   "stdin_hex": "333631303336343835"
+  },
+  {
+   "id": "fuzz_38",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "31303733373431383230"
+  },
+  {
+   "id": "fuzz_39",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "323835"
+  },
+  {
+   "id": "fuzz_40",
+   "argv": [],
+   "stdin_hex": "313339"
+  },
+  {
+   "id": "fuzz_41",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "31313239303933323639"
+  },
+  {
+   "id": "fuzz_42",
+   "argv": [],
+   "stdin_hex": "31303533313839393130"
+  },
+  {
+   "id": "fuzz_43",
+   "argv": [],
+   "stdin_hex": "2d313834353338353837"
+  },
+  {
+   "id": "fuzz_44",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d32303136363131383337"
+  },
+  {
+   "id": "fuzz_45",
+   "argv": [],
+   "stdin_hex": "32313437343833363437"
+  },
+  {
+   "id": "fuzz_46",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "31353830343837343831"
+  },
+  {
+   "id": "fuzz_47",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d363036383230323037"
+  },
+  {
+   "id": "fuzz_48",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2020"
+  },
+  {
+   "id": "fuzz_49",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2020"
+  }
+ ]
+}

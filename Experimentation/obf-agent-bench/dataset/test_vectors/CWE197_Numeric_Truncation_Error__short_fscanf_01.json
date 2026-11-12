@@ -1,0 +1,431 @@
+{
+ "sample_id": "CWE197_Numeric_Truncation_Error__short_fscanf_01",
+ "data_type": "short",
+ "curated": [
+  {
+   "id": "curated_00",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "30"
+  },
+  {
+   "id": "curated_01",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "30"
+  },
+  {
+   "id": "curated_02",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "31"
+  },
+  {
+   "id": "curated_03",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "31"
+  },
+  {
+   "id": "curated_04",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d31"
+  },
+  {
+   "id": "curated_05",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d31"
+  },
+  {
+   "id": "curated_06",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "32"
+  },
+  {
+   "id": "curated_07",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "32"
+  },
+  {
+   "id": "curated_08",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d32"
+  },
+  {
+   "id": "curated_09",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d32"
+  },
+  {
+   "id": "curated_10",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3332373638"
+  },
+  {
+   "id": "curated_11",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d3332373638"
+  },
+  {
+   "id": "curated_12",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3332373637"
+  },
+  {
+   "id": "curated_13",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d3332373637"
+  },
+  {
+   "id": "curated_14",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3332373637"
+  }
+ ],
+ "fuzz": [
+  {
+   "id": "fuzz_00",
+   "argv": [],
+   "stdin_hex": "3939393939393939393939393939393939393939"
+  },
+  {
+   "id": "fuzz_01",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d31"
+  },
+  {
+   "id": "fuzz_02",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d3331303233"
+  },
+  {
+   "id": "fuzz_03",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "313830"
+  },
+  {
+   "id": "fuzz_04",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d323031"
+  },
+  {
+   "id": "fuzz_05",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3132"
+  },
+  {
+   "id": "fuzz_06",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "313939"
+  },
+  {
+   "id": "fuzz_07",
+   "argv": [],
+   "stdin_hex": "36383030"
+  },
+  {
+   "id": "fuzz_08",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2020"
+  },
+  {
+   "id": "fuzz_09",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "3939393939393939393939393939393939393939"
+  },
+  {
+   "id": "fuzz_10",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3332373637"
+  },
+  {
+   "id": "fuzz_11",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "3136333832"
+  },
+  {
+   "id": "fuzz_12",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "0a0a35"
+  },
+  {
+   "id": "fuzz_13",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3136313038"
+  },
+  {
+   "id": "fuzz_14",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3232363135"
+  },
+  {
+   "id": "fuzz_15",
+   "argv": [],
+   "stdin_hex": "2020"
+  },
+  {
+   "id": "fuzz_16",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "0a0a35"
+  },
+  {
+   "id": "fuzz_17",
+   "argv": [],
+   "stdin_hex": "0a0a35"
+  },
+  {
+   "id": "fuzz_18",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d3137"
+  },
+  {
+   "id": "fuzz_19",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d313239"
+  },
+  {
+   "id": "fuzz_20",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3132616263"
+  },
+  {
+   "id": "fuzz_21",
+   "argv": [],
+   "stdin_hex": "2d3331353137"
+  },
+  {
+   "id": "fuzz_22",
+   "argv": [],
+   "stdin_hex": "2d3137373639"
+  },
+  {
+   "id": "fuzz_23",
+   "argv": [],
+   "stdin_hex": "2020"
+  },
+  {
+   "id": "fuzz_24",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "3230"
+  },
+  {
+   "id": "fuzz_25",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d313834"
+  },
+  {
+   "id": "fuzz_26",
+   "argv": [],
+   "stdin_hex": "3132323133"
+  },
+  {
+   "id": "fuzz_27",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d313338"
+  },
+  {
+   "id": "fuzz_28",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "35333532"
+  },
+  {
+   "id": "fuzz_29",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d32383034"
+  },
+  {
+   "id": "fuzz_30",
+   "argv": [],
+   "stdin_hex": "37373337"
+  },
+  {
+   "id": "fuzz_31",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3136333831"
+  },
+  {
+   "id": "fuzz_32",
+   "argv": [],
+   "stdin_hex": "2d3231393633"
+  },
+  {
+   "id": "fuzz_33",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "3132616263"
+  },
+  {
+   "id": "fuzz_34",
+   "argv": [],
+   "stdin_hex": "38373532"
+  },
+  {
+   "id": "fuzz_35",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "30783130"
+  },
+  {
+   "id": "fuzz_36",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "3136333832"
+  },
+  {
+   "id": "fuzz_37",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3734"
+  },
+  {
+   "id": "fuzz_38",
+   "argv": [],
+   "stdin_hex": "3234393039"
+  },
+  {
+   "id": "fuzz_39",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d36333639"
+  },
+  {
+   "id": "fuzz_40",
+   "argv": [],
+   "stdin_hex": ""
+  },
+  {
+   "id": "fuzz_41",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "0a0a35"
+  },
+  {
+   "id": "fuzz_42",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3334"
+  },
+  {
+   "id": "fuzz_43",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d3330353134"
+  },
+  {
+   "id": "fuzz_44",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2d"
+  },
+  {
+   "id": "fuzz_45",
+   "argv": [],
+   "stdin_hex": "2d3239343335"
+  },
+  {
+   "id": "fuzz_46",
+   "argv": [],
+   "stdin_hex": "313831"
+  },
+  {
+   "id": "fuzz_47",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3135373735"
+  },
+  {
+   "id": "fuzz_48",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "30"
+  },
+  {
+   "id": "fuzz_49",
+   "argv": [],
+   "stdin_hex": "3132616263"
+  }
+ ]
+}

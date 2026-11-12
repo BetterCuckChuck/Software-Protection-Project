@@ -1,0 +1,29 @@
+# Modular Tigress CLI flag templates. Each recipe is an ordered list of Tigress argument groups.
+# {funcs} is substituted with the per-sample function selector (all non-main user functions + main).
+# The common arguments (environment + glibc compat defines) are applied by builder/build_scenarios.py.
+common:
+  environment: "x86_64:Linux:Gcc:4.6"
+  # glibc headers use _FloatN types which Tigress's C parser does not know about.
+  compat_defines:
+    - "-std=gnu99"
+    - "-D_Float32=float"
+    - "-D_Float64=double"
+    - "-D_Float128=long double"
+    - "-D_Float32x=double"
+    - "-D_Float64x=long double"
+    - "-U__SIZEOF_INT128__"
+  cleanup: ["--Transform=CleanUp", "--CleanUpKinds=names,annotations", "--Functions={funcs}"]
+
+recipes:
+  baseline: []                    # S0: no obfuscation (still compiled -O2 and stripped)
+  flatten:                        # S1: control-flow flattening with switch dispatcher
+    - ["--Transform=Flatten", "--FlattenDispatch=switch", "--Functions={funcs}"]
+  encode_data:                    # S2: data / arithmetic encoding (MBA)
+    - ["--Transform=InitOpaque", "--Functions=main", "--InitOpaqueStructs=array"]   # prerequisite of EncodeArithmetic
+    - ["--Transform=EncodeArithmetic", "--Functions={funcs}"]
+    - ["--Transform=EncodeLiterals", "--Functions={funcs}"]
+  combined:                       # S3: S1 + S2
+    - ["--Transform=InitOpaque", "--Functions=main", "--InitOpaqueStructs=array"]   # prerequisite of EncodeArithmetic
+    - ["--Transform=Flatten", "--FlattenDispatch=switch", "--Functions={funcs}"]
+    - ["--Transform=EncodeArithmetic", "--Functions={funcs}"]
+    - ["--Transform=EncodeLiterals", "--Functions={funcs}"]

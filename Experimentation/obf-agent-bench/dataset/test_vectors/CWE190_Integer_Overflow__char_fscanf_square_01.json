@@ -1,0 +1,427 @@
+{
+ "sample_id": "CWE190_Integer_Overflow__char_fscanf_square_01",
+ "data_type": "char",
+ "curated": [
+  {
+   "id": "curated_00",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "30"
+  },
+  {
+   "id": "curated_01",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "61"
+  },
+  {
+   "id": "curated_02",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "41"
+  },
+  {
+   "id": "curated_03",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "20"
+  },
+  {
+   "id": "curated_04",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "0a"
+  },
+  {
+   "id": "curated_05",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "7e"
+  },
+  {
+   "id": "curated_06",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "7f"
+  },
+  {
+   "id": "curated_07",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "80"
+  },
+  {
+   "id": "curated_08",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "fe"
+  },
+  {
+   "id": "curated_09",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "ff"
+  },
+  {
+   "id": "curated_10",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "01"
+  },
+  {
+   "id": "curated_11",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "00"
+  },
+  {
+   "id": "curated_12",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "7a"
+  },
+  {
+   "id": "curated_13",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "39"
+  },
+  {
+   "id": "curated_14",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "2d"
+  }
+ ],
+ "fuzz": [
+  {
+   "id": "fuzz_00",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "bf"
+  },
+  {
+   "id": "fuzz_01",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "11"
+  },
+  {
+   "id": "fuzz_02",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "2b"
+  },
+  {
+   "id": "fuzz_03",
+   "argv": [],
+   "stdin_hex": "b6"
+  },
+  {
+   "id": "fuzz_04",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "13"
+  },
+  {
+   "id": "fuzz_05",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "44"
+  },
+  {
+   "id": "fuzz_06",
+   "argv": [],
+   "stdin_hex": "94"
+  },
+  {
+   "id": "fuzz_07",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "6c"
+  },
+  {
+   "id": "fuzz_08",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "a8"
+  },
+  {
+   "id": "fuzz_09",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "b5"
+  },
+  {
+   "id": "fuzz_10",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "ba"
+  },
+  {
+   "id": "fuzz_11",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "14"
+  },
+  {
+   "id": "fuzz_12",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "09"
+  },
+  {
+   "id": "fuzz_13",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "7a"
+  },
+  {
+   "id": "fuzz_14",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "c9"
+  },
+  {
+   "id": "fuzz_15",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "4e"
+  },
+  {
+   "id": "fuzz_16",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "5a"
+  },
+  {
+   "id": "fuzz_17",
+   "argv": [],
+   "stdin_hex": "73"
+  },
+  {
+   "id": "fuzz_18",
+   "argv": [],
+   "stdin_hex": "1f"
+  },
+  {
+   "id": "fuzz_19",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "73"
+  },
+  {
+   "id": "fuzz_20",
+   "argv": [],
+   "stdin_hex": "61"
+  },
+  {
+   "id": "fuzz_21",
+   "argv": [],
+   "stdin_hex": "a4"
+  },
+  {
+   "id": "fuzz_22",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3b"
+  },
+  {
+   "id": "fuzz_23",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "07"
+  },
+  {
+   "id": "fuzz_24",
+   "argv": [],
+   "stdin_hex": "c6"
+  },
+  {
+   "id": "fuzz_25",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "8b"
+  },
+  {
+   "id": "fuzz_26",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "d1"
+  },
+  {
+   "id": "fuzz_27",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "1f"
+  },
+  {
+   "id": "fuzz_28",
+   "argv": [],
+   "stdin_hex": "85"
+  },
+  {
+   "id": "fuzz_29",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "cb"
+  },
+  {
+   "id": "fuzz_30",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "3f"
+  },
+  {
+   "id": "fuzz_31",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "4b"
+  },
+  {
+   "id": "fuzz_32",
+   "argv": [],
+   "stdin_hex": "32"
+  },
+  {
+   "id": "fuzz_33",
+   "argv": [],
+   "stdin_hex": "d8"
+  },
+  {
+   "id": "fuzz_34",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "a2"
+  },
+  {
+   "id": "fuzz_35",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "34"
+  },
+  {
+   "id": "fuzz_36",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "f2"
+  },
+  {
+   "id": "fuzz_37",
+   "argv": [],
+   "stdin_hex": "45"
+  },
+  {
+   "id": "fuzz_38",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "d8"
+  },
+  {
+   "id": "fuzz_39",
+   "argv": [],
+   "stdin_hex": "e1"
+  },
+  {
+   "id": "fuzz_40",
+   "argv": [],
+   "stdin_hex": "96"
+  },
+  {
+   "id": "fuzz_41",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "74"
+  },
+  {
+   "id": "fuzz_42",
+   "argv": [],
+   "stdin_hex": "0e"
+  },
+  {
+   "id": "fuzz_43",
+   "argv": [],
+   "stdin_hex": "14"
+  },
+  {
+   "id": "fuzz_44",
+   "argv": [],
+   "stdin_hex": "60"
+  },
+  {
+   "id": "fuzz_45",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "24"
+  },
+  {
+   "id": "fuzz_46",
+   "argv": [
+    "good"
+   ],
+   "stdin_hex": "d2"
+  },
+  {
+   "id": "fuzz_47",
+   "argv": [],
+   "stdin_hex": "06"
+  },
+  {
+   "id": "fuzz_48",
+   "argv": [
+    "bad"
+   ],
+   "stdin_hex": "c8"
+  },
+  {
+   "id": "fuzz_49",
+   "argv": [],
+   "stdin_hex": "cf"
+  }
+ ]
+}
