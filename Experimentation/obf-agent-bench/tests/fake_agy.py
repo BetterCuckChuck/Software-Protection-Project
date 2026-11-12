@@ -11,11 +11,12 @@ def emit(obj):
     print(json.dumps(obj), flush=True)
 
 
-emit({"event": "init", "init": {"cwd": os.getcwd()}})
+cwd = os.getcwd()
+emit({"event": "init", "init": {"cwd": cwd}})
 idx = 1
 usage = [(1000, 100, 60, 0), (400, 300, 250, 1400), (500, 120, 20, 2000)]
 rea_calls = [
-    ("open_binary", {"path": "./chal"}),
+    ("open_binary", {"path": os.path.join(cwd, "chal")}),
     ("binary_overview", {}),
     ("list_procedures", {}),
     ("procedure_pseudo_code", {"procedure": "0x1010c0"}),

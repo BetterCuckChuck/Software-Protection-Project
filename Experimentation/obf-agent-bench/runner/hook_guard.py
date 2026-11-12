@@ -17,9 +17,19 @@ import shlex
 import sys
 import time
 
-SAFE_READ_PREFIXES = ("/usr/", "/bin/", "/lib/", "/lib64/", "/dev/null", "/dev/stdin", "/dev/stdout", "/dev/stderr")
-SKIP_KEYS = {"CodeContent", "ReplacementContent", "Description", "Instruction", "Content", "TargetContent"}
+SAFE_READ_PREFIXES = (
+    "/usr/", "/bin/", "/lib/", "/lib64/", "/dev/null", "/dev/stdin", "/dev/stdout", "/dev/stderr",
+    "/home/arch/.gemini/antigravity-cli/mcp/rea/",
+    "/home/arch/.gemini/config/skills/reverse-engineer-anything/",
+)
+SKIP_KEYS = {
+    "CodeContent", "ReplacementContent", "Description", "Instruction", "Content", "TargetContent",
+    "toolAction", "toolSummary", "WaitMsBeforeAsync",
+}
 ENV_CMDS = re.compile(r"(^|[;&|\s])(env|printenv)(\s|$)|/proc/(self|\d+)/environ|\$\{?(HOME|USER|PATH|PWD)\b")
+NON_REA_BINARY_CMDS = re.compile(
+    r"(^|[;&|\s`/])(objdump|readelf|strings|nm|gdb|r2|rizin|radare2|hexdump|xxd|od)(\s|$)"
+)
 
 REA_NATIVE_TOOLS = {
     "open_binary", "close_binary", "binary_session", "binary_overview",
@@ -81,15 +91,26 @@ def check(name: str, args: dict, jail: str, mcp_server: str) -> str | None:
     is_mcp_rea = (name == "call_mcp_tool" and args.get("ServerName") == mcp_server)
     is_native_rea = name.startswith(f"mcp_{mcp_server}_") or name in REA_NATIVE_TOOLS
     if is_mcp_rea or is_native_rea:
+        tool_name = args.get("ToolName") if is_mcp_rea else name
         tool_args = args.get("Arguments", {}) if is_mcp_rea else args
         target_path = tool_args.get("path") or tool_args.get("target")
+        if tool_name in ("open_binary", "mcp_rea_open_binary") and target_path and not str(target_path).startswith("/"):
+            return f"REA open_binary requires an absolute path inside the jail ('{jail}/chal'), got '{target_path}'"
         if target_path:
             v = path_violation(str(target_path), jail)
             if v:
                 return f"REA target path violation: {v}"
         return None
 
-    # 2. General command and tool inspection
+    # 2. Enforce strict REA framework exclusivity on shell commands (no objdump/readelf/strings/gdb bypass)
+    if name == "run_command":
+        cmd_str = str(args.get("CommandLine") or args.get("command") or "")
+        m = NON_REA_BINARY_CMDS.search(cmd_str)
+        if m:
+            return (f"non-REA binary analysis tool '{m.group(2)}' is forbidden; "
+                    f"use the REA MCP server (open_binary, binary_overview, list_procedures, procedure_pseudo_code, etc.)")
+
+    # 3. General command and tool inspection
     for s in walk_strings(args):
         if ENV_CMDS.search(s):
             return f"environment inspection in '{s[:80]}'"

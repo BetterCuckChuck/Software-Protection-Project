@@ -162,14 +162,26 @@ class HookGuardTests(unittest.TestCase):
         return {"tool_name": "call_mcp_tool", "tool_info": {"parameters": {"ServerName": "rea", "ToolName": tool, "Arguments": args}}}
 
     def test_decisions(self):
-        self.assertEqual(self.run_hook(self.cmd("objdump -d chal | head -50")), "allow")
-        self.assertEqual(self.run_hook(self.cmd('file chal')), "allow")
+        # Shell disassemblers must be blocked to enforce REA exclusivity
+        self.assertEqual(self.run_hook(self.cmd("objdump -d chal | head -50")), "deny")
+        self.assertEqual(self.run_hook(self.cmd("readelf -h ./chal")), "deny")
+        self.assertEqual(self.run_hook(self.cmd("strings ./chal")), "deny")
+        self.assertEqual(self.run_hook(self.cmd("gdb -batch ./chal")), "deny")
+        # Allowed compile / execution inside jail
+        self.assertEqual(self.run_hook(self.cmd("gcc -O2 reconstructed.c -o recon_bin")), "allow")
+        self.assertEqual(self.run_hook(self.cmd("./chal")), "allow")
+        # Sandbox boundary checks
         self.assertEqual(self.run_hook(self.cmd("cat ../x")), "deny")
         self.assertEqual(self.run_hook(self.cmd("ls /home")), "deny")
         self.assertEqual(self.run_hook(self.cmd("printenv")), "deny")
         self.assertEqual(self.run_hook(self.cmd("ls /tmp/run_t")), "allow")
+        # Reading REA MCP tool schemas and REA skill files is allowed
+        self.assertEqual(self.run_hook({"tool_name": "read_file", "tool_info": {"parameters": {
+            "Path": "/home/arch/.gemini/antigravity-cli/mcp/rea/open_binary.json"}}}), "allow")
+        self.assertEqual(self.run_hook({"tool_name": "read_file", "tool_info": {"parameters": {
+            "Path": "/home/arch/.gemini/config/skills/reverse-engineer-anything/SKILL.md"}}}), "allow")
         # REA calls
-        self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "./chal"})), "allow")
+        self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "./chal"})), "deny")
         self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "/tmp/run_t/chal"})), "allow")
         self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "/etc/shadow"})), "deny")
         self.assertEqual(self.run_hook(self.rea_mcp("list_procedures", {})), "allow")

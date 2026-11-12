@@ -62,7 +62,8 @@ agent_runtime:
     isolate_cwd: true
     allow_parent_traversal: false
     jail_root: "/tmp"          # per-run dir: <jail_root>/run_<uuid>/
-  allowed_commands: ["objdump *", "readelf *", "strings *", "file *", "gcc *", "ls *", "cat *", "./chal*"]
+  allowed_commands: ["gcc *", "./chal*", "./recon_bin*", "ls *", "cat *"]
+  forbidden_commands: ["objdump", "readelf", "strings", "nm", "gdb", "r2", "rizin", "radare2", "hexdump", "xxd", "od"]
 
 ghidra:
   install_dir: "/home/arch/ghidra_12.1.4_PUBLIC"

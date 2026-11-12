@@ -191,7 +191,7 @@ def markdown_table(summary: dict) -> str:
         ("Input + Cache Tokens (median / IQR)", lambda m: "{} / {}–{}".format(*(f"{m['input_plus_cache_tokens'][k]:,.0f}" for k in ("median", "q1", "q3")))),
         ("Reasoning Tokens T_think (median / IQR)", lambda m: "{} / {}–{}".format(*(f"{m['reasoning_tokens'][k]:,.0f}" for k in ("median", "q1", "q3")))),
         ("Peak Context T_peak (max / median)", lambda m: f"{m['peak_context']['max']:,.0f} / {m['peak_context']['median']:,.0f}"),
-        ("Ghidra MCP Calls N_mcp (mean ± SD)", lambda m: f"{m['mcp_calls']['mean']:.1f} ± {m['mcp_calls']['sd']:.1f}"),
+        ("REA MCP Calls N_mcp (mean ± SD)", lambda m: f"{m['mcp_calls']['mean']:.1f} ± {m['mcp_calls']['sd']:.1f}"),
         ("OCM_tokens, all samples (mean of ratios)", lambda m: _f(m["ocm_all"]["tokens_mean"]) + "×"),
         ("OCM_tokens, successful breaks only", lambda m: _f(m["ocm_pass_only"]["tokens_mean"]) + "×"),
         ("OCM_tools, all samples", lambda m: _f(m["ocm_all"]["tools_mean"]) + "×"),

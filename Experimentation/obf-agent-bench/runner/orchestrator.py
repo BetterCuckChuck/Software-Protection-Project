@@ -133,7 +133,8 @@ class LimitWatcher:
 
 def run_agent(cfg: dict, jail: Path, run_dir: Path, extra_env: dict) -> tuple[str, float]:
     rt = cfg["agent_runtime"]
-    prompt = resolve(cfg, "prompt_file").read_text(encoding="utf-8")
+    raw_prompt = resolve(cfg, "prompt_file").read_text(encoding="utf-8")
+    prompt = raw_prompt.replace("{chal_path}", str(jail / "chal")).replace("{jail_dir}", str(jail))
     cmd = [rt["agy_binary"], *rt["agy_extra_args"], "--model", rt["model"],
            "--output-format", "stream-json", "-p", prompt]
     runtime_env = rt.get("environment", {})
