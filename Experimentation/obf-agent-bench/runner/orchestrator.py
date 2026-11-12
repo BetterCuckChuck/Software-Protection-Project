@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Run the REA agent (Antigravity CLI + Ghidra MCP) against every (scenario, sample) target.
+"""Run the REA agent (Antigravity CLI + REA framework) against every (scenario, sample) target.
 
 Per run:
-  1. create an ephemeral jail  <jail_root>/run_<uuid>/  containing ONLY `chal` and a guard-hook config
-     (sources, vectors, build artifacts and results live outside and are never reachable by relative paths)
+  1. create an ephemeral jail  <jail_root>/run_<uuid>/  containing ONLY `chal`, the REA skill, and a guard hook
+     (ground-truth sources, test vectors, and benchmark results live outside and are never reachable by relative paths)
   2. launch `agy -p <rea_task.md> --output-format stream-json` with cwd = jail; stream stdout to disk
-  3. enforce limits (turns / MCP calls / context / wall clock) by terminating the process group
+  3. enforce limits (turns / REA MCP calls / context / wall clock) by terminating the process group
   4. collect ./reconstructed.c, parse the stream into run_metrics.json + telemetry.json
   5. grade with evaluator.io_harness (unless --no-grade) which merges the I/O verdict into telemetry.json
 
@@ -36,6 +36,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, build_path, load_config, load_manifest, resolve, result_path  # noqa: E402
 from stream_telemetry import mcp_tool_name, parse_stream  # noqa: E402
 
+REA_SKILL_SOURCE = Path("/home/arch/.gemini/config/skills/reverse-engineer-anything")
+
 
 def preflight(cfg: dict, need_mcp: bool) -> list[str]:
     """Return a list of blocking problems (empty == ready)."""
@@ -44,27 +46,44 @@ def preflight(cfg: dict, need_mcp: bool) -> list[str]:
         problems.append(f"'{rt['agy_binary']}' not found on PATH")
         return problems
     if need_mcp:
+        ghidra_dir = os.environ.get(cfg["ghidra"].get("install_dir_env", "GHIDRA_INSTALL_DIR"),
+                                    cfg["ghidra"].get("install_dir", "/home/arch/ghidra_12.1.4_PUBLIC"))
+        if not Path(ghidra_dir).is_dir():
+            problems.append(f"Ghidra install directory '{ghidra_dir}' not found. Set GHIDRA_INSTALL_DIR.")
         proc = subprocess.run([rt["agy_binary"], "mcp", "list"], capture_output=True, text=True, timeout=60)
         if rt["mcp_server"] not in proc.stdout:
             problems.append(
-                f"MCP server '{rt['mcp_server']}' is not registered with agy. Run runner/setup_ghidra_mcp.sh "
-                f"(or pass --no-mcp to run with shell tools only; the result is then NOT comparable to the plan).")
+                f"MCP server '{rt['mcp_server']}' is not registered with agy (or disabled). "
+                f"Run `agy mcp list` or pass --no-mcp for a dry/simulated test run.")
     return problems
 
 
 def write_jail_config(jail: Path, cfg: dict, audit_log: Path) -> None:
     rt = cfg["agent_runtime"]
     agents = jail / ".agents"
-    agents.mkdir()
+    agents.mkdir(parents=True, exist_ok=True)
     (agents / "settings.json").write_text(json.dumps({
         "model": rt["model"],
         "agentMode": "accept-edits",
         "toolPermission": "always-proceed",
         "permissions": {"allowCommands": rt["allowed_commands"]},
     }, indent=2))
+
+    # Provide the REA skill directly within the jail so the agent has REA binary analysis instructions
+    if REA_SKILL_SOURCE.is_dir():
+        dest_skills = agents / "skills" / "reverse-engineer-anything"
+        shutil.copytree(REA_SKILL_SOURCE, dest_skills, dirs_exist_ok=True)
+
     guard = f'python3 "{ROOT / "runner" / "hook_guard.py"}" --jail "{jail}" --log "{audit_log}" --mcp-server "{rt["mcp_server"]}"'
     (agents / "hooks.json").write_text(json.dumps({
-        "obf-bench-jail-guard": {"PreToolUse": [{"matcher": "*", "hooks": [{"type": "command", "command": guard, "timeout": 15}]}]}
+        "obf-bench-jail-guard": {
+            "PreToolUse": [
+                {
+                    "matcher": "*",
+                    "hooks": [{"type": "command", "command": guard, "timeout": 15}]
+                }
+            ]
+        }
     }, indent=2))
 
 
@@ -112,12 +131,13 @@ class LimitWatcher:
                     self.kill("max_mcp_calls")
 
 
-def run_agent(cfg: dict, jail: Path, run_dir: Path, mcp_env: dict) -> tuple[str, float]:
+def run_agent(cfg: dict, jail: Path, run_dir: Path, extra_env: dict) -> tuple[str, float]:
     rt = cfg["agent_runtime"]
     prompt = resolve(cfg, "prompt_file").read_text(encoding="utf-8")
     cmd = [rt["agy_binary"], *rt["agy_extra_args"], "--model", rt["model"],
            "--output-format", "stream-json", "-p", prompt]
-    env = {**os.environ, **mcp_env}
+    runtime_env = rt.get("environment", {})
+    env = {**os.environ, **runtime_env, **extra_env}
     start = time.time()
     deadline = start + rt["limits"]["timeout_seconds"]
     with (run_dir / "session_stream.jsonl").open("w", encoding="utf-8") as stream, \
@@ -181,9 +201,9 @@ def run_one(cfg: dict, scenario: str, sample: dict, args: argparse.Namespace) ->
         shutil.copy(bdir / "chal", jail / "chal")
         (jail / "chal").chmod(0o755)
         write_jail_config(jail, cfg, run_dir / "hook_audit.jsonl")
-        mcp_env = {"OBFBENCH_GHIDRA_PROJ": str(bdir / "ghidra_proj"), "OBFBENCH_JAIL": str(jail)}
+        extra_env = {"OBFBENCH_JAIL": str(jail)}
         print(f"[run ] {scenario}/{sid}  jail={jail}")
-        reason, wall = run_agent(cfg, jail, run_dir, mcp_env)
+        reason, wall = run_agent(cfg, jail, run_dir, extra_env)
         if (jail / rt["deliverable_file"]).exists():
             shutil.copy(jail / rt["deliverable_file"], run_dir / rt["deliverable_file"])
         with (run_dir / "session_stream.jsonl").open(encoding="utf-8") as f:
@@ -214,7 +234,7 @@ def main() -> None:
     ap.add_argument("--resume", action="store_true", help="skip runs that already have run_metrics.json")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-grade", action="store_true", help="do not run the I/O harness after each run")
-    ap.add_argument("--no-mcp", action="store_true", help="skip the MCP registration check (NOT plan-compliant)")
+    ap.add_argument("--no-mcp", action="store_true", help="skip the MCP registration check (for dry/mock testing)")
     ap.add_argument("--include-invalid", action="store_true", help="also run builds flagged invalid")
     ap.add_argument("--keep-jail", action="store_true")
     args = ap.parse_args()

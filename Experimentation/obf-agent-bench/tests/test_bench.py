@@ -46,7 +46,7 @@ class StreamTests(unittest.TestCase):
         self.lines = out.splitlines()
 
     def test_metrics(self):
-        m = parse_stream(self.lines, "ghidra-mcp-headless")
+        m = parse_stream(self.lines, "rea")
         self.assertEqual(m["turns"], 3)
         self.assertEqual(m["tokens"]["input_uncached"], 1900)
         self.assertEqual(m["tokens"]["input_cached"], 3400)
@@ -54,15 +54,19 @@ class StreamTests(unittest.TestCase):
         self.assertEqual(m["tokens"]["output"], 520 - 330)          # thinking is a subset of output_tokens
         self.assertEqual(m["tokens"]["peak_context"], 2500)
         self.assertEqual(m["mcp_calls"], 2)
-        self.assertEqual(m["mcp_calls_by_tool"], {"list_functions": 1, "decompile_function": 1})
+        self.assertEqual(m["mcp_calls_by_tool"], {"open_binary": 1, "binary_overview": 1})
         self.assertEqual(m["mcp_payload_bytes"], 200)
         self.assertEqual(m["other_tool_calls"], 2)
         self.assertAlmostEqual(m["latency"]["llm_time_sec"], 6.0)
 
     def test_mcp_name_variants(self):
-        self.assertEqual(mcp_tool_name({"tool_name": "mcp_ghidra-mcp-headless_get_xrefs"}, "ghidra-mcp-headless"), "get_xrefs")
-        self.assertIsNone(mcp_tool_name({"tool_name": "run_command"}, "ghidra-mcp-headless"))
-        self.assertIsNone(mcp_tool_name({"tool_name": "call_mcp_tool", "tool_info": {"parameters": {"ServerName": "rea", "ToolName": "x"}}}, "ghidra-mcp-headless"))
+        self.assertEqual(mcp_tool_name({"tool_name": "mcp_rea_procedure_pseudo_code"}, "rea"), "procedure_pseudo_code")
+        self.assertEqual(mcp_tool_name({"tool_name": "procedure_pseudo_code"}, "rea"), "procedure_pseudo_code")
+        self.assertIsNone(mcp_tool_name({"tool_name": "run_command"}, "rea"))
+        self.assertEqual(mcp_tool_name({"tool_name": "call_mcp_tool",
+                                        "tool_info": {"parameters": {"ServerName": "rea", "ToolName": "list_procedures"}}}, "rea"), "list_procedures")
+        self.assertIsNone(mcp_tool_name({"tool_name": "call_mcp_tool",
+                                         "tool_info": {"parameters": {"ServerName": "other", "ToolName": "list_procedures"}}}, "rea"))
 
 
 class IOHarnessTests(unittest.TestCase):
@@ -147,19 +151,29 @@ class CostEvaluatorTests(unittest.TestCase):
 class HookGuardTests(unittest.TestCase):
     def run_hook(self, payload):
         p = subprocess.run([sys.executable, str(ROOT / "runner" / "hook_guard.py"), "--jail", "/tmp/run_t",
-                            "--log", os.devnull], input=json.dumps(payload), capture_output=True, text=True)
+                            "--log", os.devnull, "--mcp-server", "rea"], input=json.dumps(payload),
+                           capture_output=True, text=True)
         return json.loads(p.stdout)["decision"]
 
     def cmd(self, c):
         return {"tool_name": "run_command", "tool_info": {"parameters": {"CommandLine": c}}}
 
+    def rea_mcp(self, tool, args):
+        return {"tool_name": "call_mcp_tool", "tool_info": {"parameters": {"ServerName": "rea", "ToolName": tool, "Arguments": args}}}
+
     def test_decisions(self):
         self.assertEqual(self.run_hook(self.cmd("objdump -d chal | head -50")), "allow")
-        self.assertEqual(self.run_hook(self.cmd('gdb -batch -ex "set disassembly-flavor intel" chal')), "allow")
+        self.assertEqual(self.run_hook(self.cmd('file chal')), "allow")
         self.assertEqual(self.run_hook(self.cmd("cat ../x")), "deny")
         self.assertEqual(self.run_hook(self.cmd("ls /home")), "deny")
         self.assertEqual(self.run_hook(self.cmd("printenv")), "deny")
         self.assertEqual(self.run_hook(self.cmd("ls /tmp/run_t")), "allow")
+        # REA calls
+        self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "./chal"})), "allow")
+        self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "/tmp/run_t/chal"})), "allow")
+        self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "/etc/shadow"})), "deny")
+        self.assertEqual(self.run_hook(self.rea_mcp("list_procedures", {})), "allow")
+        self.assertEqual(self.run_hook(self.rea_mcp("procedure_pseudo_code", {"procedure": "0x1010c0"})), "allow")
 
 
 @unittest.skipUnless((ROOT / "build" / "S0_Baseline" / SAMPLE / "chal").exists(), "run builder first")

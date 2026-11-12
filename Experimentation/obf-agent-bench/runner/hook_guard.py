@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """PreToolUse hook: enforce the sandbox boundary (no parent traversal / env inspection) and audit every tool call.
 
-stdin  : JSON tool-call payload from agy (key names vary by version; several spellings are tried, as in Week 1)
-stdout : {"decision": "allow"} or {"decision": "deny", "reason": ...}
-Every call is appended to --log (JSONL) OUTSIDE the jail so the agent cannot read it.
+Specifically supports the REA (Reverse Engineer Anything) framework:
+- Allows all REA MCP calls (`ServerName == 'rea'` or eager REA tool names).
+- Validates that target paths opened via REA stay strictly inside the jail.
+- Blocks environment inspection and filesystem traversal outside the jail.
+- Audits every tool invocation to --log (JSONL) outside the jail.
 """
 from __future__ import annotations
 
@@ -18,6 +20,17 @@ import time
 SAFE_READ_PREFIXES = ("/usr/", "/bin/", "/lib/", "/lib64/", "/dev/null", "/dev/stdin", "/dev/stdout", "/dev/stderr")
 SKIP_KEYS = {"CodeContent", "ReplacementContent", "Description", "Instruction", "Content", "TargetContent"}
 ENV_CMDS = re.compile(r"(^|[;&|\s])(env|printenv)(\s|$)|/proc/(self|\d+)/environ|\$\{?(HOME|USER|PATH|PWD)\b")
+
+REA_NATIVE_TOOLS = {
+    "open_binary", "close_binary", "binary_session", "binary_overview",
+    "list_procedures", "procedure_pseudo_code", "procedure_assembly",
+    "procedure_callees", "procedure_callers", "procedure_info",
+    "read_function_instructions", "search_bytes", "read_bytes",
+    "address_to_file_offset", "procedure_references", "resolve_containing_procedure",
+    "search_procedures", "search_strings", "list_strings", "list_names", "list_segments",
+    "goto_address", "current_address", "current_procedure", "xrefs", "analyze_function",
+    "update_analysis_settings", "inspect_analysis_settings", "inspect_binary_layout",
+}
 
 
 def get_args(payload: dict) -> dict:
@@ -64,10 +77,19 @@ def path_violation(token: str, jail: str) -> str | None:
 
 
 def check(name: str, args: dict, jail: str, mcp_server: str) -> str | None:
-    if name == "call_mcp_tool" and args.get("ServerName") == mcp_server:
+    # 1. Direct or indirect REA tool call validation
+    is_mcp_rea = (name == "call_mcp_tool" and args.get("ServerName") == mcp_server)
+    is_native_rea = name.startswith(f"mcp_{mcp_server}_") or name in REA_NATIVE_TOOLS
+    if is_mcp_rea or is_native_rea:
+        tool_args = args.get("Arguments", {}) if is_mcp_rea else args
+        target_path = tool_args.get("path") or tool_args.get("target")
+        if target_path:
+            v = path_violation(str(target_path), jail)
+            if v:
+                return f"REA target path violation: {v}"
         return None
-    if name.startswith(f"mcp_{mcp_server}_"):
-        return None
+
+    # 2. General command and tool inspection
     for s in walk_strings(args):
         if ENV_CMDS.search(s):
             return f"environment inspection in '{s[:80]}'"
@@ -87,7 +109,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--jail", required=True)
     ap.add_argument("--log", required=True)
-    ap.add_argument("--mcp-server", default="ghidra-mcp-headless")
+    ap.add_argument("--mcp-server", default="rea")
     ns = ap.parse_args()
     try:
         payload = json.load(sys.stdin)

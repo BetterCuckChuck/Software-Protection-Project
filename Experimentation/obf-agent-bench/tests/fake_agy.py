@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stand-in for `agy` used by tests/test_pipeline.py: emits a Week-1-shaped stream-json session and writes
+"""Stand-in for `agy` used by tests/test_bench.py: emits an REA stream-json session and writes
 reconstructed.c (copied from $FAKE_AGY_RECON) into cwd. No LLM, no network."""
 import json
 import os
@@ -14,13 +14,22 @@ def emit(obj):
 emit({"event": "init", "init": {"cwd": os.getcwd()}})
 idx = 1
 usage = [(1000, 100, 60, 0), (400, 300, 250, 1400), (500, 120, 20, 2000)]
+rea_calls = [
+    ("open_binary", {"path": "./chal"}),
+    ("binary_overview", {}),
+    ("list_procedures", {}),
+    ("procedure_pseudo_code", {"procedure": "0x1010c0"}),
+    ("close_binary", {}),
+]
+
 for i, (inp, out, think, cache) in enumerate(usage):
     emit({"event": "step_update", "step_update": {"step_index": idx, "state": "DONE", "step_type": "agent_response",
           "duration_seconds": 2.0, "usage": {"input_tokens": inp, "output_tokens": out, "thinking_tokens": think,
                                              "cache_read_tokens": cache, "total_tokens": inp + out}}})
     idx += 1
     if i < 2:
-        params = {"ServerName": "ghidra-mcp-headless", "ToolName": "decompile_function" if i else "list_functions"}
+        tool_name, tool_args = rea_calls[i]
+        params = {"ServerName": "rea", "ToolName": tool_name, "Arguments": tool_args}
         for state in ("ACTIVE", "DONE"):
             su = {"step_index": idx, "state": state, "step_type": "tool", "tool_name": "call_mcp_tool",
                   "tool_info": {"name": "call_mcp_tool", "parameters": params}}

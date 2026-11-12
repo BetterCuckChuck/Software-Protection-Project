@@ -20,16 +20,32 @@ import json
 from collections import Counter
 from typing import Iterable, Optional
 
+REA_NATIVE_TOOLS = {
+    "open_binary", "close_binary", "binary_session", "binary_overview",
+    "list_procedures", "procedure_pseudo_code", "procedure_assembly",
+    "procedure_callees", "procedure_callers", "procedure_info",
+    "read_function_instructions", "search_bytes", "read_bytes",
+    "address_to_file_offset", "procedure_references", "resolve_containing_procedure",
+    "search_procedures", "search_strings", "list_strings", "list_names", "list_segments",
+    "goto_address", "current_address", "current_procedure", "xrefs", "analyze_function",
+    "update_analysis_settings", "inspect_analysis_settings", "inspect_binary_layout",
+}
+
 
 def mcp_tool_name(step: dict, mcp_server: str) -> Optional[str]:
     """Return the MCP tool short-name if this tool step targets `mcp_server`, else None."""
     name = step.get("tool_name") or step.get("tool_info", {}).get("name") or ""
     params = step.get("tool_info", {}).get("parameters", {}) or {}
     if name == "call_mcp_tool":
-        return params.get("ToolName") if params.get("ServerName") == mcp_server else None
+        server = params.get("ServerName")
+        if server == mcp_server:
+            return params.get("ToolName")
+        return None
     for prefix in (f"mcp_{mcp_server}_", f"mcp__{mcp_server}__"):
         if name.startswith(prefix):
             return name[len(prefix):]
+    if mcp_server == "rea" and name in REA_NATIVE_TOOLS:
+        return name
     return None
 
 
@@ -57,7 +73,7 @@ def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
             elif su.get("step_type") == "tool":
                 tools[idx] = su
 
-    per_turn, t_in = [], 0
+    per_turn, t_in = [], 0.0
     totals = Counter()
     peak = 0
     for idx in sorted(turns):

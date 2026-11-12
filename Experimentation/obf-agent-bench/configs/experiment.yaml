@@ -45,10 +45,13 @@ agent_runtime:
   framework: "REA"
   model: "gemini-3.8-flash"
   temperature: 0.1            # recorded for provenance; agy has no temperature flag (see README)
-  mcp_server: "ghidra-mcp-headless"
+  mcp_server: "rea"
   deliverable_file: "reconstructed.c"
   agy_binary: "agy"
   agy_extra_args: ["--dangerously-skip-permissions", "--mode=accept-edits"]
+  environment:
+    GHIDRA_INSTALL_DIR: "/home/arch/ghidra_12.1.4_PUBLIC"
+    JAVA_HOME: "/usr/lib/jvm/java-21-openjdk-amd64"
   limits:
     max_turns: 25
     max_mcp_calls: 30
@@ -62,7 +65,8 @@ agent_runtime:
   allowed_commands: ["objdump *", "readelf *", "strings *", "file *", "gcc *", "ls *", "cat *", "./chal*"]
 
 ghidra:
-  install_dir_env: "GHIDRA_INSTALL_DIR"   # analyzeHeadless is looked up in $GHIDRA_INSTALL_DIR/support/
+  install_dir: "/home/arch/ghidra_12.1.4_PUBLIC"
+  install_dir_env: "GHIDRA_INSTALL_DIR"
   analysis_timeout_seconds: 300
 
 evaluation:
