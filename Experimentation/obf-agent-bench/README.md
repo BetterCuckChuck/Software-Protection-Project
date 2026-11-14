@@ -85,6 +85,10 @@ python3 builder/build_scenarios.py
 # Run one sample or scenario:
 python3 runner/orchestrator.py --scenarios S1_Flatten --samples CWE190_Integer_Overflow__char_fscanf_add_01
 
+# Raise max_turns / max_mcp_calls / timeout_seconds to infinite (--unlimited, or pass <= 0 individually):
+python3 runner/orchestrator.py --scenarios S0_Baseline S1_Flatten S2_EncodeData S3_Combined \
+  --samples CWE190_Integer_Overflow__char_fscanf_add_01 --unlimited
+
 # Resume / run full benchmark suite:
 python3 runner/orchestrator.py --config configs/experiment.yaml --resume
 ```

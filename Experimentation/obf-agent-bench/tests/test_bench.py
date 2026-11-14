@@ -190,14 +190,18 @@ class HookGuardTests(unittest.TestCase):
 
 @unittest.skipUnless((ROOT / "build" / "S0_Baseline" / SAMPLE / "chal").exists(), "run builder first")
 class PipelineSmokeTests(unittest.TestCase):
-    def test_orchestrator_with_fake_agent(self):
-        tmp = Path(tempfile.mkdtemp())
+    def _write_fake_cfg(self, tmp: Path) -> Path:
         cfg = load_config()
         cfg["paths"]["results_dir"] = str(tmp / "results")
         cfg["agent_runtime"]["agy_binary"] = str(ROOT / "tests" / "fake_agy.py")
         cfg["agent_runtime"]["sandbox"]["jail_root"] = str(tmp)
         cfg_path = tmp / "exp.yaml"
         cfg_path.write_text(yaml.safe_dump(cfg))
+        return cfg_path
+
+    def test_orchestrator_with_fake_agent(self):
+        tmp = Path(tempfile.mkdtemp())
+        cfg_path = self._write_fake_cfg(tmp)
         env = {**os.environ, "FAKE_AGY_RECON": str(ROOT / "dataset" / "normalized_src" / f"{SAMPLE}.c")}
         for sc in ("S0_Baseline", "S3_Combined"):
             subprocess.run([sys.executable, str(ROOT / "runner" / "orchestrator.py"), "--config", str(cfg_path),
@@ -212,6 +216,28 @@ class PipelineSmokeTests(unittest.TestCase):
         self.assertEqual(tel["tokens"]["input_cached"], 3400)
         self.assertTrue((tmp / "results" / "simulator.html").exists())
         self.assertFalse(list(tmp.glob("run_*")), "jail must be cleaned up")
+
+    def test_unlimited_and_override_limits(self):
+        tmp = Path(tempfile.mkdtemp())
+        cfg_path = self._write_fake_cfg(tmp)
+        env = {**os.environ, "FAKE_AGY_RECON": str(ROOT / "dataset" / "normalized_src" / f"{SAMPLE}.c")}
+        subprocess.run([sys.executable, str(ROOT / "runner" / "orchestrator.py"), "--config", str(cfg_path),
+                        "--scenarios", "S0_Baseline", "--samples", SAMPLE, "--no-mcp", "--unlimited"],
+                       check=True, env=env, capture_output=True, text=True)
+        m = json.loads((tmp / "results" / "S0_Baseline" / SAMPLE / "run_metrics.json").read_text())
+        self.assertEqual(m["terminated_reason"], "completed")
+        self.assertIsNone(m["limits"]["max_turns"])
+        self.assertIsNone(m["limits"]["max_mcp_calls"])
+        self.assertIsNone(m["limits"]["timeout_seconds"])
+
+        # Explicit 0 overrides also resolve to None (infinite)
+        subprocess.run([sys.executable, str(ROOT / "runner" / "orchestrator.py"), "--config", str(cfg_path),
+                        "--scenarios", "S0_Baseline", "--samples", SAMPLE, "--no-mcp",
+                        "--max-turns", "0", "--max-mcp-calls", "0", "--timeout", "0"],
+                       check=True, env=env, capture_output=True, text=True)
+        m2 = json.loads((tmp / "results" / "S0_Baseline" / SAMPLE / "run_metrics.json").read_text())
+        self.assertEqual(m2["terminated_reason"], "completed")
+        self.assertIsNone(m2["limits"]["max_turns"])
 
 
 if __name__ == "__main__":

@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import shutil
 import signal
@@ -87,10 +88,19 @@ def write_jail_config(jail: Path, cfg: dict, audit_log: Path) -> None:
     }, indent=2))
 
 
+def _active_limit(val) -> float | int | None:
+    """Return a positive finite limit, or None to represent an unlimited (infinite) budget."""
+    if val is None:
+        return None
+    if isinstance(val, float) and math.isinf(val):
+        return None
+    return val if val > 0 else None
+
+
 class LimitWatcher:
     """Consumes the agy NDJSON stream line by line and kills the process group when a limit is exceeded."""
 
-    def __init__(self, proc: subprocess.Popen, limits: dict, mcp_server: str, deadline: float):
+    def __init__(self, proc: subprocess.Popen, limits: dict, mcp_server: str, deadline: float | None = None):
         self.proc, self.limits, self.mcp_server, self.deadline = proc, limits, mcp_server, deadline
         self.turns = self.mcp_calls = 0
         self.seen_tools: set[int] = set()
@@ -119,15 +129,18 @@ class LimitWatcher:
             self.seen_turns.add(idx)
             self.turns += 1
             u = su["usage"]
-            if u.get("input_tokens", 0) + u.get("cache_read_tokens", 0) > self.limits["max_context_tokens"]:
+            max_ctx = _active_limit(self.limits.get("max_context_tokens"))
+            max_turns = _active_limit(self.limits.get("max_turns"))
+            if max_ctx is not None and u.get("input_tokens", 0) + u.get("cache_read_tokens", 0) > max_ctx:
                 self.kill("max_context_tokens")
-            elif self.turns > self.limits["max_turns"]:
+            elif max_turns is not None and self.turns > max_turns:
                 self.kill("max_turns")
         elif su.get("step_type") == "tool" and su.get("state") == "ACTIVE" and idx not in self.seen_tools:
             self.seen_tools.add(idx)
             if mcp_tool_name(su, self.mcp_server):
                 self.mcp_calls += 1
-                if self.mcp_calls > self.limits["max_mcp_calls"]:
+                max_mcp = _active_limit(self.limits.get("max_mcp_calls"))
+                if max_mcp is not None and self.mcp_calls > max_mcp:
                     self.kill("max_mcp_calls")
 
 
@@ -140,21 +153,25 @@ def run_agent(cfg: dict, jail: Path, run_dir: Path, extra_env: dict) -> tuple[st
     runtime_env = rt.get("environment", {})
     env = {**os.environ, **runtime_env, **extra_env}
     start = time.time()
-    deadline = start + rt["limits"]["timeout_seconds"]
+    timeout_sec = _active_limit(rt["limits"].get("timeout_seconds"))
+    deadline = (start + timeout_sec) if timeout_sec is not None else None
     with (run_dir / "session_stream.jsonl").open("w", encoding="utf-8") as stream, \
             (run_dir / "agy_stderr.log").open("w", encoding="utf-8") as err:
         proc = subprocess.Popen(cmd, cwd=jail, stdout=subprocess.PIPE, stderr=err, text=True, env=env,
                                 start_new_session=True)
         watcher = LimitWatcher(proc, rt["limits"], rt["mcp_server"], deadline)
-        timer = threading.Timer(max(deadline - time.time(), 0), watcher.kill, args=("timeout",))
-        timer.start()
+        timer = None
+        if deadline is not None:
+            timer = threading.Timer(max(deadline - time.time(), 0), watcher.kill, args=("timeout",))
+            timer.start()
         try:
             for line in proc.stdout:
                 stream.write(line)
                 stream.flush()
                 watcher.feed(line)
         finally:
-            timer.cancel()
+            if timer is not None:
+                timer.cancel()
             proc.wait()
     reason = watcher.reason
     if reason == "completed" and proc.returncode not in (0, None):
@@ -238,9 +255,28 @@ def main() -> None:
     ap.add_argument("--no-mcp", action="store_true", help="skip the MCP registration check (for dry/mock testing)")
     ap.add_argument("--include-invalid", action="store_true", help="also run builds flagged invalid")
     ap.add_argument("--keep-jail", action="store_true")
+    ap.add_argument("--max-turns", type=int, default=None,
+                    help="override limits.max_turns (<= 0 for infinite)")
+    ap.add_argument("--max-mcp-calls", type=int, default=None,
+                    help="override limits.max_mcp_calls (<= 0 for infinite)")
+    ap.add_argument("--timeout", type=float, default=None,
+                    help="override limits.timeout_seconds (<= 0 for infinite)")
+    ap.add_argument("--unlimited", action="store_true",
+                    help="set max_turns, max_mcp_calls, and timeout_seconds to infinite")
     args = ap.parse_args()
 
     cfg = load_config(Path(args.config))
+    limits = cfg["agent_runtime"]["limits"]
+    if args.unlimited:
+        limits["max_turns"] = None
+        limits["max_mcp_calls"] = None
+        limits["timeout_seconds"] = None
+    if args.max_turns is not None:
+        limits["max_turns"] = _active_limit(args.max_turns)
+    if args.max_mcp_calls is not None:
+        limits["max_mcp_calls"] = _active_limit(args.max_mcp_calls)
+    if args.timeout is not None:
+        limits["timeout_seconds"] = _active_limit(args.timeout)
     if not args.dry_run:
         problems = preflight(cfg, need_mcp=not args.no_mcp)
         if problems:
