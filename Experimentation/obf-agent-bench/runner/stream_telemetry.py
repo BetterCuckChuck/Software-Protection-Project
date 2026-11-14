@@ -53,6 +53,7 @@ def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
     turns: dict[int, dict] = {}
     tools: dict[int, dict] = {}
     result_event: dict = {}
+    conversation_id: Optional[str] = None
     for line in lines:
         line = line.strip()
         if not line:
@@ -61,6 +62,8 @@ def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
             ev = json.loads(line)
         except json.JSONDecodeError:
             continue
+        if conversation_id is None:
+            conversation_id = ev.get("conversation_id") or ev.get("step_update", {}).get("conversation_id")
         if ev.get("event") == "result":
             result_event = ev.get("result", {})
         elif ev.get("event") == "step_update":
@@ -111,6 +114,7 @@ def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
     res_usage = result_event.get("usage", {})
     wall = result_event.get("duration_seconds")
     return {
+        "conversation_id": conversation_id,
         "tokens": {**{k: int(totals[k]) for k in ("input_uncached", "input_cached", "reasoning", "output")},
                    "peak_context": int(peak)},
         "turns": len(per_turn),

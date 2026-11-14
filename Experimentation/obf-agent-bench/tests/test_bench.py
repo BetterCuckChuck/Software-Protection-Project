@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "evaluator"))
 
 import yaml  # noqa: E402
 from common import load_config, load_manifest, load_vectors  # noqa: E402
+import conversation_log  # noqa: E402
 from stream_telemetry import mcp_tool_name, parse_stream  # noqa: E402
 import io_harness  # noqa: E402
 import cost_evaluator  # noqa: E402
@@ -214,6 +215,7 @@ class PipelineSmokeTests(unittest.TestCase):
         self.assertEqual(tel["io_tests_total"], 65)
         self.assertEqual(tel["mcp_calls"], 2)
         self.assertEqual(tel["tokens"]["input_cached"], 3400)
+        self.assertTrue((tmp / "results" / "S3_Combined" / SAMPLE / "conversation_log.md").exists())
         self.assertTrue((tmp / "results" / "simulator.html").exists())
         self.assertFalse(list(tmp.glob("run_*")), "jail must be cleaned up")
 
@@ -238,6 +240,58 @@ class PipelineSmokeTests(unittest.TestCase):
         m2 = json.loads((tmp / "results" / "S0_Baseline" / SAMPLE / "run_metrics.json").read_text())
         self.assertEqual(m2["terminated_reason"], "completed")
         self.assertIsNone(m2["limits"]["max_turns"])
+
+
+class ConversationLogTests(unittest.TestCase):
+    def test_snapshot_and_render_with_transcript(self):
+        tmp = Path(tempfile.mkdtemp())
+        brain = tmp / "brain"
+        cid = "conv-1234"
+        tdir = brain / cid / ".system_generated" / "logs"
+        tdir.mkdir(parents=True)
+        (tdir / "transcript_full.jsonl").write_text("\n".join([
+            json.dumps({"step_index": 0, "type": "USER_INPUT", "content": "Analyze ./chal"}),
+            json.dumps({"step_index": 1, "type": "PLANNER_RESPONSE", "created_at": "2026-11-14T00:00:00Z",
+                        "thinking": "Inspecting main function via REA.", "content": "",
+                        "tool_calls": [{"name": "call_mcp_tool", "args": {"ServerName": "rea",
+                                       "ToolName": "procedure_pseudo_code", "Arguments": {"procedure": "0x1010c0"}}}]}),
+            json.dumps({"step_index": 2, "type": "GENERIC", "status": "DONE",
+                        "content": "Created At: 2026-11-14\n" + json.dumps({
+                            "evidence_id": "ev_1", "operation": "procedure_pseudo_code",
+                            "provider": {"id": "ghidra"}, "confidence": "observed",
+                            "normalized_result": "int main(void) {\n  return 0;\n}"})}),
+        ]) + "\n", encoding="utf-8")
+
+        run_dir = tmp / "run"
+        run_dir.mkdir()
+        (run_dir / "session_stream.jsonl").write_text("\n".join([
+            json.dumps({"event": "init", "conversation_id": cid, "init": {"cwd": "/tmp/jail"}}),
+            json.dumps({"event": "step_update", "step_update": {"conversation_id": cid, "step_index": 1,
+                        "state": "DONE", "step_type": "agent_response", "duration_seconds": 1.2,
+                        "usage": {"input_tokens": 100, "cache_read_tokens": 50, "thinking_tokens": 20, "output_tokens": 30}}}),
+            json.dumps({"event": "step_update", "step_update": {"conversation_id": cid, "step_index": 2,
+                        "state": "DONE", "step_type": "tool", "tool_name": "call_mcp_tool", "duration_seconds": 0.4,
+                        "tool_info": {"name": "call_mcp_tool", "parameters": {"ServerName": "rea",
+                                      "ToolName": "procedure_pseudo_code", "Arguments": {"procedure": "0x1010c0"}}}}}),
+        ]) + "\n", encoding="utf-8")
+        (run_dir / "hook_audit.jsonl").write_text(
+            json.dumps({"ts": 1.0, "tool": "call_mcp_tool",
+                        "args": {"ServerName": "rea", "ToolName": "procedure_pseudo_code"},
+                        "decision": "allow", "reason": None}) + "\n",
+            encoding="utf-8",
+        )
+
+        copied = conversation_log.snapshot_transcript(run_dir, brain_root=brain)
+        self.assertIsNotNone(copied)
+        self.assertTrue((run_dir / "transcript_full.jsonl").exists())
+
+        out_md = conversation_log.render_conversation_log(run_dir)
+        text = out_md.read_text(encoding="utf-8")
+        self.assertIn("Analyze ./chal", text)
+        self.assertIn("Inspecting main function via REA.", text)
+        self.assertIn("rea:procedure_pseudo_code", text)
+        self.assertIn("int main(void)", text)
+        self.assertIn("Hook Guard Audit (`allow=1`, `deny=0`)", text)
 
 
 if __name__ == "__main__":

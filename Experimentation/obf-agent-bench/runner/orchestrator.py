@@ -35,6 +35,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, build_path, load_config, load_manifest, resolve, result_path  # noqa: E402
+from conversation_log import render_conversation_log, snapshot_transcript  # noqa: E402
 from stream_telemetry import mcp_tool_name, parse_stream  # noqa: E402
 
 REA_SKILL_SOURCE = Path("/home/arch/.gemini/config/skills/reverse-engineer-anything")
@@ -226,8 +227,10 @@ def run_one(cfg: dict, scenario: str, sample: dict, args: argparse.Namespace) ->
             shutil.copy(jail / rt["deliverable_file"], run_dir / rt["deliverable_file"])
         with (run_dir / "session_stream.jsonl").open(encoding="utf-8") as f:
             metrics = parse_stream(f, rt["mcp_server"])
+        transcript_copy = snapshot_transcript(run_dir, conv_id=metrics.get("conversation_id"))
         metrics.update({"scenario": scenario, "sample_id": sid, "terminated_reason": reason,
                         "deliverable_written": (run_dir / rt["deliverable_file"]).exists(),
+                        "transcript_archived": transcript_copy is not None,
                         "model": rt["model"], "limits": rt["limits"]})
         (run_dir / "run_metrics.json").write_text(json.dumps(metrics, indent=2))
         tel = telemetry_from_metrics(scenario, sid, metrics, reason, wall)
@@ -241,6 +244,7 @@ def run_one(cfg: dict, scenario: str, sample: dict, args: argparse.Namespace) ->
         res = evaluate_run(cfg, scenario, sid)
         print(f"[done] {scenario}/{sid}: reason={reason} Pass_IO={int(res['io_passed'])} "
               f"({res['io_tests_passed']}/{res['io_tests_total']}) mcp={metrics['mcp_calls']} turns={metrics['turns']}")
+    render_conversation_log(run_dir)
     return tel
 
 

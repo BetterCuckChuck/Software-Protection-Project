@@ -21,6 +21,7 @@ build/
   <scenario>/<sample_id>/  # Stripped chal binaries, binary_stats.json, obfuscated sources
 runner/
   orchestrator.py          # Jail manager, agy + REA spawner, stream limiter, telemetry collector
+  conversation_log.py      # Archives transcript_full.jsonl and renders readable conversation_log.md
   hook_guard.py            # PreToolUse security hook enforcing strict sandbox boundary
   verify_rea_env.sh        # Preflight verification of REA MCP server & Ghidra 12.1.4 engine
   stream_telemetry.py      # Parses agy stream-json NDJSON events into structured metrics
@@ -29,7 +30,8 @@ evaluator/
   io_harness.py            # Axis 1: Gate 1 sanitization/compile + Gate 2/3 differential testing
   cost_evaluator.py        # Axis 2: OCM, ECSR, summary matrix markdown, simulator.html
 results/
-  <scenario>/<sample_id>/  # Per-run telemetry.json, run_metrics.json, io_result.json, reconstructed.c
+  <scenario>/<sample_id>/  # telemetry.json, run_metrics.json, io_result.json, reconstructed.c,
+                           # session_stream.jsonl, transcript_full.jsonl, conversation_log.md, hook_audit.jsonl
 tests/
   test_bench.py            # Offline unit & integration test suite (no network/LLM required)
   fake_agy.py              # Mock agy stream emitter simulating REA tool interactions
