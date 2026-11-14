@@ -121,11 +121,27 @@ def grade(recon_src: Path, chal: Path, vectors: dict, cfg: dict) -> dict:
 
 
 def update_telemetry(run_dir: Path, scenario: str, sample_id: str, res: dict) -> None:
-    """Merge the I/O verdict into the per-run telemetry.json contract (see README)."""
+    """Merge the I/O verdict and gate breakdown into the per-run telemetry.json contract."""
     tel_path = run_dir / "telemetry.json"
     tel = json.loads(tel_path.read_text()) if tel_path.exists() else {"scenario": scenario, "sample_id": sample_id}
-    tel.update({"io_passed": res["io_passed"], "io_tests_passed": res["io_tests_passed"],
-                "io_tests_total": res["io_tests_total"]})
+    g1 = res.get("gate1", {})
+    g2 = res.get("gate2", {})
+    g3 = res.get("gate3", {})
+    tel.update({
+        "io_passed": res["io_passed"],
+        "io_tests_passed": res["io_tests_passed"],
+        "io_tests_total": res["io_tests_total"],
+        "io_accuracy": res.get("io_accuracy"),
+        "io_breakdown": {
+            "gate1_passed": bool(g1.get("passed")),
+            "compile_ok": bool(g1.get("compile_ok")),
+            "violations": list(g1.get("violations") or []),
+            "curated_passed": g2.get("passed", 0),
+            "curated_total": g2.get("total", 0),
+            "fuzz_passed": g3.get("passed", 0),
+            "fuzz_total": g3.get("total", 0),
+        },
+    })
     tel_path.write_text(json.dumps(tel, indent=2))
 
 

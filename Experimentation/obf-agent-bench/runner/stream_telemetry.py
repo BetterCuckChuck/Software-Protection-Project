@@ -49,6 +49,35 @@ def mcp_tool_name(step: dict, mcp_server: str) -> Optional[str]:
     return None
 
 
+def _is_tool_error(step: dict) -> bool:
+    """Return True when a tool step ended in error or carries a structured tool_info error."""
+    if step.get("state") == "ERROR":
+        return True
+    tinfo = step.get("tool_info") or {}
+    if tinfo.get("error"):
+        return True
+    raw = tinfo.get("output")
+    if isinstance(raw, str) and raw.lstrip().startswith("{"):
+        try:
+            parsed = json.loads(raw)
+            if isinstance(parsed, dict) and isinstance(parsed.get("error"), dict):
+                return True
+        except json.JSONDecodeError:
+            pass
+    return False
+
+
+def _tool_payload_text(step: dict) -> str:
+    """Extract serialized output or error text from a tool step_update."""
+    tinfo = step.get("tool_info") or {}
+    if tinfo.get("output") is not None:
+        return str(tinfo.get("output"))
+    if tinfo.get("error") is not None:
+        err = tinfo.get("error")
+        return json.dumps(err) if isinstance(err, dict) else str(err)
+    return ""
+
+
 def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
     turns: dict[int, dict] = {}
     tools: dict[int, dict] = {}
@@ -69,9 +98,10 @@ def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
         elif ev.get("event") == "step_update":
             su = ev["step_update"]
             idx = su.get("step_index")
-            if su.get("state") != "DONE":
+            state = su.get("state")
+            if state not in ("DONE", "ERROR"):
                 continue
-            if su.get("step_type") == "agent_response" and "usage" in su:
+            if su.get("step_type") == "agent_response" and state == "DONE" and "usage" in su:
                 turns[idx] = su
             elif su.get("step_type") == "tool":
                 tools[idx] = su
@@ -94,36 +124,74 @@ def parse_stream(lines: Iterable[str], mcp_server: str) -> dict:
         peak = max(peak, ctx)
         t_in += turns[idx].get("duration_seconds", 0.0)
 
-    per_tool: Counter = Counter()
-    mcp_bytes = other_bytes = 0
+    mcp_ok: Counter = Counter()
+    mcp_err: Counter = Counter()
+    other_ok: Counter = Counter()
+    other_err: Counter = Counter()
+    mcp_bytes = mcp_err_bytes = other_bytes = other_err_bytes = 0
     t_mcp = t_other = 0.0
-    n_other = 0
     for idx in sorted(tools):
         su = tools[idx]
-        payload = len(str(su.get("tool_info", {}).get("output", "")).encode("utf-8", "replace"))
+        payload = len(_tool_payload_text(su).encode("utf-8", "replace"))
+        is_err = _is_tool_error(su)
+        dur = su.get("duration_seconds", 0.0) or 0.0
         short = mcp_tool_name(su, mcp_server)
         if short is not None:
-            per_tool[short] += 1
+            if is_err:
+                mcp_err[short] += 1
+                mcp_err_bytes += payload
+            else:
+                mcp_ok[short] += 1
             mcp_bytes += payload
-            t_mcp += su.get("duration_seconds", 0.0)
+            t_mcp += dur
         else:
-            n_other += 1
+            raw_name = str(su.get("tool_name") or (su.get("tool_info") or {}).get("name") or "tool")
+            if is_err:
+                other_err[raw_name] += 1
+                other_err_bytes += payload
+            else:
+                other_ok[raw_name] += 1
             other_bytes += payload
-            t_other += su.get("duration_seconds", 0.0)
+            t_other += dur
+
+    mcp_total_by_tool = mcp_ok + mcp_err
+    n_mcp_ok = int(sum(mcp_ok.values()))
+    n_mcp_err = int(sum(mcp_err.values()))
+    n_mcp = n_mcp_ok + n_mcp_err
+
+    other_total_by_name = other_ok + other_err
+    n_other_ok = int(sum(other_ok.values()))
+    n_other_err = int(sum(other_err.values()))
+    n_other = n_other_ok + n_other_err
 
     res_usage = result_event.get("usage", {})
     wall = result_event.get("duration_seconds")
+    total_input = int(totals["input_uncached"] + totals["input_cached"])
+    total_tokens = int(total_input + totals["reasoning"] + totals["output"])
     return {
         "conversation_id": conversation_id,
         "tokens": {**{k: int(totals[k]) for k in ("input_uncached", "input_cached", "reasoning", "output")},
-                   "peak_context": int(peak)},
+                   "peak_context": int(peak),
+                   "total_input": total_input,
+                   "total": total_tokens},
         "turns": len(per_turn),
         "per_turn": per_turn,
-        "mcp_calls": int(sum(per_tool.values())),
-        "mcp_calls_by_tool": dict(per_tool),
+        "mcp_calls": n_mcp,
+        "mcp_calls_succeeded": n_mcp_ok,
+        "mcp_calls_errored": n_mcp_err,
+        "mcp_error_rate": round(n_mcp_err / n_mcp, 4) if n_mcp else 0.0,
+        "mcp_calls_by_tool": dict(mcp_total_by_tool),
+        "mcp_calls_succeeded_by_tool": dict(mcp_ok),
+        "mcp_calls_errored_by_tool": dict(mcp_err),
         "other_tool_calls": n_other,
+        "other_tool_calls_succeeded": n_other_ok,
+        "other_tool_calls_errored": n_other_err,
+        "other_tool_calls_by_name": dict(other_total_by_name),
+        "other_tool_calls_errored_by_name": dict(other_err),
         "mcp_payload_bytes": mcp_bytes,
+        "mcp_error_payload_bytes": mcp_err_bytes,
         "other_tool_payload_bytes": other_bytes,
+        "other_tool_error_payload_bytes": other_err_bytes,
         "latency": {"wall_time_sec": wall, "llm_time_sec": round(t_in, 3), "mcp_time_sec": round(t_mcp, 3),
                     "other_tool_time_sec": round(t_other, 3)},
         "agent_status": result_event.get("status"),

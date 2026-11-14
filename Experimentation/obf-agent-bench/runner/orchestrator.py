@@ -34,7 +34,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ROOT, build_path, load_config, load_manifest, resolve, result_path  # noqa: E402
+from common import (ROOT, build_path, compute_token_cost, load_binary_stats, load_config, load_manifest,  # noqa: E402
+                    resolve, result_path, summarize_hook_audit)
 from conversation_log import render_conversation_log, snapshot_transcript  # noqa: E402
 from stream_telemetry import mcp_tool_name, parse_stream  # noqa: E402
 
@@ -136,7 +137,7 @@ class LimitWatcher:
                 self.kill("max_context_tokens")
             elif max_turns is not None and self.turns > max_turns:
                 self.kill("max_turns")
-        elif su.get("step_type") == "tool" and su.get("state") == "ACTIVE" and idx not in self.seen_tools:
+        elif su.get("step_type") == "tool" and su.get("state") in ("ACTIVE", "ERROR") and idx not in self.seen_tools:
             self.seen_tools.add(idx)
             if mcp_tool_name(su, self.mcp_server):
                 self.mcp_calls += 1
@@ -180,17 +181,123 @@ def run_agent(cfg: dict, jail: Path, run_dir: Path, extra_env: dict) -> tuple[st
     return reason, time.time() - start
 
 
-def telemetry_from_metrics(scenario: str, sample_id: str, metrics: dict, reason: str, wall: float) -> dict:
+def telemetry_from_metrics(cfg: dict, scenario: str, sample_id: str, metrics: dict,
+                           reason: str, wall: float) -> dict:
+    """Build the standardized per-run telemetry contract combining token, dollar cost, MCP, latency, and complexity stats."""
     wall_t = metrics["latency"].get("wall_time_sec") or wall
+    tok = dict(metrics["tokens"])
+    total_in = tok.get("total_input", tok.get("input_uncached", 0) + tok.get("input_cached", 0))
+    total_tok = tok.get("total", total_in + tok.get("reasoning", 0) + tok.get("output", 0))
+    tok["total_input"] = total_in
+    tok["total"] = total_tok
+    pricing = cfg["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
+    cost_usd = compute_token_cost(tok, pricing)
     return {
-        "scenario": scenario, "sample_id": sample_id,
-        "io_passed": None, "io_tests_passed": None, "io_tests_total": None,   # filled by io_harness
-        "tokens": metrics["tokens"],
+        "scenario": scenario,
+        "sample_id": sample_id,
+        "io_passed": None,
+        "io_tests_passed": None,
+        "io_tests_total": None,   # filled by io_harness
+        "io_accuracy": None,
+        "io_breakdown": None,
+        "tokens": tok,
+        "token_ratios": {
+            "cache_hit_ratio": round(tok.get("input_cached", 0) / total_in, 4) if total_in else 0.0,
+            "reasoning_token_ratio": round(tok.get("reasoning", 0) / total_tok, 6) if total_tok else 0.0,
+            "reasoning_share_of_generated": round(
+                tok.get("reasoning", 0) / (tok.get("reasoning", 0) + tok.get("output", 0)), 4
+            ) if (tok.get("reasoning", 0) + tok.get("output", 0)) else 0.0,
+        },
+        "cost_usd": cost_usd,
         "mcp_calls": metrics["mcp_calls"],
+        "mcp_calls_succeeded": metrics.get("mcp_calls_succeeded", metrics["mcp_calls"]),
+        "mcp_calls_errored": metrics.get("mcp_calls_errored", 0),
+        "mcp_error_rate": metrics.get("mcp_error_rate", 0.0),
+        "mcp_calls_by_tool": metrics.get("mcp_calls_by_tool", {}),
+        "mcp_calls_errored_by_tool": metrics.get("mcp_calls_errored_by_tool", {}),
+        "mcp_payload_bytes": metrics.get("mcp_payload_bytes", 0),
+        "mcp_error_payload_bytes": metrics.get("mcp_error_payload_bytes", 0),
+        "other_tool_calls": metrics.get("other_tool_calls", 0),
+        "other_tool_calls_succeeded": metrics.get("other_tool_calls_succeeded", 0),
+        "other_tool_calls_errored": metrics.get("other_tool_calls_errored", 0),
         "turns": metrics["turns"],
         "wall_time_sec": round(wall_t, 2),
+        "latency": metrics.get("latency", {}),
+        "hook_audit": metrics.get("hook_audit"),
+        "binary_stats": metrics.get("binary_stats"),
         "terminated_reason": reason,
     }
+
+
+def collect_run_telemetry(cfg: dict, scenario: str, sample_id: str, run_dir: Path,
+                          reason: str, wall: float) -> tuple[dict, dict]:
+    """Parse stream logs, enrich with hook/binary stats & dollar cost, and persist run_metrics + telemetry JSON."""
+    rt = cfg["agent_runtime"]
+    with (run_dir / "session_stream.jsonl").open(encoding="utf-8") as f:
+        metrics = parse_stream(f, rt["mcp_server"])
+    transcript_copy = snapshot_transcript(run_dir, conv_id=metrics.get("conversation_id"))
+    hook_summary = summarize_hook_audit(run_dir / "hook_audit.jsonl")
+    bin_stats = load_binary_stats(cfg, scenario, sample_id)
+    pricing = cfg["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
+    cost_usd = compute_token_cost(metrics["tokens"], pricing)
+    metrics.update({
+        "scenario": scenario,
+        "sample_id": sample_id,
+        "terminated_reason": reason,
+        "deliverable_written": (run_dir / rt["deliverable_file"]).exists(),
+        "transcript_archived": transcript_copy is not None,
+        "model": rt["model"],
+        "limits": rt["limits"],
+        "cost_usd": cost_usd,
+        "hook_audit": hook_summary,
+        "binary_stats": bin_stats,
+    })
+    (run_dir / "run_metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    tel = telemetry_from_metrics(cfg, scenario, sample_id, metrics, reason, wall)
+    (run_dir / "telemetry.json").write_text(json.dumps(tel, indent=2), encoding="utf-8")
+    return metrics, tel
+
+
+def _print_run_summary(scenario: str, sid: str, reason: str, metrics: dict, tel: dict, res: dict | None) -> None:
+    mcp_ok = metrics.get("mcp_calls_succeeded", metrics["mcp_calls"])
+    mcp_err = metrics.get("mcp_calls_errored", 0)
+    cost = tel["cost_usd"]["total"]
+    tok = tel["tokens"]["total"]
+    io_str = (
+        f"Pass_IO={int(res['io_passed'])} ({res['io_tests_passed']}/{res['io_tests_total']}, "
+        f"curated={res['gate2']['passed']}/{res['gate2']['total']}, fuzz={res['gate3']['passed']}/{res['gate3']['total']})"
+        if res else "Pass_IO=ungraded"
+    )
+    print(f"[done] {scenario}/{sid}: reason={reason} {io_str} "
+          f"cost=${cost:.4f} tokens={tok:,} mcp={metrics['mcp_calls']}(ok={mcp_ok},err={mcp_err}) "
+          f"turns={metrics['turns']} wall={tel['wall_time_sec']}s")
+
+
+def reprocess_one(cfg: dict, scenario: str, sample: dict, args: argparse.Namespace) -> dict | None:
+    """Re-parse archived session_stream.jsonl + re-grade/refresh telemetry & conversation_log without re-running agy."""
+    sid = sample["sample_id"]
+    run_dir = result_path(cfg, scenario, sid)
+    if not (run_dir / "session_stream.jsonl").exists():
+        return None
+    prev_metrics = json.loads((run_dir / "run_metrics.json").read_text()) if (run_dir / "run_metrics.json").exists() else {}
+    prev_tel = json.loads((run_dir / "telemetry.json").read_text()) if (run_dir / "telemetry.json").exists() else {}
+    reason = prev_metrics.get("terminated_reason") or prev_tel.get("terminated_reason") or "completed"
+    wall = float(prev_tel.get("wall_time_sec") or (prev_metrics.get("latency") or {}).get("wall_time_sec") or 0.0)
+    metrics, tel = collect_run_telemetry(cfg, scenario, sid, run_dir, reason, wall)
+    res = None
+    io_path = run_dir / "io_result.json"
+    if not args.no_grade and (run_dir / cfg["agent_runtime"]["deliverable_file"]).exists():
+        from evaluator.io_harness import evaluate_run
+        res = evaluate_run(cfg, scenario, sid)
+    elif io_path.exists():
+        from evaluator.io_harness import update_telemetry
+        res = json.loads(io_path.read_text(encoding="utf-8"))
+        update_telemetry(run_dir, scenario, sid, res)
+    if (run_dir / "telemetry.json").exists():
+        tel = json.loads((run_dir / "telemetry.json").read_text(encoding="utf-8"))
+    render_conversation_log(run_dir)
+    _print_run_summary(scenario, sid, reason, metrics, tel, res)
+    return tel
 
 
 def run_one(cfg: dict, scenario: str, sample: dict, args: argparse.Namespace) -> dict | None:
@@ -225,26 +332,18 @@ def run_one(cfg: dict, scenario: str, sample: dict, args: argparse.Namespace) ->
         reason, wall = run_agent(cfg, jail, run_dir, extra_env)
         if (jail / rt["deliverable_file"]).exists():
             shutil.copy(jail / rt["deliverable_file"], run_dir / rt["deliverable_file"])
-        with (run_dir / "session_stream.jsonl").open(encoding="utf-8") as f:
-            metrics = parse_stream(f, rt["mcp_server"])
-        transcript_copy = snapshot_transcript(run_dir, conv_id=metrics.get("conversation_id"))
-        metrics.update({"scenario": scenario, "sample_id": sid, "terminated_reason": reason,
-                        "deliverable_written": (run_dir / rt["deliverable_file"]).exists(),
-                        "transcript_archived": transcript_copy is not None,
-                        "model": rt["model"], "limits": rt["limits"]})
-        (run_dir / "run_metrics.json").write_text(json.dumps(metrics, indent=2))
-        tel = telemetry_from_metrics(scenario, sid, metrics, reason, wall)
-        (run_dir / "telemetry.json").write_text(json.dumps(tel, indent=2))
+        metrics, tel = collect_run_telemetry(cfg, scenario, sid, run_dir, reason, wall)
     finally:
         if not args.keep_jail:
             shutil.rmtree(jail, ignore_errors=True)
 
+    res = None
     if not args.no_grade:
         from evaluator.io_harness import evaluate_run
         res = evaluate_run(cfg, scenario, sid)
-        print(f"[done] {scenario}/{sid}: reason={reason} Pass_IO={int(res['io_passed'])} "
-              f"({res['io_tests_passed']}/{res['io_tests_total']}) mcp={metrics['mcp_calls']} turns={metrics['turns']}")
+        tel = json.loads((run_dir / "telemetry.json").read_text(encoding="utf-8"))
     render_conversation_log(run_dir)
+    _print_run_summary(scenario, sid, reason, metrics, tel, res)
     return tel
 
 
@@ -254,6 +353,8 @@ def main() -> None:
     ap.add_argument("--scenarios", nargs="*")
     ap.add_argument("--samples", nargs="*")
     ap.add_argument("--resume", action="store_true", help="skip runs that already have run_metrics.json")
+    ap.add_argument("--reprocess", action="store_true",
+                    help="re-parse archived stream logs & refresh telemetry/conversation logs without running agy")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-grade", action="store_true", help="do not run the I/O harness after each run")
     ap.add_argument("--no-mcp", action="store_true", help="skip the MCP registration check (for dry/mock testing)")
@@ -281,7 +382,7 @@ def main() -> None:
         limits["max_mcp_calls"] = _active_limit(args.max_mcp_calls)
     if args.timeout is not None:
         limits["timeout_seconds"] = _active_limit(args.timeout)
-    if not args.dry_run:
+    if not args.dry_run and not args.reprocess:
         problems = preflight(cfg, need_mcp=not args.no_mcp)
         if problems:
             sys.exit("Preflight failed:\n  - " + "\n  - ".join(problems))
@@ -289,7 +390,10 @@ def main() -> None:
     scenarios = args.scenarios or list(cfg["scenarios"])
     for sample in samples:                     # sample-major: all scenarios of a sample run back to back
         for scenario in scenarios:
-            run_one(cfg, scenario, sample, args)
+            if args.reprocess:
+                reprocess_one(cfg, scenario, sample, args)
+            else:
+                run_one(cfg, scenario, sample, args)
 
 
 if __name__ == "__main__":

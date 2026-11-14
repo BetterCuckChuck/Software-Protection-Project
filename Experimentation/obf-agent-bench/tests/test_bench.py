@@ -69,6 +69,69 @@ class StreamTests(unittest.TestCase):
         self.assertIsNone(mcp_tool_name({"tool_name": "call_mcp_tool",
                                          "tool_info": {"parameters": {"ServerName": "other", "ToolName": "list_procedures"}}}, "rea"))
 
+    def test_errored_mcp_and_local_tools_accounted(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from runner.stream_telemetry import parse_stream
+
+        events = [
+            {
+                "event": "step_update",
+                "step_update": {
+                    "step_index": 1,
+                    "step_type": "tool",
+                    "state": "DONE",
+                    "tool_name": "call_mcp_tool",
+                    "tool_info": {
+                        "parameters": {"ServerName": "rea", "ToolName": "open_binary"},
+                        "output": '{"status":"ok"}',
+                    },
+                    "duration_seconds": 1.2,
+                },
+            },
+            {
+                "event": "step_update",
+                "step_update": {
+                    "step_index": 2,
+                    "step_type": "tool",
+                    "state": "ERROR",
+                    "tool_name": "call_mcp_tool",
+                    "tool_info": {
+                        "parameters": {"ServerName": "rea", "ToolName": "search_strings"},
+                        "output": '{"error":"bad pattern"}',
+                    },
+                    "duration_seconds": 0.4,
+                },
+            },
+            {
+                "event": "step_update",
+                "step_update": {
+                    "step_index": 3,
+                    "step_type": "tool",
+                    "state": "ERROR",
+                    "tool_name": "run_command",
+                    "tool_info": {
+                        "parameters": {"CommandLine": "strings chal"},
+                        "error": "hook_guard denied command",
+                    },
+                    "duration_seconds": 0.1,
+                },
+            },
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "stream.jsonl"
+            p.write_text("\n".join(json.dumps(e) for e in events) + "\n", encoding="utf-8")
+            with p.open(encoding="utf-8") as fh:
+                metrics = parse_stream(fh, "rea")
+        self.assertEqual(metrics["mcp_calls"], 2)
+        self.assertEqual(metrics["mcp_calls_succeeded"], 1)
+        self.assertEqual(metrics["mcp_calls_errored"], 1)
+        self.assertEqual(metrics["mcp_calls_errored_by_tool"].get("search_strings"), 1)
+        self.assertGreater(metrics["mcp_error_payload_bytes"], 0)
+        self.assertAlmostEqual(metrics["mcp_error_rate"], 0.5)
+        self.assertEqual(metrics["other_tool_calls_errored"], 1)
+
 
 class IOHarnessTests(unittest.TestCase):
     @classmethod
@@ -147,6 +210,74 @@ class CostEvaluatorTests(unittest.TestCase):
         self.assertAlmostEqual(s1m["ecsr_tokens"], 2 * 6000 / 1)
         self.assertEqual(summary["scenarios"]["S0_Baseline"]["ecsr_usd"], 2 * (1000 * 0.15 + 1000 * 0.6) / 1e6 / 2)
         self.assertIn("S1_Flatten", cost_evaluator.markdown_table(summary))
+
+    def test_dollar_view_html_and_enriched_metrics(self):
+        import json
+        import tempfile
+        from pathlib import Path
+        from common import load_config
+
+        cfg = load_config()
+        with tempfile.TemporaryDirectory() as tmp:
+            res_dir = Path(tmp)
+            s0 = res_dir / "S0_Baseline" / "sample_a"
+            s1 = res_dir / "S1_Flatten" / "sample_a"
+            s0.mkdir(parents=True)
+            s1.mkdir(parents=True)
+            (s0 / "telemetry.json").write_text(json.dumps({
+                "scenario": "S0_Baseline",
+                "sample_id": "sample_a",
+                "io_passed": True,
+                "io_tests_passed": 65,
+                "io_tests_total": 65,
+                "mcp_calls": 5,
+                "mcp_calls_succeeded": 5,
+                "mcp_calls_errored": 0,
+                "tokens": {"input_uncached": 10000, "input_cached": 20000, "output": 1000, "reasoning": 2000, "total": 33000},
+                "cost_usd": {
+                    "input_uncached": 10000 * 0.15 / 1e6,
+                    "input_cached": 20000 * 0.0375 / 1e6,
+                    "output_and_reasoning": 3000 * 0.60 / 1e6,
+                    "total": (10000 * 0.15 + 20000 * 0.0375 + 3000 * 0.60) / 1e6,
+                },
+            }), encoding="utf-8")
+            (s1 / "telemetry.json").write_text(json.dumps({
+                "scenario": "S1_Flatten",
+                "sample_id": "sample_a",
+                "io_passed": False,
+                "io_tests_passed": 30,
+                "io_tests_total": 65,
+                "mcp_calls": 10,
+                "mcp_calls_succeeded": 8,
+                "mcp_calls_errored": 2,
+                "tokens": {"input_uncached": 20000, "input_cached": 40000, "output": 2000, "reasoning": 4000, "total": 66000},
+            }), encoding="utf-8")
+
+            pricing = cfg["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
+            runs = cost_evaluator.load_runs(res_dir, pricing, cfg)
+            summary = cost_evaluator.aggregate(runs, cfg)
+            s0m = summary["scenarios"]["S0_Baseline"]
+            s1m = summary["scenarios"]["S1_Flatten"]
+            self.assertAlmostEqual(s0m["avg_cost_input_uncached_usd"], 10000 * 0.15 / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_input_cached_usd"], 20000 * 0.0375 / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_reasoning_usd"], 2000 * 0.60 / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_output_usd"], 1000 * 0.60 / 1e6)
+            self.assertAlmostEqual(s0m["avg_run_cost_usd"], (10000 * 0.15 + 20000 * 0.0375 + 3000 * 0.60) / 1e6)
+            self.assertAlmostEqual(s1m["avg_run_cost_usd"], 2 * s0m["avg_run_cost_usd"])
+            self.assertAlmostEqual(s1m["ocm_cost_usd"], 2.0)
+            self.assertIsNone(s1m["ecsr_usd"])
+            self.assertAlmostEqual(s1m["mcp_calls_errored_mean"], 2.0)
+
+            out_html = res_dir / "simulator.html"
+            out_html.write_text(
+                cost_evaluator.HTML_TEMPLATE.replace("__DATA_JSON__", json.dumps(summary)),
+                encoding="utf-8",
+            )
+            html = out_html.read_text(encoding="utf-8")
+            self.assertNotIn("https://cdn.jsdelivr", html)
+            self.assertIn("Dollar Cost ($ USD)", html)
+            self.assertIn("Accuracy &amp; Tests (%)", html)
+            self.assertIn("Why Cost Grows", html)
 
 
 class HookGuardTests(unittest.TestCase):

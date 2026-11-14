@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Optional
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from common import ROOT, load_config  # noqa: E402
+from common import ROOT, compute_token_cost, load_binary_stats, load_config, summarize_hook_audit  # noqa: E402
 
 
 def _read_jsonl(path: Path) -> list[dict]:
@@ -201,19 +201,74 @@ def render_conversation_log(run_dir: Path, out_md: Optional[Path] = None,
         md.append(f"- **Jail CWD**: `{init_info['cwd']}`")
     if metrics:
         tok = metrics.get("tokens", {})
+        total_in = tok.get("total_input", tok.get("input_uncached", 0) + tok.get("input_cached", 0))
+        total_tok = tok.get("total", total_in + tok.get("reasoning", 0) + tok.get("output", 0))
+        mcp_ok = metrics.get("mcp_calls_succeeded", metrics.get("mcp_calls", 0))
+        mcp_err = metrics.get("mcp_calls_errored", 0)
+        mcp_total = metrics.get("mcp_calls", mcp_ok + mcp_err)
+        other_err = metrics.get("other_tool_calls_errored", 0)
+        other_total = metrics.get("other_tool_calls", 0)
+        lat = metrics.get("latency", {})
         md.append(
             f"- **Run Stats**: status=`{metrics.get('terminated_reason')}`, turns=`{metrics.get('turns')}`, "
-            f"mcp_calls=`{metrics.get('mcp_calls')}`, wall=`{metrics.get('latency', {}).get('wall_time_sec')}s`"
+            f"mcp_calls=`{mcp_total}` (`ok={mcp_ok}`, `err={mcp_err}`), "
+            f"other_tools=`{other_total}` (`err={other_err}`), "
+            f"mcp_payload=`{metrics.get('mcp_payload_bytes', 0):,}B`, "
+            f"wall=`{lat.get('wall_time_sec')}s` (llm=`{lat.get('llm_time_sec')}s`, mcp=`{lat.get('mcp_time_sec')}s`)"
         )
+        if metrics.get("mcp_calls_errored_by_tool"):
+            md.append(f"- **Errored MCP Tools**: `{json.dumps(metrics['mcp_calls_errored_by_tool'])}`")
+        cache_rate = (tok.get("input_cached", 0) / total_in * 100.0) if total_in else 0.0
+        gen_tok = tok.get("reasoning", 0) + tok.get("output", 0)
+        think_share = (tok.get("reasoning", 0) / gen_tok * 100.0) if gen_tok else 0.0
         md.append(
-            f"- **Tokens**: in_uncached=`{tok.get('input_uncached', 0)}`, in_cached=`{tok.get('input_cached', 0)}`, "
-            f"reasoning=`{tok.get('reasoning', 0)}`, output=`{tok.get('output', 0)}`, "
-            f"peak_ctx=`{tok.get('peak_context', 0)}`"
+            f"- **Tokens**: total=`{total_tok:,}` (in_uncached=`{tok.get('input_uncached', 0):,}`, "
+            f"in_cached=`{tok.get('input_cached', 0):,}` [{cache_rate:.1f}% hit], "
+            f"reasoning=`{tok.get('reasoning', 0):,}` [{think_share:.1f}% of generated], "
+            f"output=`{tok.get('output', 0):,}`, peak_ctx=`{tok.get('peak_context', 0):,}`)"
         )
+        cost_usd = metrics.get("cost_usd")
+        if not cost_usd and (ROOT / "configs" / "experiment.yaml").exists():
+            try:
+                cfg_pricing = load_config()["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
+                cost_usd = compute_token_cost(tok, cfg_pricing)
+            except Exception:  # noqa: BLE001
+                cost_usd = None
+        if cost_usd:
+            md.append(
+                f"- **Dollar Cost (USD)**: total=`${cost_usd['total']:.4f}` "
+                f"(in_uncached=`${cost_usd['input_uncached']:.4f}`, in_cached=`${cost_usd['input_cached']:.4f}`, "
+                f"reasoning=`${cost_usd['reasoning']:.4f}`, output=`${cost_usd['output']:.4f}`)"
+            )
     if io_res:
+        g1 = io_res.get("gate1", {})
+        g2 = io_res.get("gate2", {})
+        g3 = io_res.get("gate3", {})
         md.append(
-            f"- **I/O Verdict**: `Pass_IO={int(bool(io_res.get('io_passed')))}` "
-            f"({io_res.get('io_tests_passed', 0)}/{io_res.get('io_tests_total', 0)})"
+            f"- **I/O Equivalence**: `Pass_IO={int(bool(io_res.get('io_passed')))}` "
+            f"({io_res.get('io_tests_passed', 0)}/{io_res.get('io_tests_total', 0)}, "
+            f"compile_ok=`{g1.get('compile_ok')}`, curated=`{g2.get('passed', 0)}/{g2.get('total', 0)}`, "
+            f"fuzz=`{g3.get('passed', 0)}/{g3.get('total', 0)}`)"
+        )
+    bstats = metrics.get("binary_stats")
+    if not bstats and (ROOT / "configs" / "experiment.yaml").exists():
+        try:
+            bstats = load_binary_stats(load_config(), scenario, sample)
+        except Exception:  # noqa: BLE001
+            bstats = None
+    if bstats:
+        md.append(
+            f"- **Binary Obfuscation Complexity**: `.text={bstats.get('text_bytes')}B`, "
+            f"instructions=`{bstats.get('instructions')}`, cond_branches=`{bstats.get('conditional_jumps')}`, "
+            f"indirect_jumps=`{bstats.get('indirect_jumps')}`, "
+            f"cyclomatic_est=`{bstats.get('cyclomatic_complexity_est')}`"
+        )
+    hook_summary = metrics.get("hook_audit") or summarize_hook_audit(run_dir / "hook_audit.jsonl")
+    if hook_summary:
+        md.append(
+            f"- **Runtime & Hook Summary**: allow=`{hook_summary['allow']}`, deny=`{hook_summary['deny']}`, "
+            f"chal_exec_calls=`{hook_summary['chal_exec_calls']}` "
+            f"(pre_write=`{hook_summary['chal_exec_pre_write']}`)"
         )
     md.append(
         f"- **Full Transcript Archived**: `{'yes (transcript_full.jsonl)' if t_path.exists() else 'no (stream-only)'}`\n"
@@ -273,7 +328,9 @@ def render_conversation_log(run_dir: Path, out_md: Optional[Path] = None,
             disp_name, short_name = _tool_display_name(tname, params)
             md.append(f"### [Step {idx}] Tool {disp_name} [{state}{dur_str}]{ts_suffix}\n")
             md.extend(_format_tool_params(tname, params))
-            raw_out = tr.get("content") or tinfo.get("output") or ""
+            err_obj = tinfo.get("error")
+            err_txt = json.dumps(err_obj, ensure_ascii=False) if isinstance(err_obj, dict) else err_obj
+            raw_out = tr.get("content") or tinfo.get("output") or err_txt or ""
             if raw_out:
                 md.extend(_format_tool_output(str(raw_out), short_name, max_output_chars))
             md.append("")
