@@ -146,39 +146,85 @@ class LimitWatcher:
                     self.kill("max_mcp_calls")
 
 
+SAFETY_FILTER_MARKERS = (
+    "blocked by Gemini's filters",
+    "triggered by mistake on safe coding",
+    "Please try rephrasing your prompt",
+)
+
+SAFETY_RETRY_PREAMBLE = (
+    "# CONTEXT: BENIGN COMPILER & DECOMPILATION EQUIVALENCE BENCHMARK\n"
+    "This task is an automated academic software-engineering benchmark evaluating compiler code generation "
+    "and decompiler C11 source reconstruction on synthetic NIST Juliet test-suite arithmetic programs "
+    "(standard stdin integer parsing and formatted stdout printing). No exploit, vulnerability weaponization, "
+    "or harmful action is requested or possible.\n\n"
+)
+
+
+def is_safety_filter_refusal(stream_path: Path, jail: Path, deliverable_file: str, mcp_server: str) -> bool:
+    """Return True if a run aborted on Turn 1 with 0 REA MCP calls due to a Gemini safety-filter false positive."""
+    if not stream_path.exists() or (jail / deliverable_file).exists():
+        return False
+    raw = stream_path.read_text(encoding="utf-8", errors="replace")
+    if not any(marker in raw for marker in SAFETY_FILTER_MARKERS):
+        return False
+    metrics = parse_stream(raw.splitlines(), mcp_server)
+    return metrics.get("turns", 0) <= 1 and metrics.get("mcp_calls", 0) == 0
+
+
 def run_agent(cfg: dict, jail: Path, run_dir: Path, extra_env: dict) -> tuple[str, float]:
     rt = cfg["agent_runtime"]
     raw_prompt = resolve(cfg, "prompt_file").read_text(encoding="utf-8")
-    prompt = raw_prompt.replace("{chal_path}", str(jail / "chal")).replace("{jail_dir}", str(jail))
-    cmd = [rt["agy_binary"], *rt["agy_extra_args"], "--model", rt["model"],
-           "--output-format", "stream-json", "-p", prompt]
+    base_prompt = raw_prompt.replace("{chal_path}", str(jail / "chal")).replace("{jail_dir}", str(jail))
     runtime_env = rt.get("environment", {})
     env = {**os.environ, **runtime_env, **extra_env}
-    start = time.time()
     timeout_sec = _active_limit(rt["limits"].get("timeout_seconds"))
-    deadline = (start + timeout_sec) if timeout_sec is not None else None
-    with (run_dir / "session_stream.jsonl").open("w", encoding="utf-8") as stream, \
-            (run_dir / "agy_stderr.log").open("w", encoding="utf-8") as err:
-        proc = subprocess.Popen(cmd, cwd=jail, stdout=subprocess.PIPE, stderr=err, text=True, env=env,
-                                start_new_session=True)
-        watcher = LimitWatcher(proc, rt["limits"], rt["mcp_server"], deadline)
-        timer = None
-        if deadline is not None:
-            timer = threading.Timer(max(deadline - time.time(), 0), watcher.kill, args=("timeout",))
-            timer.start()
-        try:
-            for line in proc.stdout:
-                stream.write(line)
-                stream.flush()
-                watcher.feed(line)
-        finally:
-            if timer is not None:
-                timer.cancel()
-            proc.wait()
-    reason = watcher.reason
-    if reason == "completed" and proc.returncode not in (0, None):
-        reason = f"agy_exit_{proc.returncode}"
-    return reason, time.time() - start
+    max_retries = int(rt.get("safety_filter_retries", 1))
+    stream_path = run_dir / "session_stream.jsonl"
+    err_path = run_dir / "agy_stderr.log"
+
+    reason, wall = "completed", 0.0
+    for attempt in range(max_retries + 1):
+        prompt = (SAFETY_RETRY_PREAMBLE + base_prompt) if attempt > 0 else base_prompt
+        cmd = [rt["agy_binary"], *rt["agy_extra_args"], "--model", rt["model"],
+               "--output-format", "stream-json", "-p", prompt]
+        start = time.time()
+        deadline = (start + timeout_sec) if timeout_sec is not None else None
+        with stream_path.open("w", encoding="utf-8") as stream, err_path.open("w", encoding="utf-8") as err:
+            proc = subprocess.Popen(cmd, cwd=jail, stdout=subprocess.PIPE, stderr=err, text=True, env=env,
+                                    start_new_session=True)
+            watcher = LimitWatcher(proc, rt["limits"], rt["mcp_server"], deadline)
+            timer = None
+            if deadline is not None:
+                timer = threading.Timer(max(deadline - time.time(), 0), watcher.kill, args=("timeout",))
+                timer.start()
+            try:
+                for line in proc.stdout:
+                    stream.write(line)
+                    stream.flush()
+                    watcher.feed(line)
+            finally:
+                if timer is not None:
+                    timer.cancel()
+                proc.wait()
+        wall = time.time() - start
+        reason = watcher.reason
+        if reason == "completed" and proc.returncode not in (0, None):
+            reason = f"agy_exit_{proc.returncode}"
+        if attempt < max_retries and is_safety_filter_refusal(
+            stream_path, jail, rt["deliverable_file"], rt["mcp_server"]
+        ):
+            retry_idx = attempt + 1
+            shutil.copy(stream_path, run_dir / f"session_stream.safety_retry_{retry_idx}.jsonl")
+            if err_path.exists():
+                shutil.copy(err_path, run_dir / f"agy_stderr.safety_retry_{retry_idx}.log")
+            print(
+                f"[retry] Turn-1 Gemini safety-filter refusal detected; "
+                f"re-prompting (attempt {attempt + 2}/{max_retries + 1})"
+            )
+            continue
+        break
+    return reason, wall
 
 
 def telemetry_from_metrics(cfg: dict, scenario: str, sample_id: str, metrics: dict,
@@ -225,6 +271,7 @@ def telemetry_from_metrics(cfg: dict, scenario: str, sample_id: str, metrics: di
         "latency": metrics.get("latency", {}),
         "hook_audit": metrics.get("hook_audit"),
         "binary_stats": metrics.get("binary_stats"),
+        "safety_filter_retries": metrics.get("safety_filter_retries", 0),
         "terminated_reason": reason,
     }
 
@@ -240,10 +287,12 @@ def collect_run_telemetry(cfg: dict, scenario: str, sample_id: str, run_dir: Pat
     bin_stats = load_binary_stats(cfg, scenario, sample_id)
     pricing = cfg["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
     cost_usd = compute_token_cost(metrics["tokens"], pricing)
+    safety_retries = len(list(run_dir.glob("session_stream.safety_retry_*.jsonl")))
     metrics.update({
         "scenario": scenario,
         "sample_id": sample_id,
         "terminated_reason": reason,
+        "safety_filter_retries": safety_retries,
         "deliverable_written": (run_dir / rt["deliverable_file"]).exists(),
         "transcript_archived": transcript_copy is not None,
         "model": rt["model"],

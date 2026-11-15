@@ -24,12 +24,19 @@ SAFE_READ_PREFIXES = (
 )
 SKIP_KEYS = {
     "CodeContent", "ReplacementContent", "Description", "Instruction", "Content", "TargetContent",
+    "Target", "Replacement", "Search", "Pattern",
     "toolAction", "toolSummary", "WaitMsBeforeAsync",
 }
 ENV_CMDS = re.compile(r"(^|[;&|\s])(env|printenv)(\s|$)|/proc/(self|\d+)/environ|\$\{?(HOME|USER|PATH|PWD)\b")
 NON_REA_BINARY_CMDS = re.compile(
     r"(^|[;&|\s`/])(objdump|readelf|strings|nm|gdb|r2|rizin|radare2|hexdump|xxd|od)(\s|$)"
 )
+FORBIDDEN_WEB_TOOLS = {
+    "search_web", "fetch_url", "read_url_content",
+    "open_browser_url", "read_browser_page", "browser_subagent",
+    "capture_browser_screenshot", "capture_browser_console_logs",
+    "click_browser_pixel", "execute_browser_javascript", "list_browser_pages",
+}
 
 REA_NATIVE_TOOLS = {
     "open_binary", "close_binary", "binary_session", "binary_overview",
@@ -80,13 +87,20 @@ def path_violation(token: str, jail: str) -> str | None:
         return f"parent traversal '{token}'"
     if token.startswith("/"):
         real = os.path.normpath(token)
-        if real == jail or real.startswith(jail + os.sep) or real.startswith(SAFE_READ_PREFIXES):
+        if (real == jail or real.startswith(jail + os.sep)
+                or real.startswith(SAFE_READ_PREFIXES)
+                or (real + os.sep).startswith(SAFE_READ_PREFIXES)):
             return None
         return f"absolute path outside jail '{token}'"
     return None
 
 
 def check(name: str, args: dict, jail: str, mcp_server: str) -> str | None:
+    # 0. Block external web search and browser/network tools to enforce offline benchmark isolation
+    if name in FORBIDDEN_WEB_TOOLS or name.startswith("browser_"):
+        return (f"web/network tool '{name}' is forbidden in benchmark isolation; "
+                f"reconstruct the binary strictly from local REA static analysis and './chal' execution")
+
     # 1. Direct or indirect REA tool call validation
     is_mcp_rea = (name == "call_mcp_tool" and args.get("ServerName") == mcp_server)
     is_native_rea = name.startswith(f"mcp_{mcp_server}_") or name in REA_NATIVE_TOOLS

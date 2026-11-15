@@ -318,6 +318,19 @@ class HookGuardTests(unittest.TestCase):
         self.assertEqual(self.run_hook(self.rea_mcp("open_binary", {"path": "/etc/shadow"})), "deny")
         self.assertEqual(self.run_hook(self.rea_mcp("list_procedures", {})), "allow")
         self.assertEqual(self.run_hook(self.rea_mcp("procedure_pseudo_code", {"procedure": "0x1010c0"})), "allow")
+        # External web search / browser tools blocked
+        for web_tool in ("search_web", "fetch_url", "read_url_content", "browser_subagent"):
+            self.assertEqual(self.run_hook({"tool_name": web_tool, "tool_info": {"parameters": {"query": "juliet"}}}), "deny")
+        # edit_file C comments (/* ... */) and division expressions allowed inside jail, outside Paths still blocked
+        self.assertEqual(self.run_hook({"tool_name": "edit_file", "tool_info": {"parameters": {
+            "Path": "/tmp/run_t/reconstructed.c",
+            "Target": "/* header comment */\nint x = a / b;",
+            "Replacement": "/* updated */\nint x = a / 2;",
+        }}}), "allow")
+        self.assertEqual(self.run_hook({"tool_name": "edit_file", "tool_info": {"parameters": {
+            "Path": "/etc/passwd", "Target": "x", "Replacement": "y",
+        }}}), "deny")
+        self.assertEqual(self.run_hook(self.cmd("ls /home/arch/.gemini/antigravity-cli/mcp/rea")), "allow")
 
 
 @unittest.skipUnless((ROOT / "build" / "S0_Baseline" / SAMPLE / "chal").exists(), "run builder first")
@@ -371,6 +384,27 @@ class PipelineSmokeTests(unittest.TestCase):
         m2 = json.loads((tmp / "results" / "S0_Baseline" / SAMPLE / "run_metrics.json").read_text())
         self.assertEqual(m2["terminated_reason"], "completed")
         self.assertIsNone(m2["limits"]["max_turns"])
+
+    def test_safety_filter_turn1_retry(self):
+        tmp = Path(tempfile.mkdtemp())
+        cfg_path = self._write_fake_cfg(tmp)
+        flag_path = tmp / "safety_tripped.flag"
+        env = {
+            **os.environ,
+            "FAKE_AGY_RECON": str(ROOT / "dataset" / "normalized_src" / f"{SAMPLE}.c"),
+            "FAKE_AGY_FAIL_FIRST_SAFETY": str(flag_path),
+        }
+        subprocess.run([sys.executable, str(ROOT / "runner" / "orchestrator.py"), "--config", str(cfg_path),
+                        "--scenarios", "S0_Baseline", "--samples", SAMPLE, "--no-mcp"],
+                       check=True, env=env, capture_output=True, text=True)
+        res_dir = tmp / "results" / "S0_Baseline" / SAMPLE
+        self.assertTrue((res_dir / "session_stream.safety_retry_1.jsonl").exists())
+        m = json.loads((res_dir / "run_metrics.json").read_text())
+        tel = json.loads((res_dir / "telemetry.json").read_text())
+        self.assertEqual(m["safety_filter_retries"], 1)
+        self.assertTrue(m["deliverable_written"])
+        self.assertEqual(tel["safety_filter_retries"], 1)
+        self.assertTrue(tel["io_passed"])
 
 
 class ConversationLogTests(unittest.TestCase):

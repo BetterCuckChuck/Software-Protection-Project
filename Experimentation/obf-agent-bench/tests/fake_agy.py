@@ -13,6 +13,22 @@ def emit(obj):
 
 cwd = os.getcwd()
 emit({"event": "init", "init": {"cwd": cwd}})
+safety_flag = os.environ.get("FAKE_AGY_FAIL_FIRST_SAFETY")
+if safety_flag and not os.path.exists(safety_flag):
+    with open(safety_flag, "w", encoding="utf-8") as fh:
+        fh.write("1")
+    msg = "This request was blocked by Gemini's filters. Please try rephrasing your prompt.\n"
+    usage_fail = {"input_tokens": 1000, "output_tokens": 50, "thinking_tokens": 50,
+                  "cache_read_tokens": 0, "total_tokens": 1050}
+    emit({"event": "step_update", "step_update": {
+        "step_index": 1, "state": "DONE", "step_type": "agent_response",
+        "text_delta": msg, "duration_seconds": 1.0, "usage": usage_fail,
+    }})
+    emit({"event": "result", "result": {
+        "status": "SUCCESS", "response": msg, "duration_seconds": 1.0,
+        "num_turns": 1, "usage": usage_fail,
+    }})
+    sys.exit(0)
 idx = 1
 usage = [(1000, 100, 60, 0), (400, 300, 250, 1400), (500, 120, 20, 2000)]
 rea_calls = [

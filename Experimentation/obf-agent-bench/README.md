@@ -2,6 +2,9 @@
 
 Benchmark pipeline implementing `week2_plan.md`: 20 NIST Juliet v1.3 C programs across 4 Tigress obfuscation scenarios (80 benchmark targets). Each run evaluates an autonomous reverse engineering agent built strictly upon the **REA (Reverse Engineer Anything)** framework against stripped x86-64 ELF binaries (`./chal`), reconstructing compilable, functionally equivalent C code (`./reconstructed.c`).
 
+- **Full Test Scenario Specification:** [docs/TEST_SCENARIO.md](docs/TEST_SCENARIO.md) (also mirrored at [../../docs/TEST_SCENARIO.md](../../docs/TEST_SCENARIO.md))
+- **80-Run Benchmark Report:** [REPORT.md](REPORT.md)
+
 Performance is measured along two primary axes:
 1. **Axis 1 – Behavioral I/O Equivalency:** 3-gate deterministic testing (static sanitization, 15 boundary cases, 50 differential-fuzz cases).
 2. **Axis 2 – Agentic Cost & Telemetry:** Exact LLM token breakdown (uncached input, prefix-cached input, thinking/reasoning, output), REA MCP call breakdown, Obfuscation Cost Multiplier ($OCM$), and Expected Cost per Successful Reconstruction ($ECSR$).
