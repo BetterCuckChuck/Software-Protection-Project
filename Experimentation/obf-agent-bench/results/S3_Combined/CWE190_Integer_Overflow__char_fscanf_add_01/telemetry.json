@@ -1,0 +1,95 @@
+{
+  "scenario": "S3_Combined",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_add_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 222167,
+    "input_cached": 4532885,
+    "reasoning": 24330,
+    "output": 6067,
+    "peak_context": 101813,
+    "total_input": 4755052,
+    "total": 4785449
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9533,
+    "reasoning_token_ratio": 0.005084,
+    "reasoning_share_of_generated": 0.8004
+  },
+  "cost_usd": {
+    "input_uncached": 0.033325049999999995,
+    "input_cached": 0.1699831875,
+    "reasoning": 0.014598,
+    "output": 0.0036401999999999997,
+    "total": 0.2215464375
+  },
+  "mcp_calls": 39,
+  "mcp_calls_succeeded": 37,
+  "mcp_calls_errored": 2,
+  "mcp_error_rate": 0.0513,
+  "mcp_calls_by_tool": {
+    "open_binary": 2,
+    "binary_overview": 1,
+    "list_procedures": 2,
+    "inspect_analysis_view": 6,
+    "list_strings": 1,
+    "procedure_pseudo_code": 9,
+    "read_bytes": 5,
+    "procedure_assembly": 1,
+    "inspect_native_instruction": 3,
+    "inspect_with_objdump": 3,
+    "resolve_containing_procedure": 1,
+    "close_binary": 2,
+    "xrefs": 1,
+    "execute_rizin_command": 2
+  },
+  "mcp_calls_errored_by_tool": {
+    "execute_rizin_command": 2
+  },
+  "mcp_payload_bytes": 126398,
+  "mcp_error_payload_bytes": 1230,
+  "other_tool_calls": 35,
+  "other_tool_calls_succeeded": 33,
+  "other_tool_calls_errored": 2,
+  "turns": 75,
+  "wall_time_sec": 446.61,
+  "latency": {
+    "wall_time_sec": 446.614532681,
+    "llm_time_sec": 422.812,
+    "mcp_time_sec": 22.16,
+    "other_tool_time_sec": 3.314
+  },
+  "hook_audit": {
+    "total": 74,
+    "allow": 72,
+    "deny": 2,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/5c786f37-685a-437a-aeab-b31d0c3eca02/.system_generated/steps/12/output.txt'": 1,
+      "absolute path outside jail '/*'": 1
+    },
+    "chal_exec_calls": 10,
+    "chal_exec_pre_write": 9
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1857,
+    "instructions": 426,
+    "conditional_jumps": 12,
+    "indirect_jumps": 5,
+    "basic_block_estimate": 49,
+    "cyclomatic_complexity_est": 18
+  },
+  "terminated_reason": "completed"
+}

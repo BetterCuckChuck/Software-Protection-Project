@@ -1,0 +1,92 @@
+{
+  "scenario": "S0_Baseline",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_square_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 145782,
+    "input_cached": 2299276,
+    "reasoning": 13359,
+    "output": 3193,
+    "peak_context": 69094,
+    "total_input": 2445058,
+    "total": 2461610
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9404,
+    "reasoning_token_ratio": 0.005427,
+    "reasoning_share_of_generated": 0.8071
+  },
+  "cost_usd": {
+    "input_uncached": 0.0218673,
+    "input_cached": 0.08622284999999999,
+    "reasoning": 0.008015399999999999,
+    "output": 0.0019158,
+    "total": 0.11802135
+  },
+  "mcp_calls": 23,
+  "mcp_calls_succeeded": 21,
+  "mcp_calls_errored": 2,
+  "mcp_error_rate": 0.087,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 4,
+    "procedure_assembly": 7,
+    "procedure_pseudo_code": 3,
+    "read_bytes": 2,
+    "list_names": 1,
+    "xrefs": 1,
+    "close_binary": 1,
+    "search_strings": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1,
+    "search_strings": 1
+  },
+  "mcp_payload_bytes": 65410,
+  "mcp_error_payload_bytes": 1312,
+  "other_tool_calls": 28,
+  "other_tool_calls_succeeded": 27,
+  "other_tool_calls_errored": 1,
+  "turns": 52,
+  "wall_time_sec": 296.6,
+  "latency": {
+    "wall_time_sec": 296.600944648,
+    "llm_time_sec": 256.08,
+    "mcp_time_sec": 11.323,
+    "other_tool_time_sec": 30.123
+  },
+  "hook_audit": {
+    "total": 51,
+    "allow": 50,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/a8070aef-6b26-4817-a425-3c41f3ccbf5c/.system_generated/steps/6/output.txt'": 1
+    },
+    "chal_exec_calls": 14,
+    "chal_exec_pre_write": 12
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 690,
+    "instructions": 174,
+    "conditional_jumps": 11,
+    "indirect_jumps": 2,
+    "basic_block_estimate": 39,
+    "cyclomatic_complexity_est": 14
+  },
+  "terminated_reason": "completed"
+}

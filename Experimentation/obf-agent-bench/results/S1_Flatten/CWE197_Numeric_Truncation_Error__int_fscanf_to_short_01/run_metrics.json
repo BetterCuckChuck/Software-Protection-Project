@@ -1,0 +1,541 @@
+{
+  "conversation_id": "2ca46afe-4ec1-4399-8d99-e0e4594a29c8",
+  "tokens": {
+    "input_uncached": 135150,
+    "input_cached": 2135734,
+    "reasoning": 17070,
+    "output": 3789,
+    "peak_context": 68206,
+    "total_input": 2270884,
+    "total": 2291743
+  },
+  "turns": 47,
+  "per_turn": [
+    {
+      "step": 1,
+      "input_uncached": 14949,
+      "input_cached": 0,
+      "reasoning": 809,
+      "output": 68,
+      "context": 14949,
+      "duration_sec": 12.871470775
+    },
+    {
+      "step": 3,
+      "input_uncached": 2288,
+      "input_cached": 13728,
+      "reasoning": 29,
+      "output": 32,
+      "context": 16016,
+      "duration_sec": 2.840247925
+    },
+    {
+      "step": 5,
+      "input_uncached": 3143,
+      "input_cached": 16027,
+      "reasoning": 55,
+      "output": 32,
+      "context": 19170,
+      "duration_sec": 3.145395104
+    },
+    {
+      "step": 7,
+      "input_uncached": 2277,
+      "input_cached": 17126,
+      "reasoning": 17,
+      "output": 87,
+      "context": 19403,
+      "duration_sec": 2.927967853
+    },
+    {
+      "step": 9,
+      "input_uncached": 2245,
+      "input_cached": 17360,
+      "reasoning": 250,
+      "output": 37,
+      "context": 19605,
+      "duration_sec": 5.098085353
+    },
+    {
+      "step": 11,
+      "input_uncached": 2498,
+      "input_cached": 17565,
+      "reasoning": 27,
+      "output": 37,
+      "context": 20063,
+      "duration_sec": 2.938131811
+    },
+    {
+      "step": 13,
+      "input_uncached": 3140,
+      "input_cached": 18028,
+      "reasoning": 51,
+      "output": 43,
+      "context": 21168,
+      "duration_sec": 3.653076852
+    },
+    {
+      "step": 15,
+      "input_uncached": 2741,
+      "input_cached": 21178,
+      "reasoning": 254,
+      "output": 43,
+      "context": 23919,
+      "duration_sec": 4.164100989
+    },
+    {
+      "step": 17,
+      "input_uncached": 2236,
+      "input_cached": 23925,
+      "reasoning": 143,
+      "output": 50,
+      "context": 26161,
+      "duration_sec": 3.654525961
+    },
+    {
+      "step": 19,
+      "input_uncached": 3542,
+      "input_cached": 24126,
+      "reasoning": 368,
+      "output": 46,
+      "context": 27668,
+      "duration_sec": 5.19158296
+    },
+    {
+      "step": 21,
+      "input_uncached": 2894,
+      "input_cached": 26360,
+      "reasoning": 63,
+      "output": 46,
+      "context": 29254,
+      "duration_sec": 4.051801995
+    },
+    {
+      "step": 23,
+      "input_uncached": 2108,
+      "input_cached": 29258,
+      "reasoning": 201,
+      "output": 46,
+      "context": 31366,
+      "duration_sec": 4.363917757
+    },
+    {
+      "step": 25,
+      "input_uncached": 3471,
+      "input_cached": 29330,
+      "reasoning": 232,
+      "output": 46,
+      "context": 32801,
+      "duration_sec": 14.805610417
+    },
+    {
+      "step": 27,
+      "input_uncached": 2637,
+      "input_cached": 31617,
+      "reasoning": 42,
+      "output": 46,
+      "context": 34254,
+      "duration_sec": 3.141442347
+    },
+    {
+      "step": 29,
+      "input_uncached": 2428,
+      "input_cached": 33082,
+      "reasoning": 18,
+      "output": 46,
+      "context": 35510,
+      "duration_sec": 2.726890221
+    },
+    {
+      "step": 31,
+      "input_uncached": 2393,
+      "input_cached": 34345,
+      "reasoning": 269,
+      "output": 44,
+      "context": 36738,
+      "duration_sec": 4.471269189
+    },
+    {
+      "step": 33,
+      "input_uncached": 2796,
+      "input_cached": 35579,
+      "reasoning": 826,
+      "output": 46,
+      "context": 38375,
+      "duration_sec": 8.263521787
+    },
+    {
+      "step": 35,
+      "input_uncached": 2080,
+      "input_cached": 38379,
+      "reasoning": 39,
+      "output": 46,
+      "context": 40459,
+      "duration_sec": 3.860960965
+    },
+    {
+      "step": 37,
+      "input_uncached": 2509,
+      "input_cached": 39250,
+      "reasoning": 204,
+      "output": 44,
+      "context": 41759,
+      "duration_sec": 4.582022165
+    },
+    {
+      "step": 39,
+      "input_uncached": 2885,
+      "input_cached": 41768,
+      "reasoning": 7357,
+      "output": 43,
+      "context": 44653,
+      "duration_sec": 50.548732563
+    },
+    {
+      "step": 41,
+      "input_uncached": 8427,
+      "input_cached": 44692,
+      "reasoning": 82,
+      "output": 44,
+      "context": 53119,
+      "duration_sec": 3.338448918
+    },
+    {
+      "step": 43,
+      "input_uncached": 2387,
+      "input_cached": 52053,
+      "reasoning": 558,
+      "output": 43,
+      "context": 54440,
+      "duration_sec": 6.649525631
+    },
+    {
+      "step": 45,
+      "input_uncached": 2866,
+      "input_cached": 53247,
+      "reasoning": 76,
+      "output": 43,
+      "context": 56113,
+      "duration_sec": 3.941645073
+    },
+    {
+      "step": 47,
+      "input_uncached": 2298,
+      "input_cached": 55040,
+      "reasoning": 140,
+      "output": 43,
+      "context": 57338,
+      "duration_sec": 3.971263038
+    },
+    {
+      "step": 49,
+      "input_uncached": 2363,
+      "input_cached": 56232,
+      "reasoning": 1789,
+      "output": 32,
+      "context": 58595,
+      "duration_sec": 12.43749241
+    },
+    {
+      "step": 51,
+      "input_uncached": 2973,
+      "input_cached": 57524,
+      "reasoning": 187,
+      "output": 43,
+      "context": 60497,
+      "duration_sec": 16.287036357
+    },
+    {
+      "step": 53,
+      "input_uncached": 2374,
+      "input_cached": 58451,
+      "reasoning": 24,
+      "output": 51,
+      "context": 60825,
+      "duration_sec": 3.856259451
+    },
+    {
+      "step": 55,
+      "input_uncached": 2222,
+      "input_cached": 58778,
+      "reasoning": 12,
+      "output": 49,
+      "context": 61000,
+      "duration_sec": 3.039765025
+    },
+    {
+      "step": 57,
+      "input_uncached": 2219,
+      "input_cached": 58954,
+      "reasoning": 9,
+      "output": 50,
+      "context": 61173,
+      "duration_sec": 3.348496457
+    },
+    {
+      "step": 59,
+      "input_uncached": 2217,
+      "input_cached": 59127,
+      "reasoning": 11,
+      "output": 53,
+      "context": 61344,
+      "duration_sec": 2.5378476660000002
+    },
+    {
+      "step": 61,
+      "input_uncached": 2222,
+      "input_cached": 59298,
+      "reasoning": 159,
+      "output": 51,
+      "context": 61520,
+      "duration_sec": 4.46489801
+    },
+    {
+      "step": 63,
+      "input_uncached": 2353,
+      "input_cached": 59476,
+      "reasoning": 49,
+      "output": 49,
+      "context": 61829,
+      "duration_sec": 3.861711685
+    },
+    {
+      "step": 65,
+      "input_uncached": 2240,
+      "input_cached": 59784,
+      "reasoning": 1609,
+      "output": 430,
+      "context": 62024,
+      "duration_sec": 15.756397978
+    },
+    {
+      "step": 67,
+      "input_uncached": 2111,
+      "input_cached": 62028,
+      "reasoning": 22,
+      "output": 52,
+      "context": 64139,
+      "duration_sec": 3.333238404
+    },
+    {
+      "step": 69,
+      "input_uncached": 2275,
+      "input_cached": 62094,
+      "reasoning": 118,
+      "output": 56,
+      "context": 64369,
+      "duration_sec": 4.231729011
+    },
+    {
+      "step": 71,
+      "input_uncached": 2435,
+      "input_cached": 62326,
+      "reasoning": 463,
+      "output": 201,
+      "context": 64761,
+      "duration_sec": 7.312289062
+    },
+    {
+      "step": 73,
+      "input_uncached": 2744,
+      "input_cached": 62720,
+      "reasoning": 76,
+      "output": 441,
+      "context": 65464,
+      "duration_sec": 5.806689303
+    },
+    {
+      "step": 75,
+      "input_uncached": 2634,
+      "input_cached": 63423,
+      "reasoning": 20,
+      "output": 52,
+      "context": 66057,
+      "duration_sec": 3.657497691
+    },
+    {
+      "step": 77,
+      "input_uncached": 2203,
+      "input_cached": 64013,
+      "reasoning": 33,
+      "output": 66,
+      "context": 66216,
+      "duration_sec": 3.825838538
+    },
+    {
+      "step": 79,
+      "input_uncached": 2230,
+      "input_cached": 64172,
+      "reasoning": 18,
+      "output": 77,
+      "context": 66402,
+      "duration_sec": 3.142473035
+    },
+    {
+      "step": 81,
+      "input_uncached": 2225,
+      "input_cached": 64359,
+      "reasoning": 9,
+      "output": 83,
+      "context": 66584,
+      "duration_sec": 3.140589169
+    },
+    {
+      "step": 83,
+      "input_uncached": 2222,
+      "input_cached": 64541,
+      "reasoning": 7,
+      "output": 82,
+      "context": 66763,
+      "duration_sec": 4.279016499
+    },
+    {
+      "step": 85,
+      "input_uncached": 2219,
+      "input_cached": 64720,
+      "reasoning": 7,
+      "output": 75,
+      "context": 66939,
+      "duration_sec": 3.027983478
+    },
+    {
+      "step": 87,
+      "input_uncached": 2212,
+      "input_cached": 64896,
+      "reasoning": 6,
+      "output": 83,
+      "context": 67108,
+      "duration_sec": 4.268716079
+    },
+    {
+      "step": 89,
+      "input_uncached": 2218,
+      "input_cached": 65066,
+      "reasoning": 61,
+      "output": 52,
+      "context": 67284,
+      "duration_sec": 3.8525642749999998
+    },
+    {
+      "step": 91,
+      "input_uncached": 2242,
+      "input_cached": 65242,
+      "reasoning": 17,
+      "output": 62,
+      "context": 67484,
+      "duration_sec": 3.245069964
+    },
+    {
+      "step": 93,
+      "input_uncached": 2759,
+      "input_cached": 65447,
+      "reasoning": 254,
+      "output": 498,
+      "context": 68206,
+      "duration_sec": 7.753305891
+    }
+  ],
+  "mcp_calls": 24,
+  "mcp_calls_succeeded": 23,
+  "mcp_calls_errored": 1,
+  "mcp_error_rate": 0.0417,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 3,
+    "search_strings": 1,
+    "read_bytes": 1,
+    "procedure_pseudo_code": 8,
+    "procedure_assembly": 3,
+    "xrefs": 4,
+    "close_binary": 1
+  },
+  "mcp_calls_succeeded_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 2,
+    "search_strings": 1,
+    "read_bytes": 1,
+    "procedure_pseudo_code": 8,
+    "procedure_assembly": 3,
+    "xrefs": 4,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1
+  },
+  "other_tool_calls": 22,
+  "other_tool_calls_succeeded": 20,
+  "other_tool_calls_errored": 2,
+  "other_tool_calls_by_name": {
+    "run_command": 17,
+    "write_file": 2,
+    "read_file": 2,
+    "edit_file": 1
+  },
+  "other_tool_calls_errored_by_name": {
+    "read_file": 1,
+    "edit_file": 1
+  },
+  "mcp_payload_bytes": 84079,
+  "mcp_error_payload_bytes": 677,
+  "other_tool_payload_bytes": 3688,
+  "other_tool_error_payload_bytes": 356,
+  "latency": {
+    "wall_time_sec": 301.211177436,
+    "llm_time_sec": 291.669,
+    "mcp_time_sec": 8.925,
+    "other_tool_time_sec": 1.701
+  },
+  "agent_status": "SUCCESS",
+  "result_usage_crosscheck": {
+    "input_tokens": 135150,
+    "output_tokens": 20859,
+    "thinking_tokens": 17070,
+    "cache_read_tokens": 2135734,
+    "total_tokens": 156009
+  },
+  "has_result_event": true,
+  "scenario": "S1_Flatten",
+  "sample_id": "CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01",
+  "terminated_reason": "completed",
+  "deliverable_written": true,
+  "transcript_archived": true,
+  "model": "gemini-3.8-flash",
+  "limits": {
+    "max_turns": null,
+    "max_mcp_calls": null,
+    "max_context_tokens": 128000,
+    "max_output_tokens": 16384,
+    "timeout_seconds": null
+  },
+  "cost_usd": {
+    "input_uncached": 0.0202725,
+    "input_cached": 0.080090025,
+    "reasoning": 0.010242,
+    "output": 0.0022734,
+    "total": 0.11287792499999999
+  },
+  "hook_audit": {
+    "total": 46,
+    "allow": 44,
+    "deny": 2,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/2ca46afe-4ec1-4399-8d99-e0e4594a29c8/.system_generated/steps/6/output.txt'": 1,
+      "absolute path outside jail '/*'": 1
+    },
+    "chal_exec_calls": 13,
+    "chal_exec_pre_write": 7
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 791,
+    "instructions": 186,
+    "conditional_jumps": 8,
+    "indirect_jumps": 3,
+    "basic_block_estimate": 36,
+    "cyclomatic_complexity_est": 12
+  }
+}

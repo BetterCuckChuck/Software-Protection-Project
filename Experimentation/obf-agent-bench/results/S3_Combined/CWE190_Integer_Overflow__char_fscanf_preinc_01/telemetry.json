@@ -1,0 +1,70 @@
+{
+  "scenario": "S3_Combined",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_preinc_01",
+  "io_passed": false,
+  "io_tests_passed": 0,
+  "io_tests_total": 65,
+  "io_accuracy": 0.0,
+  "io_breakdown": {
+    "gate1_passed": false,
+    "compile_ok": false,
+    "violations": [
+      "reconstructed.c missing"
+    ],
+    "curated_passed": 0,
+    "curated_total": 15,
+    "fuzz_passed": 0,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 14956,
+    "input_cached": 0,
+    "reasoning": 931,
+    "output": 0,
+    "peak_context": 14956,
+    "total_input": 14956,
+    "total": 15887
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.0,
+    "reasoning_token_ratio": 0.058601,
+    "reasoning_share_of_generated": 1.0
+  },
+  "cost_usd": {
+    "input_uncached": 0.0022434,
+    "input_cached": 0.0,
+    "reasoning": 0.0005586,
+    "output": 0.0,
+    "total": 0.002802
+  },
+  "mcp_calls": 0,
+  "mcp_calls_succeeded": 0,
+  "mcp_calls_errored": 0,
+  "mcp_error_rate": 0.0,
+  "mcp_calls_by_tool": {},
+  "mcp_calls_errored_by_tool": {},
+  "mcp_payload_bytes": 0,
+  "mcp_error_payload_bytes": 0,
+  "other_tool_calls": 0,
+  "other_tool_calls_succeeded": 0,
+  "other_tool_calls_errored": 0,
+  "turns": 1,
+  "wall_time_sec": 15.74,
+  "latency": {
+    "wall_time_sec": 15.73531012,
+    "llm_time_sec": 15.02,
+    "mcp_time_sec": 0.0,
+    "other_tool_time_sec": 0.0
+  },
+  "hook_audit": null,
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1860,
+    "instructions": 424,
+    "conditional_jumps": 12,
+    "indirect_jumps": 5,
+    "basic_block_estimate": 49,
+    "cyclomatic_complexity_est": 18
+  },
+  "terminated_reason": "completed"
+}

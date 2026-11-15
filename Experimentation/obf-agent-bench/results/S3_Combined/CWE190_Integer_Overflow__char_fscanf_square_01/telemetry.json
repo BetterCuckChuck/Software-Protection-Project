@@ -1,0 +1,96 @@
+{
+  "scenario": "S3_Combined",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_square_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 180422,
+    "input_cached": 3397944,
+    "reasoning": 22490,
+    "output": 3497,
+    "peak_context": 90630,
+    "total_input": 3578366,
+    "total": 3604353
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9496,
+    "reasoning_token_ratio": 0.00624,
+    "reasoning_share_of_generated": 0.8654
+  },
+  "cost_usd": {
+    "input_uncached": 0.0270633,
+    "input_cached": 0.1274229,
+    "reasoning": 0.013494,
+    "output": 0.0020981999999999997,
+    "total": 0.17007840000000002
+  },
+  "mcp_calls": 32,
+  "mcp_calls_succeeded": 29,
+  "mcp_calls_errored": 3,
+  "mcp_error_rate": 0.0938,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 4,
+    "procedure_pseudo_code": 9,
+    "procedure_assembly": 3,
+    "read_bytes": 4,
+    "search_strings": 1,
+    "procedure_callers": 1,
+    "inspect_native_instruction": 1,
+    "xrefs": 2,
+    "procedure_callees": 1,
+    "close_binary": 1,
+    "execute_rizin_command": 2
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1,
+    "execute_rizin_command": 2
+  },
+  "mcp_payload_bytes": 108295,
+  "mcp_error_payload_bytes": 1949,
+  "other_tool_calls": 27,
+  "other_tool_calls_succeeded": 25,
+  "other_tool_calls_errored": 2,
+  "turns": 60,
+  "wall_time_sec": 391.81,
+  "latency": {
+    "wall_time_sec": 391.812265168,
+    "llm_time_sec": 369.66,
+    "mcp_time_sec": 10.405,
+    "other_tool_time_sec": 13.234
+  },
+  "hook_audit": {
+    "total": 59,
+    "allow": 57,
+    "deny": 2,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/mcp/rea/'": 1,
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/1f9709cb-b97a-4a17-a249-620df77f780e/.system_generated/steps/8/output.txt'": 1
+    },
+    "chal_exec_calls": 9,
+    "chal_exec_pre_write": 9
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1875,
+    "instructions": 431,
+    "conditional_jumps": 12,
+    "indirect_jumps": 5,
+    "basic_block_estimate": 49,
+    "cyclomatic_complexity_est": 18
+  },
+  "terminated_reason": "completed"
+}

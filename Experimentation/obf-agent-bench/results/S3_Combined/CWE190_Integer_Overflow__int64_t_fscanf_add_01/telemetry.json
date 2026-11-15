@@ -1,0 +1,95 @@
+{
+  "scenario": "S3_Combined",
+  "sample_id": "CWE190_Integer_Overflow__int64_t_fscanf_add_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 180185,
+    "input_cached": 3343564,
+    "reasoning": 22897,
+    "output": 4597,
+    "peak_context": 93730,
+    "total_input": 3523749,
+    "total": 3551243
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9489,
+    "reasoning_token_ratio": 0.006448,
+    "reasoning_share_of_generated": 0.8328
+  },
+  "cost_usd": {
+    "input_uncached": 0.02702775,
+    "input_cached": 0.12538364999999999,
+    "reasoning": 0.013738199999999999,
+    "output": 0.0027581999999999997,
+    "total": 0.16890779999999997
+  },
+  "mcp_calls": 35,
+  "mcp_calls_succeeded": 33,
+  "mcp_calls_errored": 2,
+  "mcp_error_rate": 0.0571,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 2,
+    "search_strings": 3,
+    "read_bytes": 5,
+    "xrefs": 3,
+    "resolve_containing_procedure": 3,
+    "procedure_assembly": 2,
+    "procedure_pseudo_code": 5,
+    "inspect_native_instruction": 6,
+    "analyze_function": 1,
+    "inspect_with_objdump": 1,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1,
+    "search_strings": 1
+  },
+  "mcp_payload_bytes": 121350,
+  "mcp_error_payload_bytes": 1312,
+  "other_tool_calls": 24,
+  "other_tool_calls_succeeded": 23,
+  "other_tool_calls_errored": 1,
+  "turns": 60,
+  "wall_time_sec": 419.07,
+  "latency": {
+    "wall_time_sec": 419.073325666,
+    "llm_time_sec": 403.016,
+    "mcp_time_sec": 10.373,
+    "other_tool_time_sec": 18.453
+  },
+  "hook_audit": {
+    "total": 59,
+    "allow": 58,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/5a207e66-90c4-4083-82b8-fbb78b79db8f/.system_generated/steps/6/output.txt'": 1
+    },
+    "chal_exec_calls": 6,
+    "chal_exec_pre_write": 5
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1903,
+    "instructions": 429,
+    "conditional_jumps": 12,
+    "indirect_jumps": 5,
+    "basic_block_estimate": 49,
+    "cyclomatic_complexity_est": 18
+  },
+  "terminated_reason": "completed"
+}

@@ -1,0 +1,85 @@
+{
+  "conversation_id": "4f6934a2-9a4a-4bf9-adb9-c8d32e9fbff9",
+  "tokens": {
+    "input_uncached": 14956,
+    "input_cached": 0,
+    "reasoning": 931,
+    "output": 0,
+    "peak_context": 14956,
+    "total_input": 14956,
+    "total": 15887
+  },
+  "turns": 1,
+  "per_turn": [
+    {
+      "step": 1,
+      "input_uncached": 14956,
+      "input_cached": 0,
+      "reasoning": 931,
+      "output": 0,
+      "context": 14956,
+      "duration_sec": 15.019760056
+    }
+  ],
+  "mcp_calls": 0,
+  "mcp_calls_succeeded": 0,
+  "mcp_calls_errored": 0,
+  "mcp_error_rate": 0.0,
+  "mcp_calls_by_tool": {},
+  "mcp_calls_succeeded_by_tool": {},
+  "mcp_calls_errored_by_tool": {},
+  "other_tool_calls": 0,
+  "other_tool_calls_succeeded": 0,
+  "other_tool_calls_errored": 0,
+  "other_tool_calls_by_name": {},
+  "other_tool_calls_errored_by_name": {},
+  "mcp_payload_bytes": 0,
+  "mcp_error_payload_bytes": 0,
+  "other_tool_payload_bytes": 0,
+  "other_tool_error_payload_bytes": 0,
+  "latency": {
+    "wall_time_sec": 15.73531012,
+    "llm_time_sec": 15.02,
+    "mcp_time_sec": 0.0,
+    "other_tool_time_sec": 0.0
+  },
+  "agent_status": "SUCCESS",
+  "result_usage_crosscheck": {
+    "input_tokens": 14956,
+    "output_tokens": 931,
+    "thinking_tokens": 931,
+    "cache_read_tokens": 0,
+    "total_tokens": 15887
+  },
+  "has_result_event": true,
+  "scenario": "S3_Combined",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_preinc_01",
+  "terminated_reason": "completed",
+  "deliverable_written": false,
+  "transcript_archived": true,
+  "model": "gemini-3.8-flash",
+  "limits": {
+    "max_turns": null,
+    "max_mcp_calls": null,
+    "max_context_tokens": 128000,
+    "max_output_tokens": 16384,
+    "timeout_seconds": null
+  },
+  "cost_usd": {
+    "input_uncached": 0.0022434,
+    "input_cached": 0.0,
+    "reasoning": 0.0005586,
+    "output": 0.0,
+    "total": 0.002802
+  },
+  "hook_audit": null,
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1860,
+    "instructions": 424,
+    "conditional_jumps": 12,
+    "indirect_jumps": 5,
+    "basic_block_estimate": 49,
+    "cyclomatic_complexity_est": 18
+  }
+}

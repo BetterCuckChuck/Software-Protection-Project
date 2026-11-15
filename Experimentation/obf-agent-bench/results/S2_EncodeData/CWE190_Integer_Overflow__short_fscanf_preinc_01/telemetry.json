@@ -1,0 +1,92 @@
+{
+  "scenario": "S2_EncodeData",
+  "sample_id": "CWE190_Integer_Overflow__short_fscanf_preinc_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 121006,
+    "input_cached": 1716451,
+    "reasoning": 15871,
+    "output": 2715,
+    "peak_context": 72694,
+    "total_input": 1837457,
+    "total": 1856043
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9341,
+    "reasoning_token_ratio": 0.008551,
+    "reasoning_share_of_generated": 0.8539
+  },
+  "cost_usd": {
+    "input_uncached": 0.018150899999999998,
+    "input_cached": 0.0643669125,
+    "reasoning": 0.0095226,
+    "output": 0.001629,
+    "total": 0.09366941250000001
+  },
+  "mcp_calls": 28,
+  "mcp_calls_succeeded": 25,
+  "mcp_calls_errored": 3,
+  "mcp_error_rate": 0.1071,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 3,
+    "search_strings": 3,
+    "procedure_pseudo_code": 10,
+    "procedure_assembly": 3,
+    "read_bytes": 2,
+    "xrefs": 3,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1,
+    "search_strings": 1,
+    "read_bytes": 1
+  },
+  "mcp_payload_bytes": 99847,
+  "mcp_error_payload_bytes": 1900,
+  "other_tool_calls": 10,
+  "other_tool_calls_succeeded": 9,
+  "other_tool_calls_errored": 1,
+  "turns": 39,
+  "wall_time_sec": 252.28,
+  "latency": {
+    "wall_time_sec": 252.276815497,
+    "llm_time_sec": 242.74,
+    "mcp_time_sec": 9.783,
+    "other_tool_time_sec": 0.469
+  },
+  "hook_audit": {
+    "total": 38,
+    "allow": 37,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/72b293b6-25bd-43bd-af6b-a5d85ac5020c/.system_generated/steps/6/output.txt'": 1
+    },
+    "chal_exec_calls": 5,
+    "chal_exec_pre_write": 4
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1659,
+    "instructions": 370,
+    "conditional_jumps": 18,
+    "indirect_jumps": 3,
+    "basic_block_estimate": 52,
+    "cyclomatic_complexity_est": 22
+  },
+  "terminated_reason": "completed"
+}

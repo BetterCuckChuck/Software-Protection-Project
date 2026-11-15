@@ -1,0 +1,157 @@
+nohup: ignoring input
+[skip] S0_Baseline/CWE190_Integer_Overflow__char_fscanf_add_01: already has run_metrics.json
+[skip] S1_Flatten/CWE190_Integer_Overflow__char_fscanf_add_01: already has run_metrics.json
+[skip] S2_EncodeData/CWE190_Integer_Overflow__char_fscanf_add_01: already has run_metrics.json
+[skip] S3_Combined/CWE190_Integer_Overflow__char_fscanf_add_01: already has run_metrics.json
+[run ] S0_Baseline/CWE190_Integer_Overflow__char_fscanf_square_01  jail=/tmp/run_7a2eddf3b2214a62be7fe038824aae28
+[done] S0_Baseline/CWE190_Integer_Overflow__char_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1180 tokens=2,461,610 mcp=23(ok=21,err=2) turns=52 wall=296.6s
+[run ] S1_Flatten/CWE190_Integer_Overflow__char_fscanf_square_01  jail=/tmp/run_9d8becf043e74bbb888cf07705021857
+[done] S1_Flatten/CWE190_Integer_Overflow__char_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1390 tokens=2,898,688 mcp=32(ok=30,err=2) turns=56 wall=337.05s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__char_fscanf_square_01  jail=/tmp/run_510587a51b1a486483a8d2b584e725ab
+[done] S2_EncodeData/CWE190_Integer_Overflow__char_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1238 tokens=2,238,282 mcp=31(ok=31,err=0) turns=43 wall=357.65s
+[run ] S3_Combined/CWE190_Integer_Overflow__char_fscanf_square_01  jail=/tmp/run_906fdd870e9a481c9229faf3fdc212e7
+[done] S3_Combined/CWE190_Integer_Overflow__char_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1701 tokens=3,604,353 mcp=32(ok=29,err=3) turns=60 wall=391.81s
+[run ] S0_Baseline/CWE190_Integer_Overflow__int64_t_fscanf_add_01  jail=/tmp/run_3b5af5eabf874b29946ebca4237267ef
+[done] S0_Baseline/CWE190_Integer_Overflow__int64_t_fscanf_add_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1090 tokens=2,241,544 mcp=29(ok=26,err=3) turns=48 wall=294.69s
+[run ] S1_Flatten/CWE190_Integer_Overflow__int64_t_fscanf_add_01  jail=/tmp/run_598562dd85384139955b686958637c2c
+[done] S1_Flatten/CWE190_Integer_Overflow__int64_t_fscanf_add_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0839 tokens=1,642,966 mcp=24(ok=23,err=1) turns=39 wall=258.82s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__int64_t_fscanf_add_01  jail=/tmp/run_39d056cf76bc4d6ca67e0ebdf7e78bf2
+[done] S2_EncodeData/CWE190_Integer_Overflow__int64_t_fscanf_add_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1016 tokens=1,975,736 mcp=31(ok=29,err=2) turns=40 wall=320.27s
+[run ] S3_Combined/CWE190_Integer_Overflow__int64_t_fscanf_add_01  jail=/tmp/run_644e6fcfca1446c998191b5bc92fe694
+[done] S3_Combined/CWE190_Integer_Overflow__int64_t_fscanf_add_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1689 tokens=3,551,243 mcp=35(ok=33,err=2) turns=60 wall=419.07s
+[run ] S0_Baseline/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01  jail=/tmp/run_f0be96aa2be944dfb705ecbaef73a1cb
+[done] S0_Baseline/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1065 tokens=2,164,730 mcp=25(ok=23,err=2) turns=45 wall=299.39s
+[run ] S1_Flatten/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01  jail=/tmp/run_ae9ce5c6524e4cfa922b256a988ae2c4
+[done] S1_Flatten/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1459 tokens=2,960,307 mcp=26(ok=26,err=0) turns=51 wall=371.06s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01  jail=/tmp/run_c1d6e42c8e1445749c5bb56d66243955
+[done] S2_EncodeData/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1809 tokens=3,867,499 mcp=31(ok=31,err=0) turns=62 wall=409.87s
+[run ] S3_Combined/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01  jail=/tmp/run_697547d5214b4da3a920d74d2b4360f7
+[done] S3_Combined/CWE190_Integer_Overflow__int64_t_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1820 tokens=3,812,438 mcp=33(ok=28,err=5) turns=64 wall=455.35s
+[run ] S0_Baseline/CWE190_Integer_Overflow__int_fscanf_multiply_01  jail=/tmp/run_774b3abead934bf19f10f6d118a8a762
+[done] S0_Baseline/CWE190_Integer_Overflow__int_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0869 tokens=1,656,432 mcp=25(ok=23,err=2) turns=39 wall=248.68s
+[run ] S1_Flatten/CWE190_Integer_Overflow__int_fscanf_multiply_01  jail=/tmp/run_955869e235f247afa12ee25fe40f5640
+[done] S1_Flatten/CWE190_Integer_Overflow__int_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1760 tokens=3,671,032 mcp=31(ok=31,err=0) turns=62 wall=420.11s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__int_fscanf_multiply_01  jail=/tmp/run_69659e304eae489eb6f4ce4a4597e789
+[done] S2_EncodeData/CWE190_Integer_Overflow__int_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1412 tokens=2,971,629 mcp=30(ok=29,err=1) turns=53 wall=296.92s
+[run ] S3_Combined/CWE190_Integer_Overflow__int_fscanf_multiply_01  jail=/tmp/run_2f437363c76842748dd6c52a52fcb045
+[done] S3_Combined/CWE190_Integer_Overflow__int_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1693 tokens=3,548,926 mcp=31(ok=31,err=0) turns=59 wall=400.13s
+[run ] S0_Baseline/CWE190_Integer_Overflow__int_fscanf_square_01  jail=/tmp/run_0d2ff6c361394f0b80bf935f2386b17f
+[done] S0_Baseline/CWE190_Integer_Overflow__int_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1071 tokens=2,194,678 mcp=24(ok=22,err=2) turns=47 wall=295.92s
+[run ] S1_Flatten/CWE190_Integer_Overflow__int_fscanf_square_01  jail=/tmp/run_c38e7741aef14c0d924ec69ebdea12d7
+[done] S1_Flatten/CWE190_Integer_Overflow__int_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1274 tokens=2,596,413 mcp=27(ok=25,err=2) turns=50 wall=365.63s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__int_fscanf_square_01  jail=/tmp/run_78e2eec8d1b34df28ab9122e23ffff0b
+[done] S2_EncodeData/CWE190_Integer_Overflow__int_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1055 tokens=2,089,674 mcp=27(ok=25,err=2) turns=42 wall=343.11s
+[run ] S3_Combined/CWE190_Integer_Overflow__int_fscanf_square_01  jail=/tmp/run_580fd305bbc54262999d1d85f1265499
+[done] S3_Combined/CWE190_Integer_Overflow__int_fscanf_square_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1408 tokens=2,782,299 mcp=29(ok=27,err=2) turns=45 wall=403.83s
+[run ] S0_Baseline/CWE190_Integer_Overflow__char_fscanf_preinc_01  jail=/tmp/run_ff1c061274f74c47bd47546477f5932d
+[done] S0_Baseline/CWE190_Integer_Overflow__char_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0751 tokens=1,462,338 mcp=24(ok=24,err=0) turns=35 wall=238.04s
+[run ] S1_Flatten/CWE190_Integer_Overflow__char_fscanf_preinc_01  jail=/tmp/run_6091848b2e0b4f5a9d0f69bc32e8ddf2
+[done] S1_Flatten/CWE190_Integer_Overflow__char_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1165 tokens=2,418,159 mcp=29(ok=27,err=2) turns=49 wall=295.8s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__char_fscanf_preinc_01  jail=/tmp/run_6cc4a2ec17bc4806b312a29ae5c631b6
+[done] S2_EncodeData/CWE190_Integer_Overflow__char_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1558 tokens=3,285,976 mcp=21(ok=21,err=0) turns=53 wall=351.19s
+[run ] S3_Combined/CWE190_Integer_Overflow__char_fscanf_preinc_01  jail=/tmp/run_adf7fdc6112d4c4eb73e64de7e44bb47
+[done] S3_Combined/CWE190_Integer_Overflow__char_fscanf_preinc_01: reason=completed Pass_IO=0 (0/65, curated=0/15, fuzz=0/50) cost=$0.0028 tokens=15,887 mcp=0(ok=0,err=0) turns=1 wall=15.74s
+[run ] S0_Baseline/CWE190_Integer_Overflow__short_fscanf_preinc_01  jail=/tmp/run_e833613c29c84188baec88164af50bd8
+[done] S0_Baseline/CWE190_Integer_Overflow__short_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0786 tokens=1,548,144 mcp=24(ok=23,err=1) turns=37 wall=219.82s
+[run ] S1_Flatten/CWE190_Integer_Overflow__short_fscanf_preinc_01  jail=/tmp/run_9987572fb30f4584b839ecb2e076087b
+[done] S1_Flatten/CWE190_Integer_Overflow__short_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1003 tokens=1,986,283 mcp=27(ok=26,err=1) turns=42 wall=288.22s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__short_fscanf_preinc_01  jail=/tmp/run_0203e6c11a52420abf5b6685b72ae110
+[done] S2_EncodeData/CWE190_Integer_Overflow__short_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0937 tokens=1,856,043 mcp=28(ok=25,err=3) turns=39 wall=252.28s
+[run ] S3_Combined/CWE190_Integer_Overflow__short_fscanf_preinc_01  jail=/tmp/run_de2143a2d4374dbdb4032464cb2514d5
+[done] S3_Combined/CWE190_Integer_Overflow__short_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1670 tokens=3,493,614 mcp=35(ok=34,err=1) turns=54 wall=413.46s
+[run ] S0_Baseline/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01  jail=/tmp/run_c42d3e1ad81a482dbd6af738dc4f721b
+[done] S0_Baseline/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1060 tokens=2,151,272 mcp=27(ok=27,err=0) turns=47 wall=292.52s
+[run ] S1_Flatten/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01  jail=/tmp/run_08e615fa0e144b7687a5890f3c0eb285
+[done] S1_Flatten/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0857 tokens=1,673,871 mcp=26(ok=26,err=0) turns=37 wall=244.19s
+[run ] S2_EncodeData/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01  jail=/tmp/run_17c46c5ddb64453e9d69a50fcc254544
+[done] S2_EncodeData/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1184 tokens=2,441,702 mcp=35(ok=33,err=2) turns=46 wall=352.24s
+[run ] S3_Combined/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01  jail=/tmp/run_5e84a6ea3b3b4563971ec666e5509242
+[done] S3_Combined/CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1372 tokens=2,827,953 mcp=32(ok=30,err=2) turns=49 wall=350.69s
+[run ] S0_Baseline/CWE191_Integer_Underflow__char_fscanf_multiply_01  jail=/tmp/run_a10e0f536d2949cdba781406c828e0ab
+[done] S0_Baseline/CWE191_Integer_Underflow__char_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0669 tokens=1,256,207 mcp=23(ok=22,err=1) turns=32 wall=230.5s
+[run ] S1_Flatten/CWE191_Integer_Underflow__char_fscanf_multiply_01  jail=/tmp/run_adc02a84195740c9a30535f43f9e0172
+[done] S1_Flatten/CWE191_Integer_Underflow__char_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1316 tokens=2,607,572 mcp=30(ok=28,err=2) turns=50 wall=427.13s
+[run ] S2_EncodeData/CWE191_Integer_Underflow__char_fscanf_multiply_01  jail=/tmp/run_e92d630392d24bc0a64b2190c19a0601
+[done] S2_EncodeData/CWE191_Integer_Underflow__char_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1015 tokens=1,948,096 mcp=31(ok=29,err=2) turns=39 wall=338.82s
+[run ] S3_Combined/CWE191_Integer_Underflow__char_fscanf_multiply_01  jail=/tmp/run_0499fd5f482f404fa38cbc2fc41d7d15
+[done] S3_Combined/CWE191_Integer_Underflow__char_fscanf_multiply_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1635 tokens=3,351,369 mcp=34(ok=34,err=0) turns=58 wall=415.91s
+[run ] S0_Baseline/CWE191_Integer_Underflow__char_fscanf_sub_01  jail=/tmp/run_0a23677a961046c78356485ef1eb939a
+[done] S0_Baseline/CWE191_Integer_Underflow__char_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0839 tokens=1,638,147 mcp=22(ok=22,err=0) turns=39 wall=266.91s
+[run ] S1_Flatten/CWE191_Integer_Underflow__char_fscanf_sub_01  jail=/tmp/run_a62bb424e5f5431a96810e87832042b1
+[done] S1_Flatten/CWE191_Integer_Underflow__char_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0784 tokens=1,467,938 mcp=26(ok=25,err=1) turns=34 wall=260.98s
+[run ] S2_EncodeData/CWE191_Integer_Underflow__char_fscanf_sub_01  jail=/tmp/run_0a8afb1b331b4da298fc42eb39f43367
+[done] S2_EncodeData/CWE191_Integer_Underflow__char_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1193 tokens=2,433,863 mcp=31(ok=30,err=1) turns=47 wall=302.44s
+[run ] S3_Combined/CWE191_Integer_Underflow__char_fscanf_sub_01  jail=/tmp/run_805f33162a1a443da5d2dbe8055c6d15
+[done] S3_Combined/CWE191_Integer_Underflow__char_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1246 tokens=2,474,219 mcp=34(ok=28,err=6) turns=47 wall=357.45s
+[run ] S0_Baseline/CWE191_Integer_Underflow__int64_t_fscanf_sub_01  jail=/tmp/run_564d75c54132437baca798a99dd6dbeb
+[done] S0_Baseline/CWE191_Integer_Underflow__int64_t_fscanf_sub_01: reason=completed Pass_IO=0 (0/65, curated=0/15, fuzz=0/50) cost=$0.0026 tokens=15,640 mcp=0(ok=0,err=0) turns=1 wall=14.29s
+[run ] S1_Flatten/CWE191_Integer_Underflow__int64_t_fscanf_sub_01  jail=/tmp/run_c0cb8967828d41859082b5020c6c71d4
+[done] S1_Flatten/CWE191_Integer_Underflow__int64_t_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0961 tokens=1,914,258 mcp=24(ok=22,err=2) turns=42 wall=243.78s
+[run ] S2_EncodeData/CWE191_Integer_Underflow__int64_t_fscanf_sub_01  jail=/tmp/run_3a08a9fd8c4e44afbc4b40468fb33da4
+[done] S2_EncodeData/CWE191_Integer_Underflow__int64_t_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1562 tokens=3,269,879 mcp=37(ok=35,err=2) turns=55 wall=310.44s
+[run ] S3_Combined/CWE191_Integer_Underflow__int64_t_fscanf_sub_01  jail=/tmp/run_1b362a9327394bf98078c2d154d4f200
+[done] S3_Combined/CWE191_Integer_Underflow__int64_t_fscanf_sub_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1575 tokens=3,289,627 mcp=38(ok=38,err=0) turns=51 wall=341.46s
+[run ] S0_Baseline/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01  jail=/tmp/run_343056b12ce542d787c4a130534cda2b
+[done] S0_Baseline/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0915 tokens=1,619,280 mcp=23(ok=21,err=2) turns=39 wall=256.69s
+[run ] S1_Flatten/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01  jail=/tmp/run_593ca5d199224d8497fb54c1eb92a65d
+[done] S1_Flatten/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.2179 tokens=4,834,036 mcp=25(ok=24,err=1) turns=69 wall=529.68s
+[run ] S2_EncodeData/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01  jail=/tmp/run_37a1d2610e70410aa2edecce898a68e7
+[done] S2_EncodeData/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1468 tokens=3,079,197 mcp=31(ok=31,err=0) turns=52 wall=331.51s
+[run ] S3_Combined/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01  jail=/tmp/run_e2406436bc1e426da01d16115a566edf
+[done] S3_Combined/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1509 tokens=3,101,304 mcp=35(ok=31,err=4) turns=49 wall=348.84s
+[run ] S0_Baseline/CWE191_Integer_Underflow__int_fscanf_predec_01  jail=/tmp/run_3a830cf37ee14952991bac874998094c
+[done] S0_Baseline/CWE191_Integer_Underflow__int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1172 tokens=2,456,334 mcp=30(ok=29,err=1) turns=52 wall=256.47s
+[run ] S1_Flatten/CWE191_Integer_Underflow__int_fscanf_predec_01  jail=/tmp/run_ac6efbccef8c4089ab9273a2d3f3fd0a
+[done] S1_Flatten/CWE191_Integer_Underflow__int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0656 tokens=1,175,617 mcp=23(ok=22,err=1) turns=30 wall=217.28s
+[run ] S2_EncodeData/CWE191_Integer_Underflow__int_fscanf_predec_01  jail=/tmp/run_043e1ec758cd4e9b920d794590ee2085
+[done] S2_EncodeData/CWE191_Integer_Underflow__int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1483 tokens=3,148,847 mcp=35(ok=33,err=2) turns=54 wall=291.19s
+[run ] S3_Combined/CWE191_Integer_Underflow__int_fscanf_predec_01  jail=/tmp/run_fca33f185ba5475ebce6872544e10963
+[done] S3_Combined/CWE191_Integer_Underflow__int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1102 tokens=2,132,740 mcp=28(ok=27,err=1) turns=39 wall=311.87s
+[run ] S0_Baseline/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01  jail=/tmp/run_fd8f2fb408f3490d886476c4b3b32252
+[done] S0_Baseline/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1358 tokens=2,835,758 mcp=25(ok=25,err=0) turns=54 wall=356.23s
+[run ] S1_Flatten/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01  jail=/tmp/run_f69a9c8fc4c24e538183c442d2c91718
+[done] S1_Flatten/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1211 tokens=2,480,510 mcp=24(ok=23,err=1) turns=48 wall=345.37s
+[run ] S2_EncodeData/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01  jail=/tmp/run_81ec94b98cab47788761e698d232c552
+[done] S2_EncodeData/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1136 tokens=2,292,626 mcp=28(ok=27,err=1) turns=44 wall=275.01s
+[run ] S3_Combined/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01  jail=/tmp/run_165d4e7d91274b96951b3703fc755f06
+[done] S3_Combined/CWE191_Integer_Underflow__unsigned_int_fscanf_predec_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1707 tokens=3,506,679 mcp=40(ok=36,err=4) turns=57 wall=408.23s
+[run ] S0_Baseline/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01  jail=/tmp/run_997a3eb32664429d864c10b43fc5308a
+[done] S0_Baseline/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0616 tokens=1,167,100 mcp=21(ok=20,err=1) turns=32 wall=165.55s
+[run ] S1_Flatten/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01  jail=/tmp/run_62415b597d2e417caec8f9fdf3db7789
+[done] S1_Flatten/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1070 tokens=2,183,614 mcp=28(ok=27,err=1) turns=45 wall=269.27s
+[run ] S2_EncodeData/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01  jail=/tmp/run_83753b2eed854cddb7f94cd2c9615d45
+[done] S2_EncodeData/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0990 tokens=2,005,135 mcp=29(ok=29,err=0) turns=39 wall=249.56s
+[run ] S3_Combined/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01  jail=/tmp/run_d1a061b5a00b4c78a8d34a54ad061116
+[done] S3_Combined/CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1224 tokens=2,496,809 mcp=27(ok=27,err=0) turns=51 wall=265.8s
+[run ] S0_Baseline/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01  jail=/tmp/run_70ed217a77454671b32c1dcafb995acd
+[done] S0_Baseline/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0931 tokens=1,913,006 mcp=26(ok=24,err=2) turns=46 wall=229.02s
+[run ] S1_Flatten/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01  jail=/tmp/run_36c5cd5676af4ec99fac220d0a1aec7c
+[done] S1_Flatten/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1129 tokens=2,291,743 mcp=24(ok=23,err=1) turns=47 wall=301.21s
+[run ] S2_EncodeData/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01  jail=/tmp/run_9b679ffd416a45eeadadf8a38493942e
+[done] S2_EncodeData/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1190 tokens=2,516,202 mcp=31(ok=30,err=1) turns=48 wall=235.58s
+[run ] S3_Combined/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01  jail=/tmp/run_f31823511ce34ac698c07b7ac7a9595e
+[done] S3_Combined/CWE197_Numeric_Truncation_Error__int_fscanf_to_short_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1176 tokens=2,418,621 mcp=23(ok=23,err=0) turns=47 wall=278.91s
+[run ] S0_Baseline/CWE197_Numeric_Truncation_Error__short_fscanf_01  jail=/tmp/run_23eee2cffda047fbaac1a86e53e797ae
+[done] S0_Baseline/CWE197_Numeric_Truncation_Error__short_fscanf_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0696 tokens=1,243,307 mcp=26(ok=24,err=2) turns=32 wall=239.07s
+[run ] S1_Flatten/CWE197_Numeric_Truncation_Error__short_fscanf_01  jail=/tmp/run_4b8f992214054563873036866acdbc17
+[done] S1_Flatten/CWE197_Numeric_Truncation_Error__short_fscanf_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.0840 tokens=1,623,092 mcp=27(ok=26,err=1) turns=38 wall=233.44s
+[run ] S2_EncodeData/CWE197_Numeric_Truncation_Error__short_fscanf_01  jail=/tmp/run_dbce7c8e4ba447db94eb9ab6cd049136
+[done] S2_EncodeData/CWE197_Numeric_Truncation_Error__short_fscanf_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1143 tokens=2,366,896 mcp=28(ok=28,err=0) turns=45 wall=264.66s
+[run ] S3_Combined/CWE197_Numeric_Truncation_Error__short_fscanf_01  jail=/tmp/run_b94be6918e9e476a94d613dc74343da7
+[done] S3_Combined/CWE197_Numeric_Truncation_Error__short_fscanf_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1163 tokens=2,370,187 mcp=26(ok=24,err=2) turns=47 wall=256.17s
+[run ] S0_Baseline/CWE369_Divide_by_Zero__int_fscanf_divide_01  jail=/tmp/run_7cb5d439d1f24bc0b37fa5deab4b0708
+[done] S0_Baseline/CWE369_Divide_by_Zero__int_fscanf_divide_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1103 tokens=2,243,821 mcp=31(ok=30,err=1) turns=47 wall=249.2s
+[run ] S1_Flatten/CWE369_Divide_by_Zero__int_fscanf_divide_01  jail=/tmp/run_fce5848b25114710af69b1375308b972
+[done] S1_Flatten/CWE369_Divide_by_Zero__int_fscanf_divide_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1098 tokens=2,186,949 mcp=25(ok=22,err=3) turns=46 wall=276.45s
+[run ] S2_EncodeData/CWE369_Divide_by_Zero__int_fscanf_divide_01  jail=/tmp/run_f181c2f75ecf4b4ea4eee5496dd958a2
+[done] S2_EncodeData/CWE369_Divide_by_Zero__int_fscanf_divide_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1206 tokens=2,510,212 mcp=31(ok=29,err=2) turns=47 wall=254.95s
+[run ] S3_Combined/CWE369_Divide_by_Zero__int_fscanf_divide_01  jail=/tmp/run_692ce91e82c64a7898e7fe9ce66878ab
+[done] S3_Combined/CWE369_Divide_by_Zero__int_fscanf_divide_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1948 tokens=4,139,120 mcp=47(ok=39,err=8) turns=56 wall=449.39s
+[run ] S0_Baseline/CWE369_Divide_by_Zero__int_fscanf_modulo_01  jail=/tmp/run_9dccb16196374d0faebb2ed1d83c7772
+[done] S0_Baseline/CWE369_Divide_by_Zero__int_fscanf_modulo_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1066 tokens=2,140,368 mcp=24(ok=24,err=0) turns=46 wall=291.9s
+[run ] S1_Flatten/CWE369_Divide_by_Zero__int_fscanf_modulo_01  jail=/tmp/run_92cd8a97046c4dfb86ed084b97b48fbe
+[done] S1_Flatten/CWE369_Divide_by_Zero__int_fscanf_modulo_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1056 tokens=2,128,362 mcp=28(ok=28,err=0) turns=45 wall=247.25s
+[run ] S2_EncodeData/CWE369_Divide_by_Zero__int_fscanf_modulo_01  jail=/tmp/run_c2dde96b788c460b8892e948f8828741
+[done] S2_EncodeData/CWE369_Divide_by_Zero__int_fscanf_modulo_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1147 tokens=2,297,143 mcp=34(ok=33,err=1) turns=43 wall=277.88s
+[run ] S3_Combined/CWE369_Divide_by_Zero__int_fscanf_modulo_01  jail=/tmp/run_7f7da3da13dd4f168e172f141772d6e3
+[done] S3_Combined/CWE369_Divide_by_Zero__int_fscanf_modulo_01: reason=completed Pass_IO=1 (65/65, curated=15/15, fuzz=50/50) cost=$0.1435 tokens=2,893,756 mcp=34(ok=32,err=2) turns=49 wall=370.65s

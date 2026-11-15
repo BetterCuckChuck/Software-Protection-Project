@@ -1,0 +1,104 @@
+{
+  "scenario": "S3_Combined",
+  "sample_id": "CWE369_Divide_by_Zero__int_fscanf_divide_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 187247,
+    "input_cached": 3919022,
+    "reasoning": 28816,
+    "output": 4035,
+    "peak_context": 111340,
+    "total_input": 4106269,
+    "total": 4139120
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9544,
+    "reasoning_token_ratio": 0.006962,
+    "reasoning_share_of_generated": 0.8772
+  },
+  "cost_usd": {
+    "input_uncached": 0.02808705,
+    "input_cached": 0.14696332499999998,
+    "reasoning": 0.0172896,
+    "output": 0.002421,
+    "total": 0.19476097499999998
+  },
+  "mcp_calls": 47,
+  "mcp_calls_succeeded": 39,
+  "mcp_calls_errored": 8,
+  "mcp_error_rate": 0.1702,
+  "mcp_calls_by_tool": {
+    "open_binary": 2,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "list_strings": 1,
+    "search_procedures": 3,
+    "procedure_pseudo_code": 8,
+    "procedure_assembly": 6,
+    "read_bytes": 7,
+    "read_function_instructions": 1,
+    "resolve_containing_procedure": 1,
+    "inspect_native_instruction": 2,
+    "close_binary": 2,
+    "xrefs": 4,
+    "procedure_callers": 1,
+    "procedure_callees": 1,
+    "analyze_function": 1,
+    "annotate_native_function": 1,
+    "execute_rizin_command": 3,
+    "decompile_all": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1,
+    "read_bytes": 1,
+    "analyze_function": 1,
+    "annotate_native_function": 1,
+    "execute_rizin_command": 3,
+    "decompile_all": 1
+  },
+  "mcp_payload_bytes": 164016,
+  "mcp_error_payload_bytes": 17925,
+  "other_tool_calls": 18,
+  "other_tool_calls_succeeded": 17,
+  "other_tool_calls_errored": 1,
+  "turns": 56,
+  "wall_time_sec": 449.39,
+  "latency": {
+    "wall_time_sec": 449.385967046,
+    "llm_time_sec": 431.11,
+    "mcp_time_sec": 37.056,
+    "other_tool_time_sec": 1.696
+  },
+  "hook_audit": {
+    "total": 65,
+    "allow": 64,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/5172f151-9d33-4425-977f-74c7a5af78a4/.system_generated/steps/5/output.txt'": 1
+    },
+    "chal_exec_calls": 9,
+    "chal_exec_pre_write": 8
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1706,
+    "instructions": 390,
+    "conditional_jumps": 12,
+    "indirect_jumps": 4,
+    "basic_block_estimate": 46,
+    "cyclomatic_complexity_est": 17
+  },
+  "terminated_reason": "completed"
+}

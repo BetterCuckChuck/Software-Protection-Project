@@ -1,0 +1,21 @@
+{
+  "gate1": {
+    "passed": true,
+    "violations": [],
+    "compile_ok": true,
+    "compile_stderr": "reconstructed.c: In function \u2018good\u2019:\nreconstructed.c:24:5: warning: ignoring return value of \u2018fscanf\u2019 declared with attribute \u2018warn_unused_result\u2019 [-Wunused-result]\n   24 |     fscanf(stdin, \"%c\", &data);\n      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~\nreconstructed.c: In function \u2018bad\u2019:\nreconstructed.c:35:5: warning: ignoring return value of \u2018fscanf\u2019 declared with attribute \u2018warn_unused_result\u2019 [-Wunused-result]\n   35 |     fscanf(stdin, \"%c\", &data);\n      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+  },
+  "gate2": {
+    "passed": 15,
+    "total": 15
+  },
+  "gate3": {
+    "passed": 50,
+    "total": 50
+  },
+  "failures": [],
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0
+}

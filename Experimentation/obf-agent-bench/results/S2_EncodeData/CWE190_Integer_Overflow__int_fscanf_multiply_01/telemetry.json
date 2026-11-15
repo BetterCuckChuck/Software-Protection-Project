@@ -1,0 +1,91 @@
+{
+  "scenario": "S2_EncodeData",
+  "sample_id": "CWE190_Integer_Overflow__int_fscanf_multiply_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 156425,
+    "input_cached": 2793529,
+    "reasoning": 17402,
+    "output": 4273,
+    "peak_context": 81447,
+    "total_input": 2949954,
+    "total": 2971629
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.947,
+    "reasoning_token_ratio": 0.005856,
+    "reasoning_share_of_generated": 0.8029
+  },
+  "cost_usd": {
+    "input_uncached": 0.02346375,
+    "input_cached": 0.10475733749999999,
+    "reasoning": 0.0104412,
+    "output": 0.0025637999999999998,
+    "total": 0.1412260875
+  },
+  "mcp_calls": 30,
+  "mcp_calls_succeeded": 29,
+  "mcp_calls_errored": 1,
+  "mcp_error_rate": 0.0333,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 4,
+    "search_strings": 1,
+    "read_bytes": 2,
+    "procedure_assembly": 4,
+    "procedure_pseudo_code": 9,
+    "xrefs": 6,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1
+  },
+  "mcp_payload_bytes": 108270,
+  "mcp_error_payload_bytes": 677,
+  "other_tool_calls": 22,
+  "other_tool_calls_succeeded": 20,
+  "other_tool_calls_errored": 2,
+  "turns": 53,
+  "wall_time_sec": 296.92,
+  "latency": {
+    "wall_time_sec": 296.924848808,
+    "llm_time_sec": 286.915,
+    "mcp_time_sec": 9.288,
+    "other_tool_time_sec": 1.532
+  },
+  "hook_audit": {
+    "total": 52,
+    "allow": 50,
+    "deny": 2,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/2a52a51b-1158-4b3d-8cd0-cf9567ce387c/.system_generated/steps/6/output.txt'": 1,
+      "absolute path outside jail '/'": 1
+    },
+    "chal_exec_calls": 11,
+    "chal_exec_pre_write": 11
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1787,
+    "instructions": 412,
+    "conditional_jumps": 20,
+    "indirect_jumps": 3,
+    "basic_block_estimate": 55,
+    "cyclomatic_complexity_est": 24
+  },
+  "terminated_reason": "completed"
+}

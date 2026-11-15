@@ -1,0 +1,87 @@
+{
+  "scenario": "S0_Baseline",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_add_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 84001,
+    "input_cached": 781080,
+    "reasoning": 15135,
+    "output": 1763,
+    "peak_context": 57294,
+    "total_input": 865081,
+    "total": 881979
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9029,
+    "reasoning_token_ratio": 0.01716,
+    "reasoning_share_of_generated": 0.8957
+  },
+  "cost_usd": {
+    "input_uncached": 0.01260015,
+    "input_cached": 0.0292905,
+    "reasoning": 0.009081,
+    "output": 0.0010578,
+    "total": 0.05202945
+  },
+  "mcp_calls": 19,
+  "mcp_calls_succeeded": 19,
+  "mcp_calls_errored": 0,
+  "mcp_error_rate": 0.0,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_strings": 1,
+    "read_bytes": 1,
+    "search_procedures": 2,
+    "procedure_pseudo_code": 8,
+    "procedure_assembly": 3,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {},
+  "mcp_payload_bytes": 66723,
+  "mcp_error_payload_bytes": 0,
+  "other_tool_calls": 5,
+  "other_tool_calls_succeeded": 4,
+  "other_tool_calls_errored": 1,
+  "turns": 25,
+  "wall_time_sec": 206.49,
+  "latency": {
+    "wall_time_sec": 206.486406411,
+    "llm_time_sec": 195.443,
+    "mcp_time_sec": 10.959,
+    "other_tool_time_sec": 0.488
+  },
+  "hook_audit": {
+    "total": 24,
+    "allow": 23,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/f1fd8258-5c47-4997-bd13-5da233ec1189/.system_generated/steps/6/output.txt'": 1
+    },
+    "chal_exec_calls": 0,
+    "chal_exec_pre_write": 0
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 690,
+    "instructions": 171,
+    "conditional_jumps": 11,
+    "indirect_jumps": 2,
+    "basic_block_estimate": 39,
+    "cyclomatic_complexity_est": 14
+  },
+  "terminated_reason": "completed"
+}

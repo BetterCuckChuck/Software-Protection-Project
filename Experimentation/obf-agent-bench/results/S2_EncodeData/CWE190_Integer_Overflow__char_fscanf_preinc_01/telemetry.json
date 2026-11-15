@@ -1,0 +1,90 @@
+{
+  "scenario": "S2_EncodeData",
+  "sample_id": "CWE190_Integer_Overflow__char_fscanf_preinc_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 166976,
+    "input_cached": 3094429,
+    "reasoning": 20497,
+    "output": 4074,
+    "peak_context": 93120,
+    "total_input": 3261405,
+    "total": 3285976
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9488,
+    "reasoning_token_ratio": 0.006238,
+    "reasoning_share_of_generated": 0.8342
+  },
+  "cost_usd": {
+    "input_uncached": 0.025046399999999996,
+    "input_cached": 0.1160410875,
+    "reasoning": 0.012298199999999999,
+    "output": 0.0024444000000000002,
+    "total": 0.15583008750000002
+  },
+  "mcp_calls": 21,
+  "mcp_calls_succeeded": 21,
+  "mcp_calls_errored": 0,
+  "mcp_error_rate": 0.0,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 2,
+    "inspect_analysis_view": 1,
+    "list_strings": 1,
+    "read_bytes": 1,
+    "procedure_pseudo_code": 10,
+    "read_function_instructions": 2,
+    "procedure_callers": 1,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {},
+  "mcp_payload_bytes": 88850,
+  "mcp_error_payload_bytes": 0,
+  "other_tool_calls": 31,
+  "other_tool_calls_succeeded": 28,
+  "other_tool_calls_errored": 3,
+  "turns": 53,
+  "wall_time_sec": 351.19,
+  "latency": {
+    "wall_time_sec": 351.18563691,
+    "llm_time_sec": 340.903,
+    "mcp_time_sec": 9.451,
+    "other_tool_time_sec": 1.94
+  },
+  "hook_audit": {
+    "total": 52,
+    "allow": 49,
+    "deny": 3,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/mcp/rea'": 1,
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/6916f937-601d-4a2c-93cc-d0cbadebc03a/.system_generated/steps/14/output.txt'": 1,
+      "absolute path outside jail '/*'": 1
+    },
+    "chal_exec_calls": 12,
+    "chal_exec_pre_write": 11
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 1732,
+    "instructions": 384,
+    "conditional_jumps": 18,
+    "indirect_jumps": 3,
+    "basic_block_estimate": 52,
+    "cyclomatic_complexity_est": 22
+  },
+  "terminated_reason": "completed"
+}

@@ -1,0 +1,91 @@
+{
+  "scenario": "S0_Baseline",
+  "sample_id": "CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 173195,
+    "input_cached": 1425988,
+    "reasoning": 17583,
+    "output": 2514,
+    "peak_context": 62090,
+    "total_input": 1599183,
+    "total": 1619280
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.8917,
+    "reasoning_token_ratio": 0.010859,
+    "reasoning_share_of_generated": 0.8749
+  },
+  "cost_usd": {
+    "input_uncached": 0.02597925,
+    "input_cached": 0.053474549999999996,
+    "reasoning": 0.0105498,
+    "output": 0.0015083999999999998,
+    "total": 0.09151199999999998
+  },
+  "mcp_calls": 23,
+  "mcp_calls_succeeded": 21,
+  "mcp_calls_errored": 2,
+  "mcp_error_rate": 0.087,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 3,
+    "search_strings": 2,
+    "procedure_assembly": 5,
+    "procedure_pseudo_code": 4,
+    "resolve_containing_procedure": 3,
+    "read_bytes": 2,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {
+    "search_procedures": 1,
+    "search_strings": 1
+  },
+  "mcp_payload_bytes": 69691,
+  "mcp_error_payload_bytes": 1312,
+  "other_tool_calls": 15,
+  "other_tool_calls_succeeded": 14,
+  "other_tool_calls_errored": 1,
+  "turns": 39,
+  "wall_time_sec": 256.69,
+  "latency": {
+    "wall_time_sec": 256.685323896,
+    "llm_time_sec": 247.607,
+    "mcp_time_sec": 8.601,
+    "other_tool_time_sec": 1.199
+  },
+  "hook_audit": {
+    "total": 38,
+    "allow": 37,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/9200be7a-18b3-4e07-8e5a-c9eb62377cee/.system_generated/steps/6/output.txt'": 1
+    },
+    "chal_exec_calls": 7,
+    "chal_exec_pre_write": 6
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 690,
+    "instructions": 171,
+    "conditional_jumps": 11,
+    "indirect_jumps": 2,
+    "basic_block_estimate": 39,
+    "cyclomatic_complexity_est": 14
+  },
+  "terminated_reason": "completed"
+}

@@ -1,0 +1,88 @@
+{
+  "scenario": "S1_Flatten",
+  "sample_id": "CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01",
+  "io_passed": true,
+  "io_tests_passed": 65,
+  "io_tests_total": 65,
+  "io_accuracy": 1.0,
+  "io_breakdown": {
+    "gate1_passed": true,
+    "compile_ok": true,
+    "violations": [],
+    "curated_passed": 15,
+    "curated_total": 15,
+    "fuzz_passed": 50,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 116298,
+    "input_cached": 1540116,
+    "reasoning": 14857,
+    "output": 2600,
+    "peak_context": 68731,
+    "total_input": 1656414,
+    "total": 1673871
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.9298,
+    "reasoning_token_ratio": 0.008876,
+    "reasoning_share_of_generated": 0.8511
+  },
+  "cost_usd": {
+    "input_uncached": 0.0174447,
+    "input_cached": 0.057754349999999996,
+    "reasoning": 0.008914199999999999,
+    "output": 0.00156,
+    "total": 0.08567324999999999
+  },
+  "mcp_calls": 26,
+  "mcp_calls_succeeded": 26,
+  "mcp_calls_errored": 0,
+  "mcp_error_rate": 0.0,
+  "mcp_calls_by_tool": {
+    "open_binary": 1,
+    "binary_overview": 1,
+    "list_procedures": 1,
+    "search_procedures": 2,
+    "search_strings": 1,
+    "procedure_pseudo_code": 8,
+    "read_function_instructions": 3,
+    "read_bytes": 3,
+    "xrefs": 5,
+    "close_binary": 1
+  },
+  "mcp_calls_errored_by_tool": {},
+  "mcp_payload_bytes": 96029,
+  "mcp_error_payload_bytes": 0,
+  "other_tool_calls": 10,
+  "other_tool_calls_succeeded": 9,
+  "other_tool_calls_errored": 1,
+  "turns": 37,
+  "wall_time_sec": 244.19,
+  "latency": {
+    "wall_time_sec": 244.188155702,
+    "llm_time_sec": 234.765,
+    "mcp_time_sec": 8.931,
+    "other_tool_time_sec": 0.591
+  },
+  "hook_audit": {
+    "total": 36,
+    "allow": 35,
+    "deny": 1,
+    "deny_reasons": {
+      "absolute path outside jail '/home/arch/.gemini/antigravity-cli/brain/c154511f-7f62-42bb-8d4d-6fba75bdbc08/.system_generated/steps/6/output.txt'": 1
+    },
+    "chal_exec_calls": 2,
+    "chal_exec_pre_write": 0
+  },
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 868,
+    "instructions": 209,
+    "conditional_jumps": 9,
+    "indirect_jumps": 3,
+    "basic_block_estimate": 40,
+    "cyclomatic_complexity_est": 13
+  },
+  "terminated_reason": "completed"
+}

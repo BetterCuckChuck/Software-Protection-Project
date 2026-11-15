@@ -1,0 +1,70 @@
+{
+  "scenario": "S0_Baseline",
+  "sample_id": "CWE191_Integer_Underflow__int64_t_fscanf_sub_01",
+  "io_passed": false,
+  "io_tests_passed": 0,
+  "io_tests_total": 65,
+  "io_accuracy": 0.0,
+  "io_breakdown": {
+    "gate1_passed": false,
+    "compile_ok": false,
+    "violations": [
+      "reconstructed.c missing"
+    ],
+    "curated_passed": 0,
+    "curated_total": 15,
+    "fuzz_passed": 0,
+    "fuzz_total": 50
+  },
+  "tokens": {
+    "input_uncached": 14975,
+    "input_cached": 0,
+    "reasoning": 665,
+    "output": 0,
+    "peak_context": 14975,
+    "total_input": 14975,
+    "total": 15640
+  },
+  "token_ratios": {
+    "cache_hit_ratio": 0.0,
+    "reasoning_token_ratio": 0.042519,
+    "reasoning_share_of_generated": 1.0
+  },
+  "cost_usd": {
+    "input_uncached": 0.00224625,
+    "input_cached": 0.0,
+    "reasoning": 0.000399,
+    "output": 0.0,
+    "total": 0.00264525
+  },
+  "mcp_calls": 0,
+  "mcp_calls_succeeded": 0,
+  "mcp_calls_errored": 0,
+  "mcp_error_rate": 0.0,
+  "mcp_calls_by_tool": {},
+  "mcp_calls_errored_by_tool": {},
+  "mcp_payload_bytes": 0,
+  "mcp_error_payload_bytes": 0,
+  "other_tool_calls": 0,
+  "other_tool_calls_succeeded": 0,
+  "other_tool_calls_errored": 0,
+  "turns": 1,
+  "wall_time_sec": 14.29,
+  "latency": {
+    "wall_time_sec": 14.294972328,
+    "llm_time_sec": 13.505,
+    "mcp_time_sec": 0.0,
+    "other_tool_time_sec": 0.0
+  },
+  "hook_audit": null,
+  "binary_stats": {
+    "file_size_bytes": 14360,
+    "text_bytes": 706,
+    "instructions": 170,
+    "conditional_jumps": 11,
+    "indirect_jumps": 2,
+    "basic_block_estimate": 39,
+    "cyclomatic_complexity_est": 14
+  },
+  "terminated_reason": "completed"
+}
