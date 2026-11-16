@@ -1,7 +1,3 @@
-# Báo cáo Framework Pipeline obf-agent-bench (Tigress vs. REA Agent — Week 2)
-
-> Nguồn: `Experimentation/obf-agent-bench` | 20 chương trình Juliet v1.3 × 4 kịch bản = 80 runs | Ngôn ngữ: Tiếng Việt (thuật ngữ chuyên ngành, từ riêng, tên riêng giữ Tiếng Anh, có giải thích kèm theo).
-
 ## 1. Tổng quan framework pipeline
 
 **Mục tiêu:** đo tác động của làm rối mã nguồn (obfuscation) bằng Tigress lên khả năng dịch ngược tự động của agent chạy theo khung **REA (Reverse Engineer Anything)**. Đầu vào là file nhị phân ELF x86-64 đã lột ký hiệu (**stripped ELF**) `./chal`; đầu ra là `./reconstructed.c` phải biên dịch được và tương đương hành vi.
