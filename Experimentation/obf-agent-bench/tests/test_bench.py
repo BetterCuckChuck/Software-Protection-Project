@@ -200,15 +200,16 @@ class CostEvaluatorTests(unittest.TestCase):
         put("S1_Flatten", "a", True, s1, 12)
         put("S1_Flatten", "b", False, s1, 12)
         pricing = cfg["evaluation"]["cost_telemetry"]["pricing_per_1m_tokens_usd"]
+        self.assertEqual(pricing, {"input_uncached": 0.75, "input_cached": 0.075, "output_and_reasoning": 3.75})
         summary = cost_evaluator.aggregate(cost_evaluator.load_runs(tmp, pricing), cfg)
         s1m = summary["scenarios"]["S1_Flatten"]
         self.assertAlmostEqual(s1m["ocm_all"]["tokens_mean"], 3.0)
         self.assertAlmostEqual(s1m["ocm_pass_only"]["tokens_mean"], 3.0)
         self.assertAlmostEqual(s1m["ocm_all"]["tools_mean"], 3.0)
-        cost = (3000 * 0.15 + 3000 * 0.60) / 1e6
+        cost = (3000 * 0.75 + 3000 * 3.75) / 1e6
         self.assertAlmostEqual(s1m["ecsr_usd"], 2 * cost / 1)          # two runs, one success
         self.assertAlmostEqual(s1m["ecsr_tokens"], 2 * 6000 / 1)
-        self.assertEqual(summary["scenarios"]["S0_Baseline"]["ecsr_usd"], 2 * (1000 * 0.15 + 1000 * 0.6) / 1e6 / 2)
+        self.assertEqual(summary["scenarios"]["S0_Baseline"]["ecsr_usd"], 2 * (1000 * 0.75 + 1000 * 3.75) / 1e6 / 2)
         self.assertIn("S1_Flatten", cost_evaluator.markdown_table(summary))
 
     def test_dollar_view_html_and_enriched_metrics(self):
@@ -235,10 +236,10 @@ class CostEvaluatorTests(unittest.TestCase):
                 "mcp_calls_errored": 0,
                 "tokens": {"input_uncached": 10000, "input_cached": 20000, "output": 1000, "reasoning": 2000, "total": 33000},
                 "cost_usd": {
-                    "input_uncached": 10000 * 0.15 / 1e6,
-                    "input_cached": 20000 * 0.0375 / 1e6,
-                    "output_and_reasoning": 3000 * 0.60 / 1e6,
-                    "total": (10000 * 0.15 + 20000 * 0.0375 + 3000 * 0.60) / 1e6,
+                    "input_uncached": 10000 * 0.75 / 1e6,
+                    "input_cached": 20000 * 0.075 / 1e6,
+                    "output_and_reasoning": 3000 * 3.75 / 1e6,
+                    "total": (10000 * 0.75 + 20000 * 0.075 + 3000 * 3.75) / 1e6,
                 },
             }), encoding="utf-8")
             (s1 / "telemetry.json").write_text(json.dumps({
@@ -258,11 +259,11 @@ class CostEvaluatorTests(unittest.TestCase):
             summary = cost_evaluator.aggregate(runs, cfg)
             s0m = summary["scenarios"]["S0_Baseline"]
             s1m = summary["scenarios"]["S1_Flatten"]
-            self.assertAlmostEqual(s0m["avg_cost_input_uncached_usd"], 10000 * 0.15 / 1e6)
-            self.assertAlmostEqual(s0m["avg_cost_input_cached_usd"], 20000 * 0.0375 / 1e6)
-            self.assertAlmostEqual(s0m["avg_cost_reasoning_usd"], 2000 * 0.60 / 1e6)
-            self.assertAlmostEqual(s0m["avg_cost_output_usd"], 1000 * 0.60 / 1e6)
-            self.assertAlmostEqual(s0m["avg_run_cost_usd"], (10000 * 0.15 + 20000 * 0.0375 + 3000 * 0.60) / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_input_uncached_usd"], 10000 * 0.75 / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_input_cached_usd"], 20000 * 0.075 / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_reasoning_usd"], 2000 * 3.75 / 1e6)
+            self.assertAlmostEqual(s0m["avg_cost_output_usd"], 1000 * 3.75 / 1e6)
+            self.assertAlmostEqual(s0m["avg_run_cost_usd"], (10000 * 0.75 + 20000 * 0.075 + 3000 * 3.75) / 1e6)
             self.assertAlmostEqual(s1m["avg_run_cost_usd"], 2 * s0m["avg_run_cost_usd"])
             self.assertAlmostEqual(s1m["ocm_cost_usd"], 2.0)
             self.assertIsNone(s1m["ecsr_usd"])

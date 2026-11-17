@@ -202,13 +202,13 @@ $$\text{Pass}_{\text{IO}} = \begin{cases} 1 & \text{if Gate 1 passes} \;\land\; 
 * $T_{\text{total}}$ (`total`): $T_{\text{in}} + T_{\text{cache}} + T_{\text{think}} + T_{\text{out}}$.
 
 #### Configured Pricing & Research Metrics (`configs/experiment.yaml` & `cost_evaluator.py`)
-Using `pricing_per_1m_tokens_usd`:
-* Uncached Input ($P_{\text{in}}$): **`$0.15` / 1M tokens**
-* Prefix-Cached Input ($P_{\text{cache}}$): **`$0.0375` / 1M tokens**
-* Output & Reasoning ($P_{\text{out}}$): **`$0.60` / 1M tokens**
+Using `pricing_per_1m_tokens_usd` (official Google Gemini Developer API Standard Tier rates for `gemini-3.8-flash` active through Dec 31, 2026; post-promotional rates starting Jan 1, 2027 are `$1.50 / $0.15 / $7.50`):
+* Uncached Input ($P_{\text{in}}$): **`$0.75` / 1M tokens**
+* Prefix-Cached Input ($P_{\text{cache}}$): **`$0.075` / 1M tokens**
+* Output & Reasoning ($P_{\text{out}}$): **`$3.75` / 1M tokens**
 
 1. **Per-Run Monetary Cost ($C_{\text{run}}$):**
-   $$C_{\text{run}} = \frac{T_{\text{in}} \cdot 0.15 + T_{\text{cache}} \cdot 0.0375 + (T_{\text{think}} + T_{\text{out}}) \cdot 0.60}{10^6}$$
+   $$C_{\text{run}} = \frac{T_{\text{in}} \cdot 0.75 + T_{\text{cache}} \cdot 0.075 + (T_{\text{think}} + T_{\text{out}}) \cdot 3.75}{10^6}$$
 2. **Obfuscation Cost Multiplier ($OCM$):** Computed pairwise per sample $i$ vs. `S0_Baseline` for all runs (`ocm_all`, reporting both mean and median across tokens, dollar cost, MCP calls, and turns) and over passing pairs (`ocm_pass_only`), plus aggregate scenario mean ratios (`ocm_tokens`, `ocm_cost_usd`):
    $$OCM_{\text{tokens}}(S_k, i) = \frac{T_{\text{total}}(S_k, i)}{T_{\text{total}}(S_0, i)}, \qquad OCM_{\text{cost}}(S_k, i) = \frac{C_{\text{run}}(S_k, i)}{C_{\text{run}}(S_0, i)}, \qquad OCM_{\text{tools}}(S_k, i) = \frac{N_{\text{mcp}}(S_k, i)}{N_{\text{mcp}}(S_0, i)}$$
 3. **Expected Cost per Successful Reconstruction ($ECSR$):** Unified accuracy-adjusted cost metric combining total scenario spend (including failed attempts) divided by passing binaries:

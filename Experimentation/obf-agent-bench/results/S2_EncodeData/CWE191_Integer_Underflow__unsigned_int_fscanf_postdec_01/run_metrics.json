@@ -545,22 +545,23 @@
   "scenario": "S2_EncodeData",
   "sample_id": "CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.02349,
-    "input_cached": 0.10868133749999999,
-    "reasoning": 0.0124926,
-    "output": 0.0021642,
-    "total": 0.14682813749999998
+    "input_uncached": 0.11745,
+    "input_cached": 0.21736267499999998,
+    "reasoning": 0.07807875,
+    "output": 0.01352625,
+    "total": 0.426417675
   },
   "hook_audit": {
     "total": 51,

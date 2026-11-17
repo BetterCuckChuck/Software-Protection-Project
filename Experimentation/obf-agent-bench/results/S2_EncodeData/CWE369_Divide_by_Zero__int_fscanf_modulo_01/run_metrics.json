@@ -467,22 +467,23 @@
   "scenario": "S2_EncodeData",
   "sample_id": "CWE369_Divide_by_Zero__int_fscanf_modulo_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.0204951,
-    "input_cached": 0.0801387375,
-    "reasoning": 0.0125802,
-    "output": 0.0015053999999999998,
-    "total": 0.11471943750000001
+    "input_uncached": 0.1024755,
+    "input_cached": 0.160277475,
+    "reasoning": 0.07862625,
+    "output": 0.00940875,
+    "total": 0.35078797500000003
   },
   "hook_audit": {
     "total": 42,

@@ -503,6 +503,7 @@
   "scenario": "S2_EncodeData",
   "sample_id": "CWE190_Integer_Overflow__char_fscanf_add_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
@@ -514,11 +515,11 @@
     "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.0208143,
-    "input_cached": 0.089968275,
-    "reasoning": 0.0105546,
-    "output": 0.0021972,
-    "total": 0.12353437499999999
+    "input_uncached": 0.1040715,
+    "input_cached": 0.17993655,
+    "reasoning": 0.06596625,
+    "output": 0.0137325,
+    "total": 0.3637068
   },
   "hook_audit": {
     "total": 46,

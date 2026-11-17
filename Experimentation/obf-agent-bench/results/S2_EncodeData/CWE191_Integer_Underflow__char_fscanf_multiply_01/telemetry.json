@@ -29,11 +29,11 @@
     "reasoning_share_of_generated": 0.8985
   },
   "cost_usd": {
-    "input_uncached": 0.01896495,
-    "input_cached": 0.0673654875,
-    "reasoning": 0.0136116,
-    "output": 0.0015383999999999999,
-    "total": 0.10148043749999999
+    "input_uncached": 0.09482475,
+    "input_cached": 0.134730975,
+    "reasoning": 0.0850725,
+    "output": 0.009615,
+    "total": 0.32424322499999997
   },
   "mcp_calls": 31,
   "mcp_calls_succeeded": 29,
@@ -88,5 +88,6 @@
     "basic_block_estimate": 55,
     "cyclomatic_complexity_est": 24
   },
+  "safety_filter_retries": 0,
   "terminated_reason": "completed"
 }

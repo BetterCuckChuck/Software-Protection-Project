@@ -429,22 +429,23 @@
   "scenario": "S3_Combined",
   "sample_id": "CWE191_Integer_Underflow__int_fscanf_predec_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.01935195,
-    "input_cached": 0.07409167500000001,
-    "reasoning": 0.0152994,
-    "output": 0.00147,
-    "total": 0.110213025
+    "input_uncached": 0.09675975,
+    "input_cached": 0.14818335000000002,
+    "reasoning": 0.09562125,
+    "output": 0.0091875,
+    "total": 0.34975185000000003
   },
   "hook_audit": {
     "total": 38,

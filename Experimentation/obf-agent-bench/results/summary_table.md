@@ -3,11 +3,11 @@
 | I/O Pass Rate Pass_IO (%) | 95.0 | 100.0 (+5.0 pp vs S0) | 100.0 (+5.0 pp vs S0) | 95.0 (+0.0 pp vs S0) |
 | Partial Test Accuracy Acc_IO (%) | 95.0 ± 22.4 | 100.0 ± 0.0 | 100.0 ± 0.0 | 95.0 ± 22.4 |
 | Gate Breakdown (Compile / Curated / Fuzz) | 95% / 95% / 95% | 100% / 100% / 100% | 100% / 100% / 100% | 95% / 95% / 95% |
-| Avg Run Cost (USD) | $0.0889 | $0.1142 | $0.1249 | $0.1466 |
-| USD Cost Breakdown (In / Cache / Think / Out) | $0.0183 / $0.0610 / $0.0080 / $0.0016 | $0.0207 / $0.0808 / $0.0109 / $0.0019 | $0.0220 / $0.0896 / $0.0114 / $0.0019 | $0.0239 / $0.1066 / $0.0138 / $0.0022 |
-| ECSR (USD per successful break) | $0.0936 | $0.1142 | $0.1249 | $0.1543 |
+| Avg Run Cost (USD) | $0.2736 | $0.3446 | $0.3723 | $0.4331 |
+| USD Cost Breakdown (In / Cache / Think / Out) | $0.0916 / $0.1220 / $0.0497 / $0.0103 | $0.1033 / $0.1616 / $0.0681 / $0.0116 | $0.1101 / $0.1792 / $0.0711 / $0.0120 | $0.1193 / $0.2133 / $0.0865 / $0.0140 |
+| ECSR (USD per successful break) | $0.2880 | $0.3446 | $0.3723 | $0.4559 |
 | ECSR (tokens per successful break) | 1,857,458 | 2,313,683 | 2,557,690 | 3,189,294 |
-| OCM_cost (USD ratio vs S0) | 1.00× | 1.28× | 1.40× | 1.65× |
+| OCM_cost (USD ratio vs S0) | 1.00× | 1.26× | 1.36× | 1.58× |
 | OCM_tokens, all samples (mean of ratios) | 1.00× | 7.41× | 11.85× | 12.21× |
 | OCM_tokens, successful breaks only | 1.00× | 7.41× | 11.85× | 12.86× |
 | OCM_tools, all samples | 1.00× | 1.10× | 1.23× | 1.28× |
@@ -27,4 +27,4 @@
 | Binary Instructions (count / ratio vs S0) | 168 (1.00×) | 213 (1.27×) | 373 (2.22×) | 407 (2.43×) |
 | Indirect Jumps / Cond Branches / Cyc. Est | 2.0 / 11.2 / 14.2 | 3.2 / 9.2 / 13.3 | 3.0 / 18.1 / 22.1 | 4.8 / 12.0 / 17.8 |
 | Amplification (Tokens per .text Byte) | 2,603 | 2,607 | 1,520 | 1,685 |
-| Runs (n) / Suite Cost (USD) | 20 / $1.7784 | 20 / $2.2844 | 20 / $2.4978 | 20 / $2.9318 |
+| Runs (n) / Suite Cost (USD) | 20 / $5.4725 | 20 / $6.8929 | 20 / $7.4465 | 20 / $8.6619 |

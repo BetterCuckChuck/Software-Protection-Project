@@ -3,15 +3,16 @@
 - **Target Suite:** 20 NIST Juliet v1.3 C programs $\times$ 4 Tigress protection scenarios = **80 runs** (`build/` verified semantically equivalent vs. `S0_Baseline`)
 - **Agent & Framework:** `gemini-3.8-flash` operating under the **REA (Reverse Engineer Anything)** MCP server backed by Ghidra 12.1.4, isolated per-run in ephemeral `/tmp/run_<uuid>/` jails guarded by [hook_guard.py](file:///home/arch/work/softwareProt/Experimentation/obf-agent-bench/runner/hook_guard.py)
 - **Execution Mode:** 4 pilot runs on `CWE190_Integer_Overflow__char_fscanf_add_01` (completed within limits), followed by the remaining 76 runs via `--resume --unlimited`
-- **Aggregate Totals:** **80/80 completed orchestration**, **78/80 `Pass_IO` (97.5%)**, **193,315,752 tokens**, **$9.4923 total API spend**, **2,244 REA MCP calls attempted** (`2,133` ok / `111` err), **24,334.0s (6.76 hours)** cumulative run time
+- **Pricing Basis:** Official Google Gemini Developer API Standard Tier rates for `gemini-3.8-flash` active through Dec 31, 2026 (`$0.75` / 1M uncached input, `$0.075` / 1M cached input, `$3.75` / 1M output & reasoning)
+- **Aggregate Totals:** **80/80 completed orchestration**, **78/80 `Pass_IO` (97.5%)**, **193,315,752 tokens**, **$28.4738 total API spend**, **2,244 REA MCP calls attempted** (`2,133` ok / `111` err), **24,334.0s (6.76 hours)** cumulative run time
 
 ---
 
 ## 1. Executive Summary
 
-1. **Reconstruction Accuracy (Axis 1):** Every run that actually began analyzing the binary succeeded: **78/78 (100.0%)** of active runs passed all 65 deterministic I/O equivalence checks (`15` boundary cases + `50` differential fuzz cases, clean `gcc -O2` compile). The only **2 failures** (`S0_Baseline/CWE191_Integer_Underflow__int64_t_fscanf_sub_01` and `S3_Combined/CWE190_Integer_Overflow__char_fscanf_preinc_01`) were **Turn-1 Gemini safety-filter false positives** before a single REA tool was called (`turns=1`, `mcp_calls=0`, `~$0.0027`), not obfuscation breakdowns.
-2. **Obfuscation Cost Impact (Axis 2):** Excluding the two 1-turn safety-filter outliers, progressive Tigress protection increased mean run cost from **`$0.0935` (`S0`) $\rightarrow$ `$0.1142` (`S1`) $\rightarrow$ `$0.1249` (`S2`) $\rightarrow$ `$0.1542` (`S3`)** (**`1.65×`** raw suite ratio / **`1.75×`** mean matched dollar multiplier). Mean valid-run tokens rose **`1.72×`** (`1.86M -> 3.19M`), median thinking tokens rose **`1.85×`** (`13,452 -> 24,835`), REA MCP tool errors spiked on `S3_Combined` (`7.0%` vs `3.8%–4.7%`), and pre-write runtime `./chal` probes more than doubled (`2.5 -> 5.6`).
-3. **Why Dollar Growth Trails Token Growth:** Multi-turn prefix caching covered **`93.0%–94.7%`** of all input tokens (`$0.0375 / 1M`), cushioning the raw token growth relative to full uncached/output rates.
+1. **Reconstruction Accuracy (Axis 1):** Every run that actually began analyzing the binary succeeded: **78/78 (100.0%)** of active runs passed all 65 deterministic I/O equivalence checks (`15` boundary cases + `50` differential fuzz cases, clean `gcc -O2` compile). The only **2 failures** (`S0_Baseline/CWE191_Integer_Underflow__int64_t_fscanf_sub_01` and `S3_Combined/CWE190_Integer_Overflow__char_fscanf_preinc_01`) were **Turn-1 Gemini safety-filter false positives** before a single REA tool was called (`turns=1`, `mcp_calls=0`, `~$0.014`), not obfuscation breakdowns.
+2. **Obfuscation Cost Impact (Axis 2):** Excluding the two 1-turn safety-filter outliers, progressive Tigress protection increased mean run cost from **`$0.2873` (`S0`) $\rightarrow$ `$0.3446` (`S1`) $\rightarrow$ `$0.3723` (`S2`) $\rightarrow$ `$0.4551` (`S3`)** (**`1.58×`** raw suite ratio / **`1.64×`** mean matched dollar multiplier). Mean valid-run tokens rose **`1.72×`** (`1.86M -> 3.19M`), median thinking tokens rose **`1.85×`** (`13,452 -> 24,835`), REA MCP tool errors spiked on `S3_Combined` (`7.0%` vs `3.8%–4.7%`), and pre-write runtime `./chal` probes more than doubled (`2.5 -> 5.6`).
+3. **Why Dollar Growth Trails Token Growth:** Multi-turn prefix caching covered **`93.0%–94.7%`** of all input tokens (`$0.075 / 1M`, 90% below uncached `$0.75 / 1M`), cushioning the raw token growth relative to full uncached/output rates.
 4. **Why `--unlimited` Was Necessary:** Among the 78 active runs, **77/78** exceeded the original `max_turns=25` limit, **29/78** exceeded `max_mcp_calls=30` (14/19 in `S3`), and **35/78** exceeded `timeout_seconds=300` (16/19 in `S3`). Without `--unlimited`, the majority of runs across all four scenarios would have been truncated.
 
 ---
@@ -24,10 +25,10 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **I/O Pass Rate `Pass_IO` (%)** | 95.0% (`19/20`) | 100.0% (`20/20`) | 100.0% (`20/20`) | 95.0% (`19/20`) |
 | **Gate Breakdown (Compile / Boundary / Fuzz)** | 95% / 95% / 95% | 100% / 100% / 100% | 100% / 100% / 100% | 95% / 95% / 95% |
-| **Avg Run Cost (USD)** | `$0.0889` | `$0.1142` | `$0.1249` | `$0.1466` |
-| **USD Breakdown (In / Cache / Think / Out)** | `$0.0183 / $0.0610 / $0.0080 / $0.0016` | `$0.0207 / $0.0808 / $0.0109 / $0.0019` | `$0.0220 / $0.0896 / $0.0114 / $0.0019` | `$0.0239 / $0.1066 / $0.0138 / $0.0022` |
-| **ECSR (USD per Passing Binary)** | `$0.0936` | `$0.1142` | `$0.1249` | `$0.1543` |
-| **`OCM_cost` (Mean Spend Ratio vs `S0`)** | `1.00×` | `1.28×` | `1.40×` | `1.65×` |
+| **Avg Run Cost (USD)** | `$0.2736` | `$0.3446` | `$0.3723` | `$0.4331` |
+| **USD Breakdown (In / Cache / Think / Out)** | `$0.0916 / $0.1220 / $0.0497 / $0.0103` | `$0.1033 / $0.1616 / $0.0681 / $0.0116` | `$0.1101 / $0.1792 / $0.0711 / $0.0120` | `$0.1193 / $0.2133 / $0.0865 / $0.0140` |
+| **ECSR (USD per Passing Binary)** | `$0.2880` | `$0.3446` | `$0.3723` | `$0.4559` |
+| **`OCM_cost` (Mean Spend Ratio vs `S0`)** | `1.00×` | `1.26×` | `1.36×` | `1.58×` |
 | **Mean Total Tokens** | `1,764,585` | `2,313,683` | `2,557,690` | `3,029,830` |
 | **Pairwise Token `OCM` (Mean / Median)* ** | `1.00× / 1.00×` | `7.41× / 1.24×` | `11.85× / 1.40×` | `12.21× / 1.67×` |
 | **Context Cache Hit Rate (%)** | `93.0%` | `94.0%` | `94.2%` | `94.7%` |
@@ -40,7 +41,7 @@
 | **Runtime `./chal` Probes (Total / Pre-Write)** | `4.8 / 2.5` | `6.0 / 3.1` | `6.7 / 4.3` | `7.6 / 5.6` |
 | **Binary `.text` Size / Instructions** | `678 B` / `168` (`1.00×`) | `887 B` / `213` (`1.31×`) | `1,683 B` / `373` (`2.48×`) | `1,798 B` / `407` (`2.65×`) |
 | **Indirect Jumps / Cond. Branches / Cyc. Est** | `2.0 / 11.2 / 14.2` | `3.2 / 9.2 / 13.3` | `3.0 / 18.1 / 22.1` | `4.8 / 12.0 / 17.8` |
-| **Scenario Suite Cost (`n=20`)** | `$1.7784` | `$2.2844` | `$2.4978` | `$2.9318` |
+| **Scenario Suite Cost (`n=20`)** | `$5.4725` | `$6.8929` | `$7.4465` | `$8.6619` |
 
 *\*Note: The unweighted mean of sample-wise token ratios (`7.41× / 11.85× / 12.21×`) is heavily skewed by a single 1-turn safety-filter failure in `S0_Baseline` (see Section 3.1).*
 
@@ -51,9 +52,9 @@ Removing the two Turn-1 safety-filter refusals isolates the true technical effec
 | Clean Cohort Metric | `S0_Baseline` (`n=19`) | `S1_Flatten` (`n=20`) | `S2_EncodeData` (`n=20`) | `S3_Combined` (`n=19`) |
 | :--- | :--- | :--- | :--- | :--- |
 | **Clean `Pass_IO`** | **100.0% (`19/19`)** | **100.0% (`20/20`)** | **100.0% (`20/20`)** | **100.0% (`19/19`)** |
-| **Mean / Median Cost (USD)** | `$0.0935 / $0.0931` | `$0.1142 / $0.1084` | `$0.1249 / $0.1191` | `$0.1542 / $0.1575` |
+| **Mean / Median Cost (USD)** | `$0.2873 / $0.3122` | `$0.3446 / $0.3290` | `$0.3723 / $0.3516` | `$0.4551 / $0.4602` |
 | **Mean / Median Total Tokens** | `1,856,634 / 1,913,006` | `2,313,682 / 2,185,281` | `2,557,690 / 2,437,782` | `3,188,458 / 3,289,627` |
-| **Matched Pairwise Dollar `OCM` (`n=18`, Mean / Med)** | `1.00× / 1.00×` | `1.28× / 1.20×` | `1.35× / 1.27×` | `1.75× / 1.60×` |
+| **Matched Pairwise Dollar `OCM` (`n=18`, Mean / Med)** | `1.00× / 1.00×` | `1.23× / 1.19×` | `1.29× / 1.24×` | `1.64× / 1.47×` |
 | **Matched Pairwise Token `OCM` (`n=18`, Mean / Med)** | `1.00× / 1.00×` | `1.34× / 1.19×` | `1.43× / 1.30×` | `1.88× / 1.67×` |
 | **Matched Tool / Turn Ratios (`n=18`, Mean)** | `1.00× / 1.00×` | `1.09× / 1.12×` | `1.25× / 1.13×` | `1.35× / 1.35×` |
 | **Mean Turns / Mean Wall Time** | `41.8` / `259.7s` | `45.8` / `309.7s` | `46.9` / `304.5s` | `53.5` / `372.9s` |
@@ -64,15 +65,15 @@ Removing the two Turn-1 safety-filter refusals isolates the true technical effec
 
 ### 3.1 Turn-1 Safety-Filter False Positives (`mcp=0`, `reconstructed.c` missing)
 Two runs aborted on Turn 1 with `status: "SUCCESS"` after Gemini's safety filter mistakenly flagged the reverse-engineering task despite thinking text stating the task was benign source reconstruction:
-- **`S0_Baseline/CWE191_Integer_Underflow__int64_t_fscanf_sub_01`**: `1` turn, `15,640` tokens, `$0.0026`, `14.3s`, `mcp=0`.
-- **`S3_Combined/CWE190_Integer_Overflow__char_fscanf_preinc_01`**: `1` turn, `15,887` tokens, `$0.0028`, `15.7s`, `mcp=0`.
+- **`S0_Baseline/CWE191_Integer_Underflow__int64_t_fscanf_sub_01`**: `1` turn, `15,640` tokens, `$0.0137`, `14.3s`, `mcp=0`.
+- **`S3_Combined/CWE190_Integer_Overflow__char_fscanf_preinc_01`**: `1` turn, `15,887` tokens, `$0.0147`, `15.7s`, `mcp=0`.
 
-**Downstream statistical distortion:** Because `S0_Baseline/CWE191_..._int64_t_fscanf_sub_01` acted as the `S0` baseline denominator with only `15,640` tokens, its pairwise ratios exploded to **`122.40×` (`S1`)**, **`209.07×` (`S2`)**, and **`210.33×` (`S3`)** (`36.34× / 59.05× / 59.54×` in USD). Those single-sample ratios inflated `ocm_all.tokens_mean` from the true `~1.3×–1.9×` range to **`7.41× / 11.85× / 12.21×`**.
+**Downstream statistical distortion:** Because `S0_Baseline/CWE191_..._int64_t_fscanf_sub_01` acted as the `S0` baseline denominator with only `15,640` tokens, its pairwise ratios exploded to **`122.40×` (`S1`)**, **`209.07×` (`S2`)**, and **`210.33×` (`S3`)** (`21.51× / 33.12× / 33.53×` in USD). Those single-sample ratios inflated `ocm_all.tokens_mean` from the true `~1.3×–1.9×` range to **`7.41× / 11.85× / 12.21×`**.
 
 ### 3.2 Extreme Resource & Tool-Error Outliers
-- **#1 Token & Wall-Time Run — `S1_Flatten/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01`:** `4,834,036` tokens (`$0.2179`), **`69` turns**, **`529.7s`** wall time, `25` MCP calls (`1` err). Root cause: between Steps 46 and 98, the agent issued **27 consecutive `search_web` queries** before returning to `rea:xrefs` / `rea:read_bytes` to finish the reconstruction cleanly.
-- **#1 Dollar Cost & Turn Run — `S3_Combined/CWE190_Integer_Overflow__char_fscanf_add_01`:** **`$0.2215` (`4.26×` its `S0`, `5.43×` tokens)**, **`75` turns**, `4,785,449` tokens, `446.6s`, `39` MCP calls (`2` errored `execute_rizin_command`), **`9` pre-write `./chal` probes**. Combined flattening (`5` indirect jumps) + arithmetic/literal encoding (`426` instructions) forced repeated fallback to raw instruction/byte inspection and empirical input/output verification.
-- **#1 MCP Call, Error & Context Outlier — `S3_Combined/CWE369_Divide_by_Zero__int_fscanf_divide_01`:** **`47` MCP calls (`8` errors = `17.0%`)**, peak context **`111,340` (`87.0%` of the 128k ceiling)**, `4,139,120` tokens (`$0.1948`), `56` turns, `449.4s`. Failed calls spanned `execute_rizin_command` (`3`), `search_procedures` (`1`), `read_bytes` (`1`), `analyze_function` (`1`), `annotate_native_function` (`1`), and `decompile_all` (`1`).
+- **#1 Token & Wall-Time Run — `S1_Flatten/CWE191_Integer_Underflow__unsigned_int_fscanf_postdec_01`:** `4,834,036` tokens (`$0.5898`), **`69` turns**, **`529.7s`** wall time, `25` MCP calls (`1` err). Root cause: between Steps 46 and 98, the agent issued **27 consecutive `search_web` queries** before returning to `rea:xrefs` / `rea:read_bytes` to finish the reconstruction cleanly.
+- **#1 Dollar Cost & Turn Run — `S3_Combined/CWE190_Integer_Overflow__char_fscanf_add_01`:** **`$0.6206` (`3.36×` its `S0`, `5.43×` tokens)**, **`75` turns**, `4,785,449` tokens, `446.6s`, `39` MCP calls (`2` errored `execute_rizin_command`), **`9` pre-write `./chal` probes**. Combined flattening (`5` indirect jumps) + arithmetic/literal encoding (`426` instructions) forced repeated fallback to raw instruction/byte inspection and empirical input/output verification.
+- **#1 MCP Call, Error & Context Outlier — `S3_Combined/CWE369_Divide_by_Zero__int_fscanf_divide_01`:** **`47` MCP calls (`8` errors = `17.0%`)**, peak context **`111,340` (`87.0%` of the 128k ceiling)**, `4,139,120` tokens (`$0.5576`), `56` turns, `449.4s`. Failed calls spanned `execute_rizin_command` (`3`), `search_procedures` (`1`), `read_bytes` (`1`), `analyze_function` (`1`), `annotate_native_function` (`1`), and `decompile_all` (`1`).
 - **Recurring MCP Error Pattern (`111` total across 80 runs):** `search_procedures` accounted for **`47` errors (`42.3%`)** when the model guessed `query` instead of `pattern` (because `hook_guard.py` blocked direct filesystem reads of `.gemini/.../mcp/rea`), followed by `read_bytes` (`17`), `search_strings` (`12`), `execute_rizin_command` (`12`), and `annotate_native_function` (`8`).
 
 ### 3.3 Unblocked `search_web` Usage (`10` Runs, `83` Calls)
@@ -81,7 +82,7 @@ Audit of raw tool invocations revealed **10 active runs** (`S0`: 4 runs / 29 cal
 - **Experimental validity risk:** Leaving `search_web` unblocked creates an unintended side channel outside the binary jail and distorts cost/latency comparisons on runs that enter web-search loops.
 
 ### 3.4 Cost Inversions Across Scenarios
-In the 18 matched quadruplets, **`7/18` samples cost less in `S1_Flatten` than `S0_Baseline`**, **`3/18` cost less in `S2_EncodeData` than `S0_Baseline`**, and **`1/18` (`CWE191_Integer_Underflow__int_fscanf_predec_01`) cost less in `S3_Combined` than `S0_Baseline` (`$0.110` vs `$0.117`)**. In those cases, either `S0` spent extra turns on redundant `xrefs` or `search_web` queries, or the agent paired `rea:procedure_pseudo_code` with pre-write `./chal` empirical probes (`S3` averaged `5.6` pre-write `./chal` runs vs `2.5` in `S0`) to infer constant/overflow boundaries without exhaustively simplifying every MBA instruction by hand.
+In the 18 matched quadruplets, **`6/18` samples cost less in `S1_Flatten` than `S0_Baseline`**, **`2/18` cost less in `S2_EncodeData` than `S0_Baseline`**, and **`0/18` cost less in `S3_Combined` than `S0_Baseline`** (closest: `CWE191_Integer_Underflow__int_fscanf_predec_01` at `$0.3498` vs `$0.3396`, `1.03×`). In the `S1`/`S2` inversions, either `S0` spent extra turns on redundant `xrefs` or `search_web` queries, or the agent paired `rea:procedure_pseudo_code` with pre-write `./chal` empirical probes (`S3` averaged `5.6` pre-write `./chal` runs vs `2.5` in `S0`) to infer constant/overflow boundaries without exhaustively simplifying every MBA instruction by hand.
 
 ---
 

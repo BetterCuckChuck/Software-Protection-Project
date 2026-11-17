@@ -80,10 +80,12 @@ evaluation:
   cost_telemetry:
     track_per_turn_tokens: true
     track_mcp_payload_bytes: true
+    # Official Google Gemini Developer API Standard Tier rates for gemini-3.8-flash
+    # (active through Dec 31, 2026; starting Jan 1, 2027: 1.50 / 0.15 / 7.50)
     pricing_per_1m_tokens_usd:
-      input_uncached: 0.15
-      input_cached: 0.0375
-      output_and_reasoning: 0.60
+      input_uncached: 0.75
+      input_cached: 0.075
+      output_and_reasoning: 3.75
     metrics:
       - "total_tokens"
       - "reasoning_token_ratio"

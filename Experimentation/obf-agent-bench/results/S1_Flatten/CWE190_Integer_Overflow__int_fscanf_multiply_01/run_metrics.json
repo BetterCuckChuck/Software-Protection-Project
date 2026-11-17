@@ -636,22 +636,23 @@
   "scenario": "S1_Flatten",
   "sample_id": "CWE190_Integer_Overflow__int_fscanf_multiply_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.02837505,
-    "input_cached": 0.1294314375,
-    "reasoning": 0.0155652,
-    "output": 0.0026507999999999996,
-    "total": 0.1760224875
+    "input_uncached": 0.14187525,
+    "input_cached": 0.258862875,
+    "reasoning": 0.0972825,
+    "output": 0.0165675,
+    "total": 0.514588125
   },
   "hook_audit": {
     "total": 61,

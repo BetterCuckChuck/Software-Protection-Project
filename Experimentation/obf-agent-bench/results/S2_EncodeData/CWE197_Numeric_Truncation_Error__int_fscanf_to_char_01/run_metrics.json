@@ -427,22 +427,23 @@
   "scenario": "S2_EncodeData",
   "sample_id": "CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.01794855,
-    "input_cached": 0.070018575,
-    "reasoning": 0.009689399999999999,
-    "output": 0.0013002,
-    "total": 0.09895672500000001
+    "input_uncached": 0.08974275,
+    "input_cached": 0.14003715,
+    "reasoning": 0.06055875,
+    "output": 0.00812625,
+    "total": 0.2984649
   },
   "hook_audit": {
     "total": 38,

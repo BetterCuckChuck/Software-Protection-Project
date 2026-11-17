@@ -1,8 +1,8 @@
 {
   "pricing": {
-    "input_uncached": 0.15,
-    "input_cached": 0.0375,
-    "output_and_reasoning": 0.6
+    "input_uncached": 0.75,
+    "input_cached": 0.075,
+    "output_and_reasoning": 3.75
   },
   "max_context_tokens": 128000,
   "scenario_order": [
@@ -117,13 +117,13 @@
       "avg_output_tokens": 2745.3,
       "avg_total_tokens": 1764584.75,
       "avg_mcp_calls": 23.55,
-      "avg_cost_input_uncached_usd": 0.0183227775,
-      "avg_cost_input_cached_usd": 0.060990945,
-      "avg_cost_reasoning_usd": 0.00795744,
-      "avg_cost_output_usd": 0.0016471799999999998,
-      "avg_run_cost_usd": 0.0889183425,
-      "total_suite_cost_usd": 1.77836685,
-      "ecsr_usd": 0.0935982552631579,
+      "avg_cost_input_uncached_usd": 0.0916138875,
+      "avg_cost_input_cached_usd": 0.12198189,
+      "avg_cost_reasoning_usd": 0.049734,
+      "avg_cost_output_usd": 0.010294875,
+      "avg_run_cost_usd": 0.2736246525,
+      "total_suite_cost_usd": 5.47249305,
+      "ecsr_usd": 0.28802595,
       "ecsr_tokens": 1857457.6315789474,
       "hook_allows_total": 755,
       "hook_denies_total": 20,
@@ -141,7 +141,7 @@
         "cyclomatic_complexity_mean": 14.2
       },
       "tokens_per_text_byte": 2603.400339333137,
-      "cost_per_instruction_usd": 0.000529906689511323,
+      "cost_per_instruction_usd": 0.0016306594308700833,
       "terminations": {
         "completed": 20
       }
@@ -228,7 +228,7 @@
         "tokens_mean": 7.40891360223348,
         "tokens_median": 1.2404946204890388,
         "tools_mean": 1.0977045881264809,
-        "cost_usd_mean": 3.0457338466809,
+        "cost_usd_mean": 2.257069757796067,
         "turns_mean": 3.1820254988007646,
         "n": 20
       },
@@ -236,12 +236,12 @@
         "tokens_mean": 7.40891360223348,
         "tokens_median": 1.2404946204890388,
         "tools_mean": 1.0977045881264809,
-        "cost_usd_mean": 3.0457338466809,
+        "cost_usd_mean": 2.257069757796067,
         "turns_mean": 3.1820254988007646,
         "n": 20
       },
       "ocm_tokens": 1.3111769780397342,
-      "ocm_cost_usd": 1.2845426479356605,
+      "ocm_cost_usd": 1.2595552725279384,
       "ocm_tools": 1.0977045881264809,
       "ocm_turns": 3.1820254988007646,
       "avg_input_uncached": 137699.45,
@@ -251,13 +251,13 @@
       "avg_output_tokens": 3100.0,
       "avg_total_tokens": 2313682.9,
       "avg_mcp_calls": 26.6,
-      "avg_cost_input_uncached_usd": 0.0206549175,
-      "avg_cost_input_cached_usd": 0.080801705625,
-      "avg_cost_reasoning_usd": 0.010902779999999999,
-      "avg_cost_output_usd": 0.0018599999999999999,
-      "avg_run_cost_usd": 0.11421940312499998,
-      "total_suite_cost_usd": 2.2843880624999997,
-      "ecsr_usd": 0.11421940312499998,
+      "avg_cost_input_uncached_usd": 0.1032745875,
+      "avg_cost_input_cached_usd": 0.16160341125,
+      "avg_cost_reasoning_usd": 0.068142375,
+      "avg_cost_output_usd": 0.011625,
+      "avg_run_cost_usd": 0.34464537375,
+      "total_suite_cost_usd": 6.8929074749999995,
+      "ecsr_usd": 0.34464537375,
       "ecsr_tokens": 2313682.9,
       "hook_allows_total": 869,
       "hook_denies_total": 26,
@@ -275,7 +275,7 @@
         "cyclomatic_complexity_mean": 13.35
       },
       "tokens_per_text_byte": 2607.260423709714,
-      "cost_per_instruction_usd": 0.0005357382885787992,
+      "cost_per_instruction_usd": 0.0016165355241557224,
       "terminations": {
         "completed": 20
       }
@@ -361,7 +361,7 @@
         "tokens_mean": 11.851755321438791,
         "tokens_median": 1.4005273444349784,
         "tools_mean": 1.2265436801660519,
-        "cost_usd_mean": 4.272174812471404,
+        "cost_usd_mean": 2.911190827819082,
         "turns_mean": 3.8465718751091673,
         "n": 20
       },
@@ -369,12 +369,12 @@
         "tokens_mean": 11.851755321438791,
         "tokens_median": 1.4005273444349784,
         "tools_mean": 1.2265436801660519,
-        "cost_usd_mean": 4.272174812471404,
+        "cost_usd_mean": 2.911190827819082,
         "turns_mean": 3.8465718751091673,
         "n": 20
       },
       "ocm_tokens": 1.4494573298335485,
-      "ocm_cost_usd": 1.4045384322700347,
+      "ocm_cost_usd": 1.360713893460312,
       "ocm_tools": 1.2265436801660519,
       "ocm_turns": 3.8465718751091673,
       "avg_input_uncached": 146845.8,
@@ -384,13 +384,13 @@
       "avg_output_tokens": 3193.3,
       "avg_total_tokens": 2557690.3,
       "avg_mcp_calls": 30.45,
-      "avg_cost_input_uncached_usd": 0.022026869999999997,
-      "avg_cost_input_cached_usd": 0.08957628937499999,
-      "avg_cost_reasoning_usd": 0.01137009,
-      "avg_cost_output_usd": 0.0019159799999999999,
-      "avg_run_cost_usd": 0.124889229375,
-      "total_suite_cost_usd": 2.4977845875,
-      "ecsr_usd": 0.124889229375,
+      "avg_cost_input_uncached_usd": 0.11013435,
+      "avg_cost_input_cached_usd": 0.17915257874999999,
+      "avg_cost_reasoning_usd": 0.0710630625,
+      "avg_cost_output_usd": 0.011974875,
+      "avg_run_cost_usd": 0.37232486624999994,
+      "total_suite_cost_usd": 7.446497324999999,
+      "ecsr_usd": 0.37232486624999994,
       "ecsr_tokens": 2557690.3,
       "hook_allows_total": 892,
       "hook_denies_total": 26,
@@ -408,7 +408,7 @@
         "cyclomatic_complexity_mean": 22.1
       },
       "tokens_per_text_byte": 1519.7209150326796,
-      "cost_per_instruction_usd": 0.00033509318319023345,
+      "cost_per_instruction_usd": 0.0009989934699490206,
       "terminations": {
         "completed": 20
       }
@@ -506,7 +506,7 @@
         "tokens_mean": 12.213348778650062,
         "tokens_median": 1.6727226454679214,
         "tools_mean": 1.2760314514943014,
-        "cost_usd_mean": 4.551634286944159,
+        "cost_usd_mean": 3.151577099266672,
         "turns_mean": 3.7623729838727527,
         "n": 20
       },
@@ -514,12 +514,12 @@
         "tokens_mean": 12.855584813874172,
         "tokens_median": 1.7611609761956457,
         "tools_mean": 1.3469220876884291,
-        "cost_usd_mean": 4.789229642668498,
+        "cost_usd_mean": 3.314162229173738,
         "turns_mean": 3.9588888552044015,
         "n": 19
       },
       "ocm_tokens": 1.7170213275389579,
-      "ocm_cost_usd": 1.6485765507268648,
+      "ocm_cost_usd": 1.5828139196997242,
       "ocm_tools": 1.2760314514943014,
       "ocm_turns": 3.7623729838727527,
       "avg_input_uncached": 159080.9,
@@ -529,13 +529,13 @@
       "avg_output_tokens": 3722.55,
       "avg_total_tokens": 3029829.65,
       "avg_mcp_calls": 31.6,
-      "avg_cost_input_uncached_usd": 0.023862135,
-      "avg_cost_input_cached_usd": 0.106648179375,
-      "avg_cost_reasoning_usd": 0.01384485,
-      "avg_cost_output_usd": 0.00223353,
-      "avg_run_cost_usd": 0.146588694375,
-      "total_suite_cost_usd": 2.9317738875,
-      "ecsr_usd": 0.15430388881578946,
+      "avg_cost_input_uncached_usd": 0.119310675,
+      "avg_cost_input_cached_usd": 0.21329635875,
+      "avg_cost_reasoning_usd": 0.0865303125,
+      "avg_cost_output_usd": 0.0139595625,
+      "avg_run_cost_usd": 0.43309690874999995,
+      "total_suite_cost_usd": 8.661938175,
+      "ecsr_usd": 0.4558914828947368,
       "ecsr_tokens": 3189294.3684210526,
       "hook_allows_total": 984,
       "hook_denies_total": 24,
@@ -553,7 +553,7 @@
         "cyclomatic_complexity_mean": 17.75
       },
       "tokens_per_text_byte": 1684.6893992048708,
-      "cost_per_instruction_usd": 0.00035990349711514854,
+      "cost_per_instruction_usd": 0.0010633363828873065,
       "terminations": {
         "completed": 20
       }
@@ -593,11 +593,11 @@
         "peak_context_utilization_pct": 44.7609375
       },
       "cost_usd": {
-        "input_uncached": 0.01260015,
-        "input_cached": 0.0292905,
-        "reasoning": 0.009081,
-        "output": 0.0010578,
-        "total": 0.05202945
+        "input_uncached": 0.06300075,
+        "input_cached": 0.058581,
+        "reasoning": 0.05675625,
+        "output": 0.00661125,
+        "total": 0.18494925
       },
       "mcp_calls": 19,
       "mcp_calls_succeeded": 19,
@@ -647,10 +647,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 865081,
       "total_tokens": 881979,
-      "run_cost_usd": 0.05202945
+      "run_cost_usd": 0.18494925
     },
     {
       "scenario": "S0_Baseline",
@@ -685,11 +686,11 @@
         "peak_context_utilization_pct": 48.413281250000004
       },
       "cost_usd": {
-        "input_uncached": 0.016026,
-        "input_cached": 0.050283299999999996,
-        "reasoning": 0.0072564,
-        "output": 0.0015095999999999998,
-        "total": 0.07507529999999998
+        "input_uncached": 0.08013,
+        "input_cached": 0.10056659999999999,
+        "reasoning": 0.0453525,
+        "output": 0.009435,
+        "total": 0.23548409999999997
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 24,
@@ -741,10 +742,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1447728,
       "total_tokens": 1462338,
-      "run_cost_usd": 0.07507529999999998
+      "run_cost_usd": 0.23548409999999997
     },
     {
       "scenario": "S0_Baseline",
@@ -779,11 +781,11 @@
         "peak_context_utilization_pct": 53.9796875
       },
       "cost_usd": {
-        "input_uncached": 0.0218673,
-        "input_cached": 0.08622284999999999,
-        "reasoning": 0.008015399999999999,
-        "output": 0.0019158,
-        "total": 0.11802135
+        "input_uncached": 0.1093365,
+        "input_cached": 0.17244569999999998,
+        "reasoning": 0.05009625,
+        "output": 0.01197375,
+        "total": 0.3438522
       },
       "mcp_calls": 23,
       "mcp_calls_succeeded": 21,
@@ -838,10 +840,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2445058,
       "total_tokens": 2461610,
-      "run_cost_usd": 0.11802135
+      "run_cost_usd": 0.3438522
     },
     {
       "scenario": "S0_Baseline",
@@ -876,11 +879,11 @@
         "peak_context_utilization_pct": 53.0
       },
       "cost_usd": {
-        "input_uncached": 0.0204411,
-        "input_cached": 0.07830480000000001,
-        "reasoning": 0.0082542,
-        "output": 0.002031,
-        "total": 0.10903110000000002
+        "input_uncached": 0.1022055,
+        "input_cached": 0.15660960000000002,
+        "reasoning": 0.05158875,
+        "output": 0.01269375,
+        "total": 0.32309760000000004
       },
       "mcp_calls": 29,
       "mcp_calls_succeeded": 26,
@@ -935,10 +938,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2224402,
       "total_tokens": 2241544,
-      "run_cost_usd": 0.10903110000000002
+      "run_cost_usd": 0.32309760000000004
     },
     {
       "scenario": "S0_Baseline",
@@ -973,11 +977,11 @@
         "peak_context_utilization_pct": 57.6671875
       },
       "cost_usd": {
-        "input_uncached": 0.020788349999999997,
-        "input_cached": 0.07533003749999999,
-        "reasoning": 0.008662199999999998,
-        "output": 0.0017418,
-        "total": 0.10652238749999998
+        "input_uncached": 0.10394175,
+        "input_cached": 0.15066007499999998,
+        "reasoning": 0.05413875,
+        "output": 0.01088625,
+        "total": 0.31962682499999995
       },
       "mcp_calls": 25,
       "mcp_calls_succeeded": 23,
@@ -1032,10 +1036,11 @@
         "basic_block_estimate": 41,
         "cyclomatic_complexity_est": 16
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2147390,
       "total_tokens": 2164730,
-      "run_cost_usd": 0.10652238749999998
+      "run_cost_usd": 0.31962682499999995
     },
     {
       "scenario": "S0_Baseline",
@@ -1070,11 +1075,11 @@
         "peak_context_utilization_pct": 48.33671875
       },
       "cost_usd": {
-        "input_uncached": 0.0211887,
-        "input_cached": 0.05622435,
-        "reasoning": 0.007969799999999999,
-        "output": 0.001545,
-        "total": 0.08692785
+        "input_uncached": 0.1059435,
+        "input_cached": 0.1124487,
+        "reasoning": 0.04981125,
+        "output": 0.00965625,
+        "total": 0.2778597
       },
       "mcp_calls": 25,
       "mcp_calls_succeeded": 23,
@@ -1128,10 +1133,11 @@
         "basic_block_estimate": 41,
         "cyclomatic_complexity_est": 16
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1640574,
       "total_tokens": 1656432,
-      "run_cost_usd": 0.08692785
+      "run_cost_usd": 0.2778597
     },
     {
       "scenario": "S0_Baseline",
@@ -1166,11 +1172,11 @@
         "peak_context_utilization_pct": 53.15234375
       },
       "cost_usd": {
-        "input_uncached": 0.02062005,
-        "input_cached": 0.0765215625,
-        "reasoning": 0.0075546,
-        "output": 0.002427,
-        "total": 0.1071232125
+        "input_uncached": 0.10310025,
+        "input_cached": 0.153043125,
+        "reasoning": 0.04721625,
+        "output": 0.01516875,
+        "total": 0.31852837500000003
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 22,
@@ -1223,10 +1229,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 15
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2178042,
       "total_tokens": 2194678,
-      "run_cost_usd": 0.1071232125
+      "run_cost_usd": 0.31852837500000003
     },
     {
       "scenario": "S0_Baseline",
@@ -1261,11 +1268,11 @@
         "peak_context_utilization_pct": 47.864843750000006
       },
       "cost_usd": {
-        "input_uncached": 0.016537200000000002,
-        "input_cached": 0.0533805,
-        "reasoning": 0.007251,
-        "output": 0.0013985999999999998,
-        "total": 0.07856729999999999
+        "input_uncached": 0.082686,
+        "input_cached": 0.106761,
+        "reasoning": 0.04531875,
+        "output": 0.00874125,
+        "total": 0.24350699999999997
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 23,
@@ -1318,10 +1325,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1533728,
       "total_tokens": 1548144,
-      "run_cost_usd": 0.07856729999999999
+      "run_cost_usd": 0.24350699999999997
     },
     {
       "scenario": "S0_Baseline",
@@ -1356,11 +1364,11 @@
         "peak_context_utilization_pct": 58.383593749999996
       },
       "cost_usd": {
-        "input_uncached": 0.02094675,
-        "input_cached": 0.074797875,
-        "reasoning": 0.0080712,
-        "output": 0.002139,
-        "total": 0.105954825
+        "input_uncached": 0.10473375,
+        "input_cached": 0.14959575,
+        "reasoning": 0.050445,
+        "output": 0.01336875,
+        "total": 0.31814325
       },
       "mcp_calls": 27,
       "mcp_calls_succeeded": 27,
@@ -1410,10 +1418,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2134255,
       "total_tokens": 2151272,
-      "run_cost_usd": 0.105954825
+      "run_cost_usd": 0.31814325
     },
     {
       "scenario": "S0_Baseline",
@@ -1448,11 +1457,11 @@
         "peak_context_utilization_pct": 47.3515625
       },
       "cost_usd": {
-        "input_uncached": 0.0148443,
-        "input_cached": 0.04281855,
-        "reasoning": 0.0077142,
-        "output": 0.001536,
-        "total": 0.06691304999999999
+        "input_uncached": 0.0742215,
+        "input_cached": 0.0856371,
+        "reasoning": 0.04821375,
+        "output": 0.0096,
+        "total": 0.21767235
       },
       "mcp_calls": 23,
       "mcp_calls_succeeded": 22,
@@ -1505,10 +1514,11 @@
         "basic_block_estimate": 41,
         "cyclomatic_complexity_est": 16
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1240790,
       "total_tokens": 1256207,
-      "run_cost_usd": 0.06691304999999999
+      "run_cost_usd": 0.21767235
     },
     {
       "scenario": "S0_Baseline",
@@ -1543,11 +1553,11 @@
         "peak_context_utilization_pct": 47.168749999999996
       },
       "cost_usd": {
-        "input_uncached": 0.017068200000000002,
-        "input_cached": 0.0565215,
-        "reasoning": 0.008359199999999999,
-        "output": 0.0019121999999999998,
-        "total": 0.08386110000000001
+        "input_uncached": 0.085341,
+        "input_cached": 0.113043,
+        "reasoning": 0.052245,
+        "output": 0.01195125,
+        "total": 0.26258025
       },
       "mcp_calls": 22,
       "mcp_calls_succeeded": 22,
@@ -1599,10 +1609,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1621028,
       "total_tokens": 1638147,
-      "run_cost_usd": 0.08386110000000001
+      "run_cost_usd": 0.26258025
     },
     {
       "scenario": "S0_Baseline",
@@ -1639,11 +1650,11 @@
         "peak_context_utilization_pct": 11.69921875
       },
       "cost_usd": {
-        "input_uncached": 0.00224625,
+        "input_uncached": 0.01123125,
         "input_cached": 0.0,
-        "reasoning": 0.000399,
+        "reasoning": 0.00249375,
         "output": 0.0,
-        "total": 0.00264525
+        "total": 0.013725
       },
       "mcp_calls": 0,
       "mcp_calls_succeeded": 0,
@@ -1674,10 +1685,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 14975,
       "total_tokens": 15640,
-      "run_cost_usd": 0.00264525
+      "run_cost_usd": 0.013725
     },
     {
       "scenario": "S0_Baseline",
@@ -1712,11 +1724,11 @@
         "peak_context_utilization_pct": 53.071875
       },
       "cost_usd": {
-        "input_uncached": 0.0215898,
-        "input_cached": 0.08612115,
-        "reasoning": 0.007416,
-        "output": 0.0020867999999999998,
-        "total": 0.11721375
+        "input_uncached": 0.107949,
+        "input_cached": 0.1722423,
+        "reasoning": 0.04635,
+        "output": 0.0130425,
+        "total": 0.3395838
       },
       "mcp_calls": 30,
       "mcp_calls_succeeded": 29,
@@ -1770,10 +1782,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2440496,
       "total_tokens": 2456334,
-      "run_cost_usd": 0.11721375
+      "run_cost_usd": 0.3395838
     },
     {
       "scenario": "S0_Baseline",
@@ -1808,11 +1821,11 @@
         "peak_context_utilization_pct": 48.5078125
       },
       "cost_usd": {
-        "input_uncached": 0.02597925,
-        "input_cached": 0.053474549999999996,
-        "reasoning": 0.0105498,
-        "output": 0.0015083999999999998,
-        "total": 0.09151199999999998
+        "input_uncached": 0.12989625,
+        "input_cached": 0.10694909999999999,
+        "reasoning": 0.06593625,
+        "output": 0.0094275,
+        "total": 0.31220909999999996
       },
       "mcp_calls": 23,
       "mcp_calls_succeeded": 21,
@@ -1866,10 +1879,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1599183,
       "total_tokens": 1619280,
-      "run_cost_usd": 0.09151199999999998
+      "run_cost_usd": 0.31220909999999996
     },
     {
       "scenario": "S0_Baseline",
@@ -1904,11 +1918,11 @@
         "peak_context_utilization_pct": 67.20234375000001
       },
       "cost_usd": {
-        "input_uncached": 0.02409945,
-        "input_cached": 0.0995571,
-        "reasoning": 0.0100716,
-        "output": 0.0020718,
-        "total": 0.13579995
+        "input_uncached": 0.12049725,
+        "input_cached": 0.1991142,
+        "reasoning": 0.0629475,
+        "output": 0.01294875,
+        "total": 0.3955077
       },
       "mcp_calls": 25,
       "mcp_calls_succeeded": 25,
@@ -1960,10 +1974,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2815519,
       "total_tokens": 2835758,
-      "run_cost_usd": 0.13579995
+      "run_cost_usd": 0.3955077
     },
     {
       "scenario": "S0_Baseline",
@@ -1998,11 +2013,11 @@
         "peak_context_utilization_pct": 42.325
       },
       "cost_usd": {
-        "input_uncached": 0.01420815,
-        "input_cached": 0.0397353375,
-        "reasoning": 0.006435,
-        "output": 0.001227,
-        "total": 0.06160548749999999
+        "input_uncached": 0.07104075,
+        "input_cached": 0.079470675,
+        "reasoning": 0.04021875,
+        "output": 0.00766875,
+        "total": 0.198398925
       },
       "mcp_calls": 21,
       "mcp_calls_succeeded": 20,
@@ -2055,10 +2070,11 @@
         "basic_block_estimate": 32,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1154330,
       "total_tokens": 1167100,
-      "run_cost_usd": 0.06160548749999999
+      "run_cost_usd": 0.198398925
     },
     {
       "scenario": "S0_Baseline",
@@ -2093,11 +2109,11 @@
         "peak_context_utilization_pct": 45.3359375
       },
       "cost_usd": {
-        "input_uncached": 0.01893135,
-        "input_cached": 0.0665265,
-        "reasoning": 0.0058254,
-        "output": 0.0018288,
-        "total": 0.09311205
+        "input_uncached": 0.09465675,
+        "input_cached": 0.133053,
+        "reasoning": 0.03640875,
+        "output": 0.01143,
+        "total": 0.2755485
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 24,
@@ -2151,10 +2167,11 @@
         "basic_block_estimate": 32,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1900249,
       "total_tokens": 1913006,
-      "run_cost_usd": 0.09311205
+      "run_cost_usd": 0.2755485
     },
     {
       "scenario": "S0_Baseline",
@@ -2189,11 +2206,11 @@
         "peak_context_utilization_pct": 52.14140625
       },
       "cost_usd": {
-        "input_uncached": 0.015690449999999998,
-        "input_cached": 0.041956349999999996,
-        "reasoning": 0.010811399999999999,
-        "output": 0.0011094,
-        "total": 0.0695676
+        "input_uncached": 0.07845225,
+        "input_cached": 0.08391269999999999,
+        "reasoning": 0.06757125,
+        "output": 0.00693375,
+        "total": 0.23686995
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 24,
@@ -2248,10 +2265,11 @@
         "basic_block_estimate": 32,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1223439,
       "total_tokens": 1243307,
-      "run_cost_usd": 0.0695676
+      "run_cost_usd": 0.23686995
     },
     {
       "scenario": "S0_Baseline",
@@ -2286,11 +2304,11 @@
         "peak_context_utilization_pct": 57.11015625
       },
       "cost_usd": {
-        "input_uncached": 0.02052225,
-        "input_cached": 0.0782946375,
-        "reasoning": 0.009567,
-        "output": 0.0019223999999999999,
-        "total": 0.11030628750000002
+        "input_uncached": 0.10261125,
+        "input_cached": 0.156589275,
+        "reasoning": 0.05979375,
+        "output": 0.012015,
+        "total": 0.331009275
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 30,
@@ -2344,10 +2362,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2224672,
       "total_tokens": 2243821,
-      "run_cost_usd": 0.11030628750000002
+      "run_cost_usd": 0.331009275
     },
     {
       "scenario": "S0_Baseline",
@@ -2382,11 +2401,11 @@
         "peak_context_utilization_pct": 62.328125
       },
       "cost_usd": {
-        "input_uncached": 0.0202605,
-        "input_cached": 0.07445745,
-        "reasoning": 0.0098844,
-        "output": 0.0019752,
-        "total": 0.10657755
+        "input_uncached": 0.1013025,
+        "input_cached": 0.1489149,
+        "reasoning": 0.0617775,
+        "output": 0.012345,
+        "total": 0.32433989999999996
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 24,
@@ -2437,10 +2456,11 @@
         "basic_block_estimate": 39,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2120602,
       "total_tokens": 2140368,
-      "run_cost_usd": 0.10657755
+      "run_cost_usd": 0.32433989999999996
     },
     {
       "scenario": "S1_Flatten",
@@ -2475,11 +2495,11 @@
         "peak_context_utilization_pct": 53.131249999999994
       },
       "cost_usd": {
-        "input_uncached": 0.0166503,
-        "input_cached": 0.0526564125,
-        "reasoning": 0.008793,
-        "output": 0.001452,
-        "total": 0.0795517125
+        "input_uncached": 0.0832515,
+        "input_cached": 0.105312825,
+        "reasoning": 0.05495625,
+        "output": 0.009075,
+        "total": 0.252595575
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 26,
@@ -2530,10 +2550,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1515173,
       "total_tokens": 1532248,
-      "run_cost_usd": 0.0795517125
+      "run_cost_usd": 0.252595575
     },
     {
       "scenario": "S1_Flatten",
@@ -2568,11 +2589,11 @@
         "peak_context_utilization_pct": 56.48984375
       },
       "cost_usd": {
-        "input_uncached": 0.020614649999999998,
-        "input_cached": 0.0848360625,
-        "reasoning": 0.0090858,
-        "output": 0.001974,
-        "total": 0.11651051250000001
+        "input_uncached": 0.10307325,
+        "input_cached": 0.169672125,
+        "reasoning": 0.05678625,
+        "output": 0.0123375,
+        "total": 0.341869125
       },
       "mcp_calls": 29,
       "mcp_calls_succeeded": 27,
@@ -2628,10 +2649,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2399726,
       "total_tokens": 2418159,
-      "run_cost_usd": 0.11651051250000001
+      "run_cost_usd": 0.341869125
     },
     {
       "scenario": "S1_Flatten",
@@ -2666,11 +2688,11 @@
         "peak_context_utilization_pct": 61.955468749999994
       },
       "cost_usd": {
-        "input_uncached": 0.02439795,
-        "input_cached": 0.101799825,
-        "reasoning": 0.0102522,
-        "output": 0.0025716,
-        "total": 0.139021575
+        "input_uncached": 0.12198975,
+        "input_cached": 0.20359965,
+        "reasoning": 0.06407625,
+        "output": 0.0160725,
+        "total": 0.40573814999999996
       },
       "mcp_calls": 32,
       "mcp_calls_succeeded": 30,
@@ -2728,10 +2750,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2877315,
       "total_tokens": 2898688,
-      "run_cost_usd": 0.139021575
+      "run_cost_usd": 0.40573814999999996
     },
     {
       "scenario": "S1_Flatten",
@@ -2766,11 +2789,11 @@
         "peak_context_utilization_pct": 50.22265625
       },
       "cost_usd": {
-        "input_uncached": 0.017557200000000002,
-        "input_cached": 0.0566124,
-        "reasoning": 0.0081384,
-        "output": 0.001614,
-        "total": 0.08392200000000001
+        "input_uncached": 0.087786,
+        "input_cached": 0.1132248,
+        "reasoning": 0.050865,
+        "output": 0.0100875,
+        "total": 0.2619633
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 23,
@@ -2823,10 +2846,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1626712,
       "total_tokens": 1642966,
-      "run_cost_usd": 0.08392200000000001
+      "run_cost_usd": 0.2619633
     },
     {
       "scenario": "S1_Flatten",
@@ -2861,11 +2885,11 @@
         "peak_context_utilization_pct": 65.10703125
       },
       "cost_usd": {
-        "input_uncached": 0.02380785,
-        "input_cached": 0.10392652499999999,
-        "reasoning": 0.0156216,
-        "output": 0.0025067999999999996,
-        "total": 0.14586277499999997
+        "input_uncached": 0.11903925,
+        "input_cached": 0.20785304999999998,
+        "reasoning": 0.097635,
+        "output": 0.0156675,
+        "total": 0.44019479999999994
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 26,
@@ -2918,10 +2942,11 @@
         "basic_block_estimate": 46,
         "cyclomatic_complexity_est": 16
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2930093,
       "total_tokens": 2960307,
-      "run_cost_usd": 0.14586277499999997
+      "run_cost_usd": 0.44019479999999994
     },
     {
       "scenario": "S1_Flatten",
@@ -2956,11 +2981,11 @@
         "peak_context_utilization_pct": 75.87421875
       },
       "cost_usd": {
-        "input_uncached": 0.02837505,
-        "input_cached": 0.1294314375,
-        "reasoning": 0.0155652,
-        "output": 0.0026507999999999996,
-        "total": 0.1760224875
+        "input_uncached": 0.14187525,
+        "input_cached": 0.258862875,
+        "reasoning": 0.0972825,
+        "output": 0.0165675,
+        "total": 0.514588125
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 31,
@@ -3013,10 +3038,11 @@
         "basic_block_estimate": 46,
         "cyclomatic_complexity_est": 16
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3640672,
       "total_tokens": 3671032,
-      "run_cost_usd": 0.1760224875
+      "run_cost_usd": 0.514588125
     },
     {
       "scenario": "S1_Flatten",
@@ -3051,11 +3077,11 @@
         "peak_context_utilization_pct": 60.73437499999999
       },
       "cost_usd": {
-        "input_uncached": 0.022779,
-        "input_cached": 0.09080595,
-        "reasoning": 0.011887799999999999,
-        "output": 0.0019487999999999999,
-        "total": 0.12742155
+        "input_uncached": 0.113895,
+        "input_cached": 0.1816119,
+        "reasoning": 0.07429875,
+        "output": 0.01218,
+        "total": 0.38198565
       },
       "mcp_calls": 27,
       "mcp_calls_succeeded": 25,
@@ -3111,10 +3137,11 @@
         "basic_block_estimate": 45,
         "cyclomatic_complexity_est": 14
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2573352,
       "total_tokens": 2596413,
-      "run_cost_usd": 0.12742155
+      "run_cost_usd": 0.38198565
     },
     {
       "scenario": "S1_Flatten",
@@ -3149,11 +3176,11 @@
         "peak_context_utilization_pct": 55.7734375
       },
       "cost_usd": {
-        "input_uncached": 0.0190128,
-        "input_cached": 0.06896253749999999,
-        "reasoning": 0.0105618,
-        "output": 0.0017562,
-        "total": 0.10029333749999998
+        "input_uncached": 0.095064,
+        "input_cached": 0.13792507499999998,
+        "reasoning": 0.06601125,
+        "output": 0.01097625,
+        "total": 0.309976575
       },
       "mcp_calls": 27,
       "mcp_calls_succeeded": 26,
@@ -3207,10 +3234,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1965753,
       "total_tokens": 1986283,
-      "run_cost_usd": 0.10029333749999998
+      "run_cost_usd": 0.309976575
     },
     {
       "scenario": "S1_Flatten",
@@ -3245,11 +3273,11 @@
         "peak_context_utilization_pct": 53.696093749999996
       },
       "cost_usd": {
-        "input_uncached": 0.0174447,
-        "input_cached": 0.057754349999999996,
-        "reasoning": 0.008914199999999999,
-        "output": 0.00156,
-        "total": 0.08567324999999999
+        "input_uncached": 0.0872235,
+        "input_cached": 0.11550869999999999,
+        "reasoning": 0.05571375,
+        "output": 0.00975,
+        "total": 0.26819594999999996
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 26,
@@ -3300,10 +3328,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1656414,
       "total_tokens": 1673871,
-      "run_cost_usd": 0.08567324999999999
+      "run_cost_usd": 0.26819594999999996
     },
     {
       "scenario": "S1_Flatten",
@@ -3338,11 +3367,11 @@
         "peak_context_utilization_pct": 68.6515625
       },
       "cost_usd": {
-        "input_uncached": 0.0232764,
-        "input_cached": 0.09087322499999999,
-        "reasoning": 0.0155556,
-        "output": 0.0019103999999999998,
-        "total": 0.13161562499999999
+        "input_uncached": 0.116382,
+        "input_cached": 0.18174644999999998,
+        "reasoning": 0.0972225,
+        "output": 0.01194,
+        "total": 0.40729095
       },
       "mcp_calls": 30,
       "mcp_calls_succeeded": 28,
@@ -3400,10 +3429,11 @@
         "basic_block_estimate": 46,
         "cyclomatic_complexity_est": 16
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2578462,
       "total_tokens": 2607572,
-      "run_cost_usd": 0.13161562499999999
+      "run_cost_usd": 0.40729095
     },
     {
       "scenario": "S1_Flatten",
@@ -3438,11 +3468,11 @@
         "peak_context_utilization_pct": 54.1
       },
       "cost_usd": {
-        "input_uncached": 0.01635615,
-        "input_cached": 0.0502186875,
-        "reasoning": 0.010305,
-        "output": 0.0015342,
-        "total": 0.07841403749999999
+        "input_uncached": 0.08178075,
+        "input_cached": 0.100437375,
+        "reasoning": 0.06440625,
+        "output": 0.00958875,
+        "total": 0.256213125
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 25,
@@ -3495,10 +3525,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1448206,
       "total_tokens": 1467938,
-      "run_cost_usd": 0.07841403749999999
+      "run_cost_usd": 0.256213125
     },
     {
       "scenario": "S1_Flatten",
@@ -3533,11 +3564,11 @@
         "peak_context_utilization_pct": 51.53124999999999
       },
       "cost_usd": {
-        "input_uncached": 0.018521549999999998,
-        "input_cached": 0.06645765,
-        "reasoning": 0.0095064,
-        "output": 0.0016397999999999999,
-        "total": 0.09612539999999999
+        "input_uncached": 0.09260775,
+        "input_cached": 0.1329153,
+        "reasoning": 0.059415,
+        "output": 0.01024875,
+        "total": 0.29518679999999997
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 22,
@@ -3592,10 +3623,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1895681,
       "total_tokens": 1914258,
-      "run_cost_usd": 0.09612539999999999
+      "run_cost_usd": 0.29518679999999997
     },
     {
       "scenario": "S1_Flatten",
@@ -3630,11 +3662,11 @@
         "peak_context_utilization_pct": 50.005468750000006
       },
       "cost_usd": {
-        "input_uncached": 0.0151575,
-        "input_cached": 0.0396214125,
-        "reasoning": 0.0096654,
-        "output": 0.0011322,
-        "total": 0.0655765125
+        "input_uncached": 0.0757875,
+        "input_cached": 0.079242825,
+        "reasoning": 0.06040875,
+        "output": 0.00707625,
+        "total": 0.22251532499999999
       },
       "mcp_calls": 23,
       "mcp_calls_succeeded": 22,
@@ -3687,10 +3719,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1157621,
       "total_tokens": 1175617,
-      "run_cost_usd": 0.0655765125
+      "run_cost_usd": 0.22251532499999999
     },
     {
       "scenario": "S1_Flatten",
@@ -3725,11 +3758,11 @@
         "peak_context_utilization_pct": 85.21718750000001
       },
       "cost_usd": {
-        "input_uncached": 0.030093599999999998,
-        "input_cached": 0.1728156,
-        "reasoning": 0.012340199999999999,
-        "output": 0.0026574000000000003,
-        "total": 0.2179068
+        "input_uncached": 0.150468,
+        "input_cached": 0.3456312,
+        "reasoning": 0.07712625,
+        "output": 0.01660875,
+        "total": 0.5898342
       },
       "mcp_calls": 25,
       "mcp_calls_succeeded": 24,
@@ -3783,10 +3816,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 4809040,
       "total_tokens": 4834036,
-      "run_cost_usd": 0.2179068
+      "run_cost_usd": 0.5898342
     },
     {
       "scenario": "S1_Flatten",
@@ -3821,11 +3855,11 @@
         "peak_context_utilization_pct": 63.67890625
       },
       "cost_usd": {
-        "input_uncached": 0.02156325,
-        "input_cached": 0.0868336125,
-        "reasoning": 0.0110364,
-        "output": 0.0016788,
-        "total": 0.12111206249999999
+        "input_uncached": 0.10781625,
+        "input_cached": 0.173667225,
+        "reasoning": 0.0689775,
+        "output": 0.0104925,
+        "total": 0.3609534750000001
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 23,
@@ -3878,10 +3912,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2459318,
       "total_tokens": 2480510,
-      "run_cost_usd": 0.12111206249999999
+      "run_cost_usd": 0.3609534750000001
     },
     {
       "scenario": "S1_Flatten",
@@ -3916,11 +3951,11 @@
         "peak_context_utilization_pct": 55.314843749999994
       },
       "cost_usd": {
-        "input_uncached": 0.019499399999999997,
-        "input_cached": 0.0763093125,
-        "reasoning": 0.0096576,
-        "output": 0.0015642,
-        "total": 0.10703051250000001
+        "input_uncached": 0.097497,
+        "input_cached": 0.152618625,
+        "reasoning": 0.06036,
+        "output": 0.00977625,
+        "total": 0.320251875
       },
       "mcp_calls": 28,
       "mcp_calls_succeeded": 27,
@@ -3974,10 +4009,11 @@
         "basic_block_estimate": 36,
         "cyclomatic_complexity_est": 12
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2164911,
       "total_tokens": 2183614,
-      "run_cost_usd": 0.10703051250000001
+      "run_cost_usd": 0.320251875
     },
     {
       "scenario": "S1_Flatten",
@@ -4012,11 +4048,11 @@
         "peak_context_utilization_pct": 53.2859375
       },
       "cost_usd": {
-        "input_uncached": 0.0202725,
-        "input_cached": 0.080090025,
-        "reasoning": 0.010242,
-        "output": 0.0022734,
-        "total": 0.11287792499999999
+        "input_uncached": 0.1013625,
+        "input_cached": 0.16018005,
+        "reasoning": 0.0640125,
+        "output": 0.01420875,
+        "total": 0.33976379999999995
       },
       "mcp_calls": 24,
       "mcp_calls_succeeded": 23,
@@ -4070,10 +4106,11 @@
         "basic_block_estimate": 36,
         "cyclomatic_complexity_est": 12
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2270884,
       "total_tokens": 2291743,
-      "run_cost_usd": 0.11287792499999999
+      "run_cost_usd": 0.33976379999999995
     },
     {
       "scenario": "S1_Flatten",
@@ -4108,11 +4145,11 @@
         "peak_context_utilization_pct": 51.591406250000006
       },
       "cost_usd": {
-        "input_uncached": 0.01726755,
-        "input_cached": 0.0558682125,
-        "reasoning": 0.009379799999999999,
-        "output": 0.0015138,
-        "total": 0.0840293625
+        "input_uncached": 0.08633775,
+        "input_cached": 0.111736425,
+        "reasoning": 0.05862375,
+        "output": 0.00946125,
+        "total": 0.26615917499999997
       },
       "mcp_calls": 27,
       "mcp_calls_succeeded": 26,
@@ -4165,10 +4202,11 @@
         "basic_block_estimate": 36,
         "cyclomatic_complexity_est": 12
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1604936,
       "total_tokens": 1623092,
-      "run_cost_usd": 0.0840293625
+      "run_cost_usd": 0.26615917499999997
     },
     {
       "scenario": "S1_Flatten",
@@ -4203,11 +4241,11 @@
         "peak_context_utilization_pct": 54.17578125
       },
       "cost_usd": {
-        "input_uncached": 0.02013525,
-        "input_cached": 0.07612897499999999,
-        "reasoning": 0.0119436,
-        "output": 0.0016212,
-        "total": 0.10982902499999998
+        "input_uncached": 0.10067625,
+        "input_cached": 0.15225794999999998,
+        "reasoning": 0.0746475,
+        "output": 0.0101325,
+        "total": 0.33771419999999996
       },
       "mcp_calls": 25,
       "mcp_calls_succeeded": 22,
@@ -4261,10 +4299,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2164341,
       "total_tokens": 2186949,
-      "run_cost_usd": 0.10982902499999998
+      "run_cost_usd": 0.33771419999999996
     },
     {
       "scenario": "S1_Flatten",
@@ -4299,11 +4338,11 @@
         "peak_context_utilization_pct": 56.525781249999994
       },
       "cost_usd": {
-        "input_uncached": 0.0203157,
-        "input_cached": 0.0740319,
-        "reasoning": 0.0096036,
-        "output": 0.0016403999999999998,
-        "total": 0.10559160000000001
+        "input_uncached": 0.1015785,
+        "input_cached": 0.1480638,
+        "reasoning": 0.0600225,
+        "output": 0.0102525,
+        "total": 0.31991729999999996
       },
       "mcp_calls": 28,
       "mcp_calls_succeeded": 28,
@@ -4355,10 +4394,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 13
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2109622,
       "total_tokens": 2128362,
-      "run_cost_usd": 0.10559160000000001
+      "run_cost_usd": 0.31991729999999996
     },
     {
       "scenario": "S2_EncodeData",
@@ -4393,11 +4433,11 @@
         "peak_context_utilization_pct": 62.946875000000006
       },
       "cost_usd": {
-        "input_uncached": 0.0208143,
-        "input_cached": 0.089968275,
-        "reasoning": 0.0105546,
-        "output": 0.0021972,
-        "total": 0.12353437499999999
+        "input_uncached": 0.1040715,
+        "input_cached": 0.17993655,
+        "reasoning": 0.06596625,
+        "output": 0.0137325,
+        "total": 0.3637068
       },
       "mcp_calls": 29,
       "mcp_calls_succeeded": 28,
@@ -4452,10 +4492,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2537916,
       "total_tokens": 2559169,
-      "run_cost_usd": 0.12353437499999999
+      "run_cost_usd": 0.3637068
     },
     {
       "scenario": "S2_EncodeData",
@@ -4490,11 +4531,11 @@
         "peak_context_utilization_pct": 72.75
       },
       "cost_usd": {
-        "input_uncached": 0.025046399999999996,
-        "input_cached": 0.1160410875,
-        "reasoning": 0.012298199999999999,
-        "output": 0.0024444000000000002,
-        "total": 0.15583008750000002
+        "input_uncached": 0.125232,
+        "input_cached": 0.232082175,
+        "reasoning": 0.07686375,
+        "output": 0.0152775,
+        "total": 0.449455425
       },
       "mcp_calls": 21,
       "mcp_calls_succeeded": 21,
@@ -4547,10 +4588,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3261405,
       "total_tokens": 3285976,
-      "run_cost_usd": 0.15583008750000002
+      "run_cost_usd": 0.449455425
     },
     {
       "scenario": "S2_EncodeData",
@@ -4585,11 +4627,11 @@
         "peak_context_utilization_pct": 73.59609375000001
       },
       "cost_usd": {
-        "input_uncached": 0.030337949999999995,
-        "input_cached": 0.0752098875,
-        "reasoning": 0.0166248,
-        "output": 0.0016343999999999998,
-        "total": 0.12380703749999998
+        "input_uncached": 0.15168975,
+        "input_cached": 0.150419775,
+        "reasoning": 0.103905,
+        "output": 0.010215,
+        "total": 0.416229525
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 31,
@@ -4640,10 +4682,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2207850,
       "total_tokens": 2238282,
-      "run_cost_usd": 0.12380703749999998
+      "run_cost_usd": 0.416229525
     },
     {
       "scenario": "S2_EncodeData",
@@ -4678,11 +4721,11 @@
         "peak_context_utilization_pct": 63.67890625
       },
       "cost_usd": {
-        "input_uncached": 0.019921349999999997,
-        "input_cached": 0.0682698,
-        "reasoning": 0.0119994,
-        "output": 0.00144,
-        "total": 0.10163054999999999
+        "input_uncached": 0.09960675,
+        "input_cached": 0.1365396,
+        "reasoning": 0.07499625,
+        "output": 0.009,
+        "total": 0.3201426
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 29,
@@ -4736,10 +4779,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1953337,
       "total_tokens": 1975736,
-      "run_cost_usd": 0.10163054999999999
+      "run_cost_usd": 0.3201426
     },
     {
       "scenario": "S2_EncodeData",
@@ -4774,11 +4818,11 @@
         "peak_context_utilization_pct": 73.27734375
       },
       "cost_usd": {
-        "input_uncached": 0.0276018,
-        "input_cached": 0.13711769999999998,
-        "reasoning": 0.014001600000000001,
-        "output": 0.0022074,
-        "total": 0.1809285
+        "input_uncached": 0.138009,
+        "input_cached": 0.27423539999999996,
+        "reasoning": 0.08751,
+        "output": 0.01379625,
+        "total": 0.5135506499999999
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 31,
@@ -4831,10 +4875,11 @@
         "basic_block_estimate": 55,
         "cyclomatic_complexity_est": 24
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3840484,
       "total_tokens": 3867499,
-      "run_cost_usd": 0.1809285
+      "run_cost_usd": 0.5135506499999999
     },
     {
       "scenario": "S2_EncodeData",
@@ -4869,11 +4914,11 @@
         "peak_context_utilization_pct": 63.630468750000006
       },
       "cost_usd": {
-        "input_uncached": 0.02346375,
-        "input_cached": 0.10475733749999999,
-        "reasoning": 0.0104412,
-        "output": 0.0025637999999999998,
-        "total": 0.1412260875
+        "input_uncached": 0.11731875,
+        "input_cached": 0.20951467499999998,
+        "reasoning": 0.0652575,
+        "output": 0.01602375,
+        "total": 0.408114675
       },
       "mcp_calls": 30,
       "mcp_calls_succeeded": 29,
@@ -4927,10 +4972,11 @@
         "basic_block_estimate": 55,
         "cyclomatic_complexity_est": 24
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2949954,
       "total_tokens": 2971629,
-      "run_cost_usd": 0.1412260875
+      "run_cost_usd": 0.408114675
     },
     {
       "scenario": "S2_EncodeData",
@@ -4965,11 +5011,11 @@
         "peak_context_utilization_pct": 59.98359375
       },
       "cost_usd": {
-        "input_uncached": 0.0189669,
-        "input_cached": 0.07275817500000001,
-        "reasoning": 0.0119478,
-        "output": 0.0018581999999999997,
-        "total": 0.105531075
+        "input_uncached": 0.0948345,
+        "input_cached": 0.14551635000000002,
+        "reasoning": 0.07467375,
+        "output": 0.01161375,
+        "total": 0.32663834999999997
       },
       "mcp_calls": 27,
       "mcp_calls_succeeded": 25,
@@ -5024,10 +5070,11 @@
         "basic_block_estimate": 55,
         "cyclomatic_complexity_est": 24
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2066664,
       "total_tokens": 2089674,
-      "run_cost_usd": 0.105531075
+      "run_cost_usd": 0.32663834999999997
     },
     {
       "scenario": "S2_EncodeData",
@@ -5062,11 +5109,11 @@
         "peak_context_utilization_pct": 56.792187500000004
       },
       "cost_usd": {
-        "input_uncached": 0.018150899999999998,
-        "input_cached": 0.0643669125,
-        "reasoning": 0.0095226,
-        "output": 0.001629,
-        "total": 0.09366941250000001
+        "input_uncached": 0.0907545,
+        "input_cached": 0.128733825,
+        "reasoning": 0.05951625,
+        "output": 0.01018125,
+        "total": 0.28918582499999995
       },
       "mcp_calls": 28,
       "mcp_calls_succeeded": 25,
@@ -5121,10 +5168,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1837457,
       "total_tokens": 1856043,
-      "run_cost_usd": 0.09366941250000001
+      "run_cost_usd": 0.28918582499999995
     },
     {
       "scenario": "S2_EncodeData",
@@ -5159,11 +5207,11 @@
         "peak_context_utilization_pct": 64.72265625
       },
       "cost_usd": {
-        "input_uncached": 0.020929649999999998,
-        "input_cached": 0.08559030000000001,
-        "reasoning": 0.0100494,
-        "output": 0.0018084,
-        "total": 0.11837775
+        "input_uncached": 0.10464825,
+        "input_cached": 0.17118060000000002,
+        "reasoning": 0.06280875,
+        "output": 0.0113025,
+        "total": 0.3499401
       },
       "mcp_calls": 35,
       "mcp_calls_succeeded": 33,
@@ -5217,10 +5265,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2421939,
       "total_tokens": 2441702,
-      "run_cost_usd": 0.11837775
+      "run_cost_usd": 0.3499401
     },
     {
       "scenario": "S2_EncodeData",
@@ -5255,11 +5304,11 @@
         "peak_context_utilization_pct": 65.7484375
       },
       "cost_usd": {
-        "input_uncached": 0.01896495,
-        "input_cached": 0.0673654875,
-        "reasoning": 0.0136116,
-        "output": 0.0015383999999999999,
-        "total": 0.10148043749999999
+        "input_uncached": 0.09482475,
+        "input_cached": 0.134730975,
+        "reasoning": 0.0850725,
+        "output": 0.009615,
+        "total": 0.32424322499999997
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 29,
@@ -5314,10 +5363,11 @@
         "basic_block_estimate": 55,
         "cyclomatic_complexity_est": 24
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1922846,
       "total_tokens": 1948096,
-      "run_cost_usd": 0.10148043749999999
+      "run_cost_usd": 0.32424322499999997
     },
     {
       "scenario": "S2_EncodeData",
@@ -5352,11 +5402,11 @@
         "peak_context_utilization_pct": 65.3
       },
       "cost_usd": {
-        "input_uncached": 0.0209658,
-        "input_cached": 0.0852075,
-        "reasoning": 0.0114126,
-        "output": 0.001722,
-        "total": 0.1193079
+        "input_uncached": 0.104829,
+        "input_cached": 0.170415,
+        "reasoning": 0.07132875,
+        "output": 0.0107625,
+        "total": 0.35733525000000005
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 30,
@@ -5409,10 +5459,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2411972,
       "total_tokens": 2433863,
-      "run_cost_usd": 0.1193079
+      "run_cost_usd": 0.35733525000000005
     },
     {
       "scenario": "S2_EncodeData",
@@ -5447,11 +5498,11 @@
         "peak_context_utilization_pct": 73.165625
       },
       "cost_usd": {
-        "input_uncached": 0.025413599999999998,
-        "input_cached": 0.11529855,
-        "reasoning": 0.013059,
-        "output": 0.0024371999999999996,
-        "total": 0.15620835
+        "input_uncached": 0.127068,
+        "input_cached": 0.2305971,
+        "reasoning": 0.08161875,
+        "output": 0.0152325,
+        "total": 0.45451634999999996
       },
       "mcp_calls": 37,
       "mcp_calls_succeeded": 35,
@@ -5506,10 +5557,11 @@
         "basic_block_estimate": 53,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3244052,
       "total_tokens": 3269879,
-      "run_cost_usd": 0.15620835
+      "run_cost_usd": 0.45451634999999996
     },
     {
       "scenario": "S2_EncodeData",
@@ -5544,11 +5596,11 @@
         "peak_context_utilization_pct": 68.2875
       },
       "cost_usd": {
-        "input_uncached": 0.02405805,
-        "input_cached": 0.11125695,
-        "reasoning": 0.0106794,
-        "output": 0.0022854,
-        "total": 0.1482798
+        "input_uncached": 0.12029025,
+        "input_cached": 0.2225139,
+        "reasoning": 0.06674625,
+        "output": 0.01428375,
+        "total": 0.42383414999999997
       },
       "mcp_calls": 35,
       "mcp_calls_succeeded": 33,
@@ -5602,10 +5654,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3127239,
       "total_tokens": 3148847,
-      "run_cost_usd": 0.1482798
+      "run_cost_usd": 0.42383414999999997
     },
     {
       "scenario": "S2_EncodeData",
@@ -5640,11 +5693,11 @@
         "peak_context_utilization_pct": 69.1484375
       },
       "cost_usd": {
-        "input_uncached": 0.02349,
-        "input_cached": 0.10868133749999999,
-        "reasoning": 0.0124926,
-        "output": 0.0021642,
-        "total": 0.14682813749999998
+        "input_uncached": 0.11745,
+        "input_cached": 0.21736267499999998,
+        "reasoning": 0.07807875,
+        "output": 0.01352625,
+        "total": 0.426417675
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 31,
@@ -5696,10 +5749,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3054769,
       "total_tokens": 3079197,
-      "run_cost_usd": 0.14682813749999998
+      "run_cost_usd": 0.426417675
     },
     {
       "scenario": "S2_EncodeData",
@@ -5734,11 +5788,11 @@
         "peak_context_utilization_pct": 62.266406249999996
       },
       "cost_usd": {
-        "input_uncached": 0.020793,
-        "input_cached": 0.0799746375,
-        "reasoning": 0.0111612,
-        "output": 0.0016482,
-        "total": 0.1135770375
+        "input_uncached": 0.103965,
+        "input_cached": 0.159949275,
+        "reasoning": 0.0697575,
+        "output": 0.01030125,
+        "total": 0.343973025
       },
       "mcp_calls": 28,
       "mcp_calls_succeeded": 27,
@@ -5791,10 +5845,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2271277,
       "total_tokens": 2292626,
-      "run_cost_usd": 0.1135770375
+      "run_cost_usd": 0.343973025
     },
     {
       "scenario": "S2_EncodeData",
@@ -5829,11 +5884,11 @@
         "peak_context_utilization_pct": 59.245312500000004
       },
       "cost_usd": {
-        "input_uncached": 0.01794855,
-        "input_cached": 0.070018575,
-        "reasoning": 0.009689399999999999,
-        "output": 0.0013002,
-        "total": 0.09895672500000001
+        "input_uncached": 0.08974275,
+        "input_cached": 0.14003715,
+        "reasoning": 0.06055875,
+        "output": 0.00812625,
+        "total": 0.2984649
       },
       "mcp_calls": 29,
       "mcp_calls_succeeded": 29,
@@ -5885,10 +5940,11 @@
         "basic_block_estimate": 44,
         "cyclomatic_complexity_est": 20
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 1986819,
       "total_tokens": 2005135,
-      "run_cost_usd": 0.09895672500000001
+      "run_cost_usd": 0.2984649
     },
     {
       "scenario": "S2_EncodeData",
@@ -5923,11 +5979,11 @@
         "peak_context_utilization_pct": 58.09453125
       },
       "cost_usd": {
-        "input_uncached": 0.02133315,
-        "input_cached": 0.08844975,
-        "reasoning": 0.0073932,
-        "output": 0.0017993999999999998,
-        "total": 0.1189755
+        "input_uncached": 0.10666575,
+        "input_cached": 0.1768995,
+        "reasoning": 0.0462075,
+        "output": 0.01124625,
+        "total": 0.341019
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 30,
@@ -5983,10 +6039,11 @@
         "basic_block_estimate": 44,
         "cyclomatic_complexity_est": 20
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2500881,
       "total_tokens": 2516202,
-      "run_cost_usd": 0.1189755
+      "run_cost_usd": 0.341019
     },
     {
       "scenario": "S2_EncodeData",
@@ -6021,11 +6078,11 @@
         "peak_context_utilization_pct": 58.464062500000004
       },
       "cost_usd": {
-        "input_uncached": 0.0203619,
-        "input_cached": 0.0829813875,
-        "reasoning": 0.0089586,
-        "output": 0.0020291999999999997,
-        "total": 0.1143310875
+        "input_uncached": 0.1018095,
+        "input_cached": 0.165962775,
+        "reasoning": 0.05599125,
+        "output": 0.0126825,
+        "total": 0.336446025
       },
       "mcp_calls": 28,
       "mcp_calls_succeeded": 28,
@@ -6077,10 +6134,11 @@
         "basic_block_estimate": 44,
         "cyclomatic_complexity_est": 20
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2348583,
       "total_tokens": 2366896,
-      "run_cost_usd": 0.1143310875
+      "run_cost_usd": 0.336446025
     },
     {
       "scenario": "S2_EncodeData",
@@ -6115,11 +6173,11 @@
         "peak_context_utilization_pct": 62.05078125
       },
       "cost_usd": {
-        "input_uncached": 0.0214803,
-        "input_cached": 0.0880734,
-        "reasoning": 0.008924399999999999,
-        "output": 0.0021071999999999996,
-        "total": 0.1205853
+        "input_uncached": 0.1074015,
+        "input_cached": 0.1761468,
+        "reasoning": 0.0557775,
+        "output": 0.01317,
+        "total": 0.35249579999999997
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 29,
@@ -6176,10 +6234,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2491826,
       "total_tokens": 2510212,
-      "run_cost_usd": 0.1205853
+      "run_cost_usd": 0.35249579999999997
     },
     {
       "scenario": "S2_EncodeData",
@@ -6214,11 +6273,11 @@
         "peak_context_utilization_pct": 68.29375
       },
       "cost_usd": {
-        "input_uncached": 0.0204951,
-        "input_cached": 0.0801387375,
-        "reasoning": 0.0125802,
-        "output": 0.0015053999999999998,
-        "total": 0.11471943750000001
+        "input_uncached": 0.1024755,
+        "input_cached": 0.160277475,
+        "reasoning": 0.07862625,
+        "output": 0.00940875,
+        "total": 0.35078797500000003
       },
       "mcp_calls": 34,
       "mcp_calls_succeeded": 33,
@@ -6273,10 +6332,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 22
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2273667,
       "total_tokens": 2297143,
-      "run_cost_usd": 0.11471943750000001
+      "run_cost_usd": 0.35078797500000003
     },
     {
       "scenario": "S3_Combined",
@@ -6311,11 +6371,11 @@
         "peak_context_utilization_pct": 79.54140625000001
       },
       "cost_usd": {
-        "input_uncached": 0.033325049999999995,
-        "input_cached": 0.1699831875,
-        "reasoning": 0.014598,
-        "output": 0.0036401999999999997,
-        "total": 0.2215464375
+        "input_uncached": 0.16662525,
+        "input_cached": 0.339966375,
+        "reasoning": 0.0912375,
+        "output": 0.02275125,
+        "total": 0.620580375
       },
       "mcp_calls": 39,
       "mcp_calls_succeeded": 37,
@@ -6373,10 +6433,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 4755052,
       "total_tokens": 4785449,
-      "run_cost_usd": 0.2215464375
+      "run_cost_usd": 0.620580375
     },
     {
       "scenario": "S3_Combined",
@@ -6413,11 +6474,11 @@
         "peak_context_utilization_pct": 11.684375
       },
       "cost_usd": {
-        "input_uncached": 0.0022434,
+        "input_uncached": 0.011217,
         "input_cached": 0.0,
-        "reasoning": 0.0005586,
+        "reasoning": 0.00349125,
         "output": 0.0,
-        "total": 0.002802
+        "total": 0.014708249999999999
       },
       "mcp_calls": 0,
       "mcp_calls_succeeded": 0,
@@ -6448,10 +6509,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 14956,
       "total_tokens": 15887,
-      "run_cost_usd": 0.002802
+      "run_cost_usd": 0.014708249999999999
     },
     {
       "scenario": "S3_Combined",
@@ -6486,11 +6548,11 @@
         "peak_context_utilization_pct": 70.8046875
       },
       "cost_usd": {
-        "input_uncached": 0.0270633,
-        "input_cached": 0.1274229,
-        "reasoning": 0.013494,
-        "output": 0.0020981999999999997,
-        "total": 0.17007840000000002
+        "input_uncached": 0.1353165,
+        "input_cached": 0.2548458,
+        "reasoning": 0.0843375,
+        "output": 0.01311375,
+        "total": 0.48761355
       },
       "mcp_calls": 32,
       "mcp_calls_succeeded": 29,
@@ -6549,10 +6611,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3578366,
       "total_tokens": 3604353,
-      "run_cost_usd": 0.17007840000000002
+      "run_cost_usd": 0.48761355
     },
     {
       "scenario": "S3_Combined",
@@ -6587,11 +6650,11 @@
         "peak_context_utilization_pct": 73.2265625
       },
       "cost_usd": {
-        "input_uncached": 0.02702775,
-        "input_cached": 0.12538364999999999,
-        "reasoning": 0.013738199999999999,
-        "output": 0.0027581999999999997,
-        "total": 0.16890779999999997
+        "input_uncached": 0.13513875,
+        "input_cached": 0.25076729999999997,
+        "reasoning": 0.08586375,
+        "output": 0.01723875,
+        "total": 0.48900855000000004
       },
       "mcp_calls": 35,
       "mcp_calls_succeeded": 33,
@@ -6649,10 +6712,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3523749,
       "total_tokens": 3551243,
-      "run_cost_usd": 0.16890779999999997
+      "run_cost_usd": 0.48900855000000004
     },
     {
       "scenario": "S3_Combined",
@@ -6687,11 +6751,11 @@
         "peak_context_utilization_pct": 71.13046874999999
       },
       "cost_usd": {
-        "input_uncached": 0.02774475,
-        "input_cached": 0.13481332499999998,
-        "reasoning": 0.014981399999999999,
-        "output": 0.0044892,
-        "total": 0.18202867499999997
+        "input_uncached": 0.13872375,
+        "input_cached": 0.26962664999999997,
+        "reasoning": 0.09363375,
+        "output": 0.0280575,
+        "total": 0.5300416499999999
       },
       "mcp_calls": 33,
       "mcp_calls_succeeded": 28,
@@ -6752,10 +6816,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 20
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3779987,
       "total_tokens": 3812438,
-      "run_cost_usd": 0.18202867499999997
+      "run_cost_usd": 0.5300416499999999
     },
     {
       "scenario": "S3_Combined",
@@ -6790,11 +6855,11 @@
         "peak_context_utilization_pct": 70.540625
       },
       "cost_usd": {
-        "input_uncached": 0.0264948,
-        "input_cached": 0.125369775,
-        "reasoning": 0.0142758,
-        "output": 0.0031842,
-        "total": 0.169324575
+        "input_uncached": 0.132474,
+        "input_cached": 0.25073955,
+        "reasoning": 0.08922375,
+        "output": 0.01990125,
+        "total": 0.49233855
       },
       "mcp_calls": 31,
       "mcp_calls_succeeded": 31,
@@ -6848,10 +6913,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 20
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3519826,
       "total_tokens": 3548926,
-      "run_cost_usd": 0.169324575
+      "run_cost_usd": 0.49233855
     },
     {
       "scenario": "S3_Combined",
@@ -6886,11 +6952,11 @@
         "peak_context_utilization_pct": 76.44296874999999
       },
       "cost_usd": {
-        "input_uncached": 0.02393955,
-        "input_cached": 0.0971173875,
-        "reasoning": 0.017782799999999998,
-        "output": 0.0019601999999999996,
-        "total": 0.1407999375
+        "input_uncached": 0.11969775,
+        "input_cached": 0.194234775,
+        "reasoning": 0.1111425,
+        "output": 0.01225125,
+        "total": 0.43732627500000004
       },
       "mcp_calls": 29,
       "mcp_calls_succeeded": 27,
@@ -6946,10 +7012,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2749394,
       "total_tokens": 2782299,
-      "run_cost_usd": 0.1407999375
+      "run_cost_usd": 0.43732627500000004
     },
     {
       "scenario": "S3_Combined",
@@ -6984,11 +7051,11 @@
         "peak_context_utilization_pct": 75.45078125
       },
       "cost_usd": {
-        "input_uncached": 0.0258795,
-        "input_cached": 0.1234321875,
-        "reasoning": 0.0153786,
-        "output": 0.0023567999999999996,
-        "total": 0.1670470875
+        "input_uncached": 0.1293975,
+        "input_cached": 0.246864375,
+        "reasoning": 0.09611625,
+        "output": 0.01473,
+        "total": 0.487108125
       },
       "mcp_calls": 35,
       "mcp_calls_succeeded": 34,
@@ -7043,10 +7110,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3464055,
       "total_tokens": 3493614,
-      "run_cost_usd": 0.1670470875
+      "run_cost_usd": 0.487108125
     },
     {
       "scenario": "S3_Combined",
@@ -7081,11 +7149,11 @@
         "peak_context_utilization_pct": 66.14140625
       },
       "cost_usd": {
-        "input_uncached": 0.02311395,
-        "input_cached": 0.099347625,
-        "reasoning": 0.0124374,
-        "output": 0.0023166,
-        "total": 0.13721557499999998
+        "input_uncached": 0.11556975,
+        "input_cached": 0.19869525,
+        "reasoning": 0.07773375,
+        "output": 0.01447875,
+        "total": 0.4064775
       },
       "mcp_calls": 32,
       "mcp_calls_succeeded": 30,
@@ -7141,10 +7209,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2803363,
       "total_tokens": 2827953,
-      "run_cost_usd": 0.13721557499999998
+      "run_cost_usd": 0.4064775
     },
     {
       "scenario": "S3_Combined",
@@ -7179,11 +7248,11 @@
         "peak_context_utilization_pct": 81.503125
       },
       "cost_usd": {
-        "input_uncached": 0.02743275,
-        "input_cached": 0.1176661125,
-        "reasoning": 0.016276199999999998,
-        "output": 0.0021564,
-        "total": 0.1635314625
+        "input_uncached": 0.13716375,
+        "input_cached": 0.235332225,
+        "reasoning": 0.10172625,
+        "output": 0.0134775,
+        "total": 0.487699725
       },
       "mcp_calls": 34,
       "mcp_calls_succeeded": 34,
@@ -7236,10 +7305,11 @@
         "basic_block_estimate": 52,
         "cyclomatic_complexity_est": 20
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3320648,
       "total_tokens": 3351369,
-      "run_cost_usd": 0.1635314625
+      "run_cost_usd": 0.487699725
     },
     {
       "scenario": "S3_Combined",
@@ -7274,11 +7344,11 @@
         "peak_context_utilization_pct": 64.88984375
       },
       "cost_usd": {
-        "input_uncached": 0.022105200000000002,
-        "input_cached": 0.0862407375,
-        "reasoning": 0.0143406,
-        "output": 0.0019182,
-        "total": 0.12460473749999999
+        "input_uncached": 0.110526,
+        "input_cached": 0.172481475,
+        "reasoning": 0.08962875,
+        "output": 0.01198875,
+        "total": 0.384624975
       },
       "mcp_calls": 34,
       "mcp_calls_succeeded": 28,
@@ -7338,10 +7408,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2447121,
       "total_tokens": 2474219,
-      "run_cost_usd": 0.12460473749999999
+      "run_cost_usd": 0.384624975
     },
     {
       "scenario": "S3_Combined",
@@ -7376,11 +7447,11 @@
         "peak_context_utilization_pct": 77.7046875
       },
       "cost_usd": {
-        "input_uncached": 0.02405655,
-        "input_cached": 0.11627302499999999,
-        "reasoning": 0.014901,
-        "output": 0.0022806,
-        "total": 0.15751117499999998
+        "input_uncached": 0.12028275,
+        "input_cached": 0.23254604999999998,
+        "reasoning": 0.09313125,
+        "output": 0.01425375,
+        "total": 0.46021379999999995
       },
       "mcp_calls": 38,
       "mcp_calls_succeeded": 38,
@@ -7433,10 +7504,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3260991,
       "total_tokens": 3289627,
-      "run_cost_usd": 0.15751117499999998
+      "run_cost_usd": 0.46021379999999995
     },
     {
       "scenario": "S3_Combined",
@@ -7471,11 +7543,11 @@
         "peak_context_utilization_pct": 67.37265624999999
       },
       "cost_usd": {
-        "input_uncached": 0.01935195,
-        "input_cached": 0.07409167500000001,
-        "reasoning": 0.0152994,
-        "output": 0.00147,
-        "total": 0.110213025
+        "input_uncached": 0.09675975,
+        "input_cached": 0.14818335000000002,
+        "reasoning": 0.09562125,
+        "output": 0.0091875,
+        "total": 0.34975185000000003
       },
       "mcp_calls": 28,
       "mcp_calls_succeeded": 27,
@@ -7529,10 +7601,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2104791,
       "total_tokens": 2132740,
-      "run_cost_usd": 0.110213025
+      "run_cost_usd": 0.34975185000000003
     },
     {
       "scenario": "S3_Combined",
@@ -7567,11 +7640,11 @@
         "peak_context_utilization_pct": 79.81640625
       },
       "cost_usd": {
-        "input_uncached": 0.0242106,
-        "input_cached": 0.10914922499999999,
-        "reasoning": 0.015459599999999999,
-        "output": 0.0020927999999999997,
-        "total": 0.15091222499999998
+        "input_uncached": 0.121053,
+        "input_cached": 0.21829844999999998,
+        "reasoning": 0.0966225,
+        "output": 0.01308,
+        "total": 0.44905395
       },
       "mcp_calls": 35,
       "mcp_calls_succeeded": 31,
@@ -7631,10 +7704,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3072050,
       "total_tokens": 3101304,
-      "run_cost_usd": 0.15091222499999998
+      "run_cost_usd": 0.44905395
     },
     {
       "scenario": "S3_Combined",
@@ -7669,11 +7743,11 @@
         "peak_context_utilization_pct": 77.3875
       },
       "cost_usd": {
-        "input_uncached": 0.02634255,
-        "input_cached": 0.123621375,
-        "reasoning": 0.018702,
-        "output": 0.0019931999999999997,
-        "total": 0.170659125
+        "input_uncached": 0.13171275,
+        "input_cached": 0.24724275,
+        "reasoning": 0.1168875,
+        "output": 0.0124575,
+        "total": 0.5083005
       },
       "mcp_calls": 40,
       "mcp_calls_succeeded": 36,
@@ -7730,10 +7804,11 @@
         "basic_block_estimate": 49,
         "cyclomatic_complexity_est": 18
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 3472187,
       "total_tokens": 3506679,
-      "run_cost_usd": 0.170659125
+      "run_cost_usd": 0.5083005
     },
     {
       "scenario": "S3_Combined",
@@ -7768,11 +7843,11 @@
         "peak_context_utilization_pct": 62.484375
       },
       "cost_usd": {
-        "input_uncached": 0.02281455,
-        "input_cached": 0.08714984999999999,
-        "reasoning": 0.0107388,
-        "output": 0.0016908,
-        "total": 0.12239399999999999
+        "input_uncached": 0.11407275,
+        "input_cached": 0.17429969999999997,
+        "reasoning": 0.0671175,
+        "output": 0.0105675,
+        "total": 0.36605745
       },
       "mcp_calls": 27,
       "mcp_calls_succeeded": 27,
@@ -7823,10 +7898,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 15
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2476093,
       "total_tokens": 2496809,
-      "run_cost_usd": 0.12239399999999999
+      "run_cost_usd": 0.36605745
     },
     {
       "scenario": "S3_Combined",
@@ -7861,11 +7937,11 @@
         "peak_context_utilization_pct": 56.2734375
       },
       "cost_usd": {
-        "input_uncached": 0.021179399999999998,
-        "input_cached": 0.0846687,
-        "reasoning": 0.009759,
-        "output": 0.0019968,
-        "total": 0.11760390000000001
+        "input_uncached": 0.105897,
+        "input_cached": 0.1693374,
+        "reasoning": 0.06099375,
+        "output": 0.01248,
+        "total": 0.34870815
       },
       "mcp_calls": 23,
       "mcp_calls_succeeded": 23,
@@ -7918,10 +7994,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 15
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2399028,
       "total_tokens": 2418621,
-      "run_cost_usd": 0.11760390000000001
+      "run_cost_usd": 0.34870815
     },
     {
       "scenario": "S3_Combined",
@@ -7956,11 +8033,11 @@
         "peak_context_utilization_pct": 57.02421875
       },
       "cost_usd": {
-        "input_uncached": 0.02179155,
-        "input_cached": 0.0826951125,
-        "reasoning": 0.00972,
-        "output": 0.0021041999999999996,
-        "total": 0.1163108625
+        "input_uncached": 0.10895775,
+        "input_cached": 0.165390225,
+        "reasoning": 0.06075,
+        "output": 0.01315125,
+        "total": 0.34824922500000005
       },
       "mcp_calls": 26,
       "mcp_calls_succeeded": 24,
@@ -8016,10 +8093,11 @@
         "basic_block_estimate": 40,
         "cyclomatic_complexity_est": 15
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2350480,
       "total_tokens": 2370187,
-      "run_cost_usd": 0.1163108625
+      "run_cost_usd": 0.34824922500000005
     },
     {
       "scenario": "S3_Combined",
@@ -8054,11 +8132,11 @@
         "peak_context_utilization_pct": 86.984375
       },
       "cost_usd": {
-        "input_uncached": 0.02808705,
-        "input_cached": 0.14696332499999998,
-        "reasoning": 0.0172896,
-        "output": 0.002421,
-        "total": 0.19476097499999998
+        "input_uncached": 0.14043525,
+        "input_cached": 0.29392664999999996,
+        "reasoning": 0.10806,
+        "output": 0.01513125,
+        "total": 0.55755315
       },
       "mcp_calls": 47,
       "mcp_calls_succeeded": 39,
@@ -8125,10 +8203,11 @@
         "basic_block_estimate": 46,
         "cyclomatic_complexity_est": 17
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 4106269,
       "total_tokens": 4139120,
-      "run_cost_usd": 0.19476097499999998
+      "run_cost_usd": 0.55755315
     },
     {
       "scenario": "S3_Combined",
@@ -8163,11 +8242,11 @@
         "peak_context_utilization_pct": 77.41875
       },
       "cost_usd": {
-        "input_uncached": 0.0230385,
-        "input_cached": 0.10157441249999999,
-        "reasoning": 0.017166,
-        "output": 0.001743,
-        "total": 0.1435219125
+        "input_uncached": 0.1151925,
+        "input_cached": 0.20314882499999998,
+        "reasoning": 0.1072875,
+        "output": 0.01089375,
+        "total": 0.43652257499999997
       },
       "mcp_calls": 34,
       "mcp_calls_succeeded": 32,
@@ -8224,10 +8303,11 @@
         "basic_block_estimate": 46,
         "cyclomatic_complexity_est": 17
       },
+      "safety_filter_retries": 0,
       "terminated_reason": "completed",
       "total_input_tokens": 2862241,
       "total_tokens": 2893756,
-      "run_cost_usd": 0.1435219125
+      "run_cost_usd": 0.43652257499999997
     }
   ]
 }

@@ -495,22 +495,23 @@
   "scenario": "S0_Baseline",
   "sample_id": "CWE190_Integer_Overflow__unsigned_int_fscanf_preinc_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.02094675,
-    "input_cached": 0.074797875,
-    "reasoning": 0.0080712,
-    "output": 0.002139,
-    "total": 0.105954825
+    "input_uncached": 0.10473375,
+    "input_cached": 0.14959575,
+    "reasoning": 0.050445,
+    "output": 0.01336875,
+    "total": 0.31814325
   },
   "hook_audit": {
     "total": 46,

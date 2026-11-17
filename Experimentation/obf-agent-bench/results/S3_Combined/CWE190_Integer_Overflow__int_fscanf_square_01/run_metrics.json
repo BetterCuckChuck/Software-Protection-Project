@@ -487,22 +487,23 @@
   "scenario": "S3_Combined",
   "sample_id": "CWE190_Integer_Overflow__int_fscanf_square_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.02393955,
-    "input_cached": 0.0971173875,
-    "reasoning": 0.017782799999999998,
-    "output": 0.0019601999999999996,
-    "total": 0.1407999375
+    "input_uncached": 0.11969775,
+    "input_cached": 0.194234775,
+    "reasoning": 0.1111425,
+    "output": 0.01225125,
+    "total": 0.43732627500000004
   },
   "hook_audit": {
     "total": 44,

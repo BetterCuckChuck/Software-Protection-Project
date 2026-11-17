@@ -438,22 +438,23 @@
   "scenario": "S2_EncodeData",
   "sample_id": "CWE190_Integer_Overflow__int64_t_fscanf_add_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.019921349999999997,
-    "input_cached": 0.0682698,
-    "reasoning": 0.0119994,
-    "output": 0.00144,
-    "total": 0.10163054999999999
+    "input_uncached": 0.09960675,
+    "input_cached": 0.1365396,
+    "reasoning": 0.07499625,
+    "output": 0.009,
+    "total": 0.3201426
   },
   "hook_audit": {
     "total": 39,

@@ -760,6 +760,7 @@
   "scenario": "S3_Combined",
   "sample_id": "CWE190_Integer_Overflow__char_fscanf_add_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
@@ -771,11 +772,11 @@
     "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.033325049999999995,
-    "input_cached": 0.1699831875,
-    "reasoning": 0.014598,
-    "output": 0.0036401999999999997,
-    "total": 0.2215464375
+    "input_uncached": 0.16662525,
+    "input_cached": 0.339966375,
+    "reasoning": 0.0912375,
+    "output": 0.02275125,
+    "total": 0.620580375
   },
   "hook_audit": {
     "total": 74,

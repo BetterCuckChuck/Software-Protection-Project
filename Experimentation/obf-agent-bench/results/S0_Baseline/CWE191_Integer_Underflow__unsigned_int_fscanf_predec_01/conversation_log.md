@@ -5,7 +5,7 @@
 - **Jail CWD**: `/tmp/run_fd8f2fb408f3490d886476c4b3b32252`
 - **Run Stats**: status=`completed`, turns=`54`, mcp_calls=`25` (`ok=25`, `err=0`), other_tools=`28` (`err=2`), mcp_payload=`82,665B`, wall=`356.231312292s` (llm=`297.518s`, mcp=`8.763s`)
 - **Tokens**: total=`2,835,758` (in_uncached=`160,663`, in_cached=`2,654,856` [94.3% hit], reasoning=`16,786` [82.9% of generated], output=`3,453`, peak_ctx=`86,019`)
-- **Dollar Cost (USD)**: total=`$0.1358` (in_uncached=`$0.0241`, in_cached=`$0.0996`, reasoning=`$0.0101`, output=`$0.0021`)
+- **Dollar Cost (USD)**: total=`$0.3955` (in_uncached=`$0.1205`, in_cached=`$0.1991`, reasoning=`$0.0629`, output=`$0.0129`)
 - **I/O Equivalence**: `Pass_IO=1` (65/65, compile_ok=`True`, curated=`15/15`, fuzz=`50/50`)
 - **Binary Obfuscation Complexity**: `.text=690B`, instructions=`171`, cond_branches=`11`, indirect_jumps=`2`, cyclomatic_est=`14`
 - **Runtime & Hook Summary**: allow=`52`, deny=`1`, chal_exec_calls=`3` (pre_write=`0`)

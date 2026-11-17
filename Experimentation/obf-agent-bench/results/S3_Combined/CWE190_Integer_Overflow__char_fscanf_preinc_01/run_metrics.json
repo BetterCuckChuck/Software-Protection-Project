@@ -55,22 +55,23 @@
   "scenario": "S3_Combined",
   "sample_id": "CWE190_Integer_Overflow__char_fscanf_preinc_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": false,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.0022434,
+    "input_uncached": 0.011217,
     "input_cached": 0.0,
-    "reasoning": 0.0005586,
+    "reasoning": 0.00349125,
     "output": 0.0,
-    "total": 0.002802
+    "total": 0.014708249999999999
   },
   "hook_audit": null,
   "binary_stats": {

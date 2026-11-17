@@ -6,7 +6,7 @@
 - **Run Stats**: status=`completed`, turns=`64`, mcp_calls=`33` (`ok=28`, `err=5`), other_tools=`30` (`err=1`), mcp_payload=`102,992B`, wall=`455.348475384s` (llm=`444.162s`, mcp=`10.377s`)
 - **Errored MCP Tools**: `{"search_procedures": 1, "search_strings": 1, "execute_rizin_command": 2, "annotate_native_function": 1}`
 - **Tokens**: total=`3,812,438` (in_uncached=`184,965`, in_cached=`3,595,022` [95.1% hit], reasoning=`24,969` [76.9% of generated], output=`7,482`, peak_ctx=`91,047`)
-- **Dollar Cost (USD)**: total=`$0.1820` (in_uncached=`$0.0277`, in_cached=`$0.1348`, reasoning=`$0.0150`, output=`$0.0045`)
+- **Dollar Cost (USD)**: total=`$0.5300` (in_uncached=`$0.1387`, in_cached=`$0.2696`, reasoning=`$0.0936`, output=`$0.0281`)
 - **I/O Equivalence**: `Pass_IO=1` (65/65, compile_ok=`True`, curated=`15/15`, fuzz=`50/50`)
 - **Binary Obfuscation Complexity**: `.text=1976B`, instructions=`445`, cond_branches=`14`, indirect_jumps=`5`, cyclomatic_est=`20`
 - **Runtime & Hook Summary**: allow=`62`, deny=`1`, chal_exec_calls=`13` (pre_write=`12`)

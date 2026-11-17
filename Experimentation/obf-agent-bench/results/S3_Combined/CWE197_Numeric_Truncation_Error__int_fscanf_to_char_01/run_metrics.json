@@ -533,22 +533,23 @@
   "scenario": "S3_Combined",
   "sample_id": "CWE197_Numeric_Truncation_Error__int_fscanf_to_char_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.02281455,
-    "input_cached": 0.08714984999999999,
-    "reasoning": 0.0107388,
-    "output": 0.0016908,
-    "total": 0.12239399999999999
+    "input_uncached": 0.11407275,
+    "input_cached": 0.17429969999999997,
+    "reasoning": 0.0671175,
+    "output": 0.0105675,
+    "total": 0.36605745
   },
   "hook_audit": {
     "total": 50,

@@ -367,22 +367,23 @@
   "scenario": "S0_Baseline",
   "sample_id": "CWE197_Numeric_Truncation_Error__short_fscanf_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.015690449999999998,
-    "input_cached": 0.041956349999999996,
-    "reasoning": 0.010811399999999999,
-    "output": 0.0011094,
-    "total": 0.0695676
+    "input_uncached": 0.07845225,
+    "input_cached": 0.08391269999999999,
+    "reasoning": 0.06757125,
+    "output": 0.00693375,
+    "total": 0.23686995
   },
   "hook_audit": {
     "total": 31,

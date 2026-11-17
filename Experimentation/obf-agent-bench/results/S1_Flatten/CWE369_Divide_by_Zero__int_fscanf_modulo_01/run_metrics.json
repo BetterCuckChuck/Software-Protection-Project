@@ -482,22 +482,23 @@
   "scenario": "S1_Flatten",
   "sample_id": "CWE369_Divide_by_Zero__int_fscanf_modulo_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.0203157,
-    "input_cached": 0.0740319,
-    "reasoning": 0.0096036,
-    "output": 0.0016403999999999998,
-    "total": 0.10559160000000001
+    "input_uncached": 0.1015785,
+    "input_cached": 0.1480638,
+    "reasoning": 0.0600225,
+    "output": 0.0102525,
+    "total": 0.31991729999999996
   },
   "hook_audit": {
     "total": 44,

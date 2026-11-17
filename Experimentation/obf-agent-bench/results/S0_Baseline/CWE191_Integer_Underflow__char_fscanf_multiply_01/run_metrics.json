@@ -364,22 +364,23 @@
   "scenario": "S0_Baseline",
   "sample_id": "CWE191_Integer_Underflow__char_fscanf_multiply_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.0148443,
-    "input_cached": 0.04281855,
-    "reasoning": 0.0077142,
-    "output": 0.001536,
-    "total": 0.06691304999999999
+    "input_uncached": 0.0742215,
+    "input_cached": 0.0856371,
+    "reasoning": 0.04821375,
+    "output": 0.0096,
+    "total": 0.21767235
   },
   "hook_audit": {
     "total": 31,

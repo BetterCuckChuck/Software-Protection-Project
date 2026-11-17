@@ -55,22 +55,23 @@
   "scenario": "S0_Baseline",
   "sample_id": "CWE191_Integer_Underflow__int64_t_fscanf_sub_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": false,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.00224625,
+    "input_uncached": 0.01123125,
     "input_cached": 0.0,
-    "reasoning": 0.000399,
+    "reasoning": 0.00249375,
     "output": 0.0,
-    "total": 0.00264525
+    "total": 0.013725
   },
   "hook_audit": null,
   "binary_stats": {

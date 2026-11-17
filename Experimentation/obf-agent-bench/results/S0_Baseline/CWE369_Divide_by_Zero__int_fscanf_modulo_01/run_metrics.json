@@ -489,22 +489,23 @@
   "scenario": "S0_Baseline",
   "sample_id": "CWE369_Divide_by_Zero__int_fscanf_modulo_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
   "limits": {
-    "max_turns": null,
-    "max_mcp_calls": null,
+    "max_turns": 25,
+    "max_mcp_calls": 30,
     "max_context_tokens": 128000,
     "max_output_tokens": 16384,
-    "timeout_seconds": null
+    "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.0202605,
-    "input_cached": 0.07445745,
-    "reasoning": 0.0098844,
-    "output": 0.0019752,
-    "total": 0.10657755
+    "input_uncached": 0.1013025,
+    "input_cached": 0.1489149,
+    "reasoning": 0.0617775,
+    "output": 0.012345,
+    "total": 0.32433989999999996
   },
   "hook_audit": {
     "total": 45,

@@ -297,6 +297,7 @@
   "scenario": "S0_Baseline",
   "sample_id": "CWE190_Integer_Overflow__char_fscanf_add_01",
   "terminated_reason": "completed",
+  "safety_filter_retries": 0,
   "deliverable_written": true,
   "transcript_archived": true,
   "model": "gemini-3.8-flash",
@@ -308,11 +309,11 @@
     "timeout_seconds": 300
   },
   "cost_usd": {
-    "input_uncached": 0.01260015,
-    "input_cached": 0.0292905,
-    "reasoning": 0.009081,
-    "output": 0.0010578,
-    "total": 0.05202945
+    "input_uncached": 0.06300075,
+    "input_cached": 0.058581,
+    "reasoning": 0.05675625,
+    "output": 0.00661125,
+    "total": 0.18494925
   },
   "hook_audit": {
     "total": 24,
